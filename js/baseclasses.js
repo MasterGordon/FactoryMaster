@@ -4,6 +4,12 @@ class Tile {
     this.y = y
     this.direction = "right"
     this.input = new Inventory()
+    this.frames = 1
+    this.name = "base"
+  }
+
+  nextFrame(fulltime) {
+    return (fulltime % this.frames);
   }
 
   work() {
@@ -61,22 +67,9 @@ class Item {
   }
 
   setDFromDirection(direction) {
-    if (direction == "left") {
-      this.dx = -1
-      this.dy = 0
-    } else if (direction == "right") {
-      this.dx = 1
-      this.dy = 0
-    } else if (direction == "up") {
-      this.dx = 0
-      this.dy = -1
-    } else if (direction == "down") {
-      this.dx = 0
-      this.dy = 1
-    } else {
-      this.dx = 0
-      this.dy = 0
-    }
+    this.dx = directions[direction].dx
+    this.dy = directions[direction].dy
+    this.dy = 0
     this.x += this.dx
     this.y += this.dy
   }
@@ -108,12 +101,24 @@ class Factory {
     for (var i = 0; i < this.items.length; i++) {
       this.items[i].move()
       if (this.items[i].x % 48 == 0 && this.items[i].y % 48 == 0) {
-        var tile = this.tiles [this.items[i].x / 48] [this.items[i].y / 48]
+        var tile = this.tiles[this.items[i].x / 48][this.items[i].y / 48]
         if (tile != 0) {
           tile.input.addItem(this.items[i])
         }
       }
     }
+  }
+
+  getTiles() {
+    var temp = []
+    for (var x = 0; x < 32; x++) {
+      for (var y = 0; y < 16; y++) {
+        if (this.tiles[x][y] != 0) {
+          temp.push(this.tiles[x][y])
+        }
+      }
+    }
+    return temp
   }
 
   workTiles() {

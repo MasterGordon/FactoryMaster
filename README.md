@@ -6,7 +6,7 @@ Das Ziel dieses Projektes ist es ein auf Javascript und HTML5 basierten "clon" v
 ## Features
 
 - Produktion von Items in Maschinen
-- Verkaufen Items für Geld
+- Verkaufen von Items für Geld
 - Bau von neuen Maschinen aus Items und Geld
 - Verbessern von Maschinen mit Items und Geld
 - Eröffnen von neuen Fabriken
