@@ -30,7 +30,7 @@ function loadItems() {
   items = json.items
 }
 
-function loop(timestamp) {
+function loopp(timestamp) {
   //Check Gametick Rate
   if (timestamp < lastFrameTimeMs + (1000 / 48)) {
     requestAnimationFrame(loop)
@@ -52,6 +52,17 @@ function loop(timestamp) {
   requestAnimationFrame(loop);
 }
 
+var lastRender = 0
+function loop(timestamp) {
+  var progress = timestamp - lastRender
+
+  gametick(progress)
+  render()
+
+  lastRender = timestamp
+  window.requestAnimationFrame(loop)
+}
+
 function gametick(timestep) {
   //time gibt an in den Wievielten von 40 Ticks man sich befindet
   time++
@@ -63,6 +74,7 @@ function gametick(timestep) {
 
   if (time % 24 == 0) {
     for (var i = 0; i < factorys.length; i++) {
+      factorys[i].moveItems()
       factorys[i].workTiles()
     }
   }
@@ -78,8 +90,8 @@ function render() {
     var tile = tilesToRender[i]
     var img = new Image
     img.src = "images/tiles/"+tile.name+"0"+tile.nextFrame(fulltime)+".png"
-    img.style = "-ms-transform: rotate("+directions[tile.direction].degree+"deg);-webkit-transform: rotate("+directions[tile.direction].degree+"deg);transform: rotate("+directions[tile.direction].degree+"deg);"
-    ctx.drawImage(img,tile.x*48,tile.y*48,48,48)
+    //ctx.drawImage(img,tile.x*48,tile.y*48,48,48)
+    drawRotatedImage(img,tile.x*48+24,tile.y*48+24,directions[tile.direction].degree)
   }
   //RENDER Items
   for (var i = 0; i < factorys[currentFactory].items.length; i++) {
@@ -87,6 +99,7 @@ function render() {
     var img = new Image
     img.src = "images/items/" + getItemFormId(item.id).name + ".png"
     ctx.drawImage(img, item.x, item.y, 48, 48)
+    console.log(item.x)
   }
   //RENDER TILE-LAYER1
 

@@ -6,10 +6,14 @@ class Tile {
     this.input = new Inventory()
     this.frames = 1
     this.name = "base"
+    this.texture = {
+      "0": [],
+      "1": []
+    }
   }
 
-  nextFrame(fulltime) {
-    return (fulltime % this.frames);
+  getTexture(fulltime,layer) {
+    return (fulltime % this.texture[layer].length);
   }
 
   work() {
@@ -69,7 +73,6 @@ class Item {
   setDFromDirection(direction) {
     this.dx = directions[direction].dx
     this.dy = directions[direction].dy
-    this.dy = 0
     this.x += this.dx
     this.y += this.dy
   }
