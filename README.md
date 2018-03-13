@@ -12,6 +12,11 @@ Das Ziel dieses Projektes ist es ein auf Javascript und HTML5 basierten "clon" v
 - Eröffnen von neuen Fabriken
 - Reisen auf Planeten um dort mit neuen Rohstoffen zu arbeiten
 
+##
+[Link zur Aktuellen live Version][f6f130bf]
+
+  [f6f130bf]: https://mastergordon.github.io/Factory/ "Link zur Aktuellen live Version"
+
 ## Programme zu Entwicklung
 
 - [Atom][b69092b5]
