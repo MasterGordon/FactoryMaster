@@ -12,8 +12,10 @@ class Tile {
     }
   }
 
-  getTexture(fulltime,layer) {
-    return (fulltime % this.texture[layer].length);
+  getTexture(fulltime, layer) {
+    if (this.texture[layer].length==0)
+      return "0"
+    return "images/tiles/" + this.texture[layer][(fulltime % this.texture[layer].length)] + ".png";
   }
 
   work() {

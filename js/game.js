@@ -53,6 +53,7 @@ function loopp(timestamp) {
 }
 
 var lastRender = 0
+
 function loop(timestamp) {
   var progress = timestamp - lastRender
 
@@ -89,9 +90,11 @@ function render() {
   for (var i = 0; i < tilesToRender.length; i++) {
     var tile = tilesToRender[i]
     var img = new Image
-    img.src = "images/tiles/"+tile.name+"0"+tile.nextFrame(fulltime)+".png"
-    //ctx.drawImage(img,tile.x*48,tile.y*48,48,48)
-    drawRotatedImage(img,tile.x*48+24,tile.y*48+24,directions[tile.direction].degree)
+    var tmp = tile.getTexture(fulltime,0)
+    if (tmp!="0") {
+      img.src = tmp
+      drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
+    }
   }
   //RENDER Items
   for (var i = 0; i < factorys[currentFactory].items.length; i++) {
@@ -102,7 +105,15 @@ function render() {
     console.log(item.x)
   }
   //RENDER TILE-LAYER1
-
+  for (var i = 0; i < tilesToRender.length; i++) {
+    var tile = tilesToRender[i]
+    var img = new Image
+    var tmp = tile.getTexture(fulltime,1)
+    if (tmp!="0") {
+      img.src = tmp
+      drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
+    }
+  }
 }
 
 function getItemFormId(id) {
