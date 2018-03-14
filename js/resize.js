@@ -14,7 +14,7 @@ function style() {
   $('#build').css("height", window.innerHeight-topp-576-32)
   $('#build').css("margin-left", $('#screen').css("margin-left"));
   $('#build').css("margin-top", (parseInt(topp)+576+16));
-  $('#info').copyCSS('#build')
+  $('#info').copyCSS('#build', ['height','margin-top','width'])
   $('#info').css("margin-left", pxToInt($('#screen').css("margin-left"))+16+(1200/2)-8)
 }
 
