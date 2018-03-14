@@ -22,12 +22,12 @@ var directions = {
 }
 
 //Umrechnung von Grad zu Bogenmaß
-var TO_RADIANS = Math.PI/180;
+var TO_RADIANS = Math.PI / 180;
 
 function drawRotatedImage(image, x, y, angle) {
-	ctx.save();
-	ctx.translate(x, y);
-	ctx.rotate(angle * TO_RADIANS);
-	ctx.drawImage(image, -(image.width/2), -(image.height/2));
-	ctx.restore();
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle * TO_RADIANS);
+  ctx.drawImage(image, -(image.width / 2), -(image.height / 2));
+  ctx.restore();
 }
