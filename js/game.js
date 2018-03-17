@@ -114,6 +114,12 @@ function render() {
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
   }
+  //DRAW CURSOR BOX
+  if(isCursorInScreen){
+    ctx.globalAlpha = 0.4
+    ctx.fillRect(cursorScreenX*48,cursorScreenY*48,48,48)
+    ctx.globalAlpha = 1
+  }
 }
 
 function getItemFormId(id) {
@@ -125,8 +131,14 @@ function getItemFormId(id) {
 }
 
 function prepairRender() {
-  var canvas = $('canvas')[0];
+  var canvas = $('#screen')[0];
   ctx = canvas.getContext('2d')
   canvas.width = 1200
   canvas.height = 576
+  canvas = $('#itemcount')[0];
+  canvas.width = 720
+  canvas.height = 240
+  canvas = $('#info')[0];
+  canvas.width = 432
+  canvas.height = 240
 }

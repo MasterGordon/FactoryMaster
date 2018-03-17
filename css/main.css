@@ -10,13 +10,12 @@ body {
    background-image: url("../images/wool.jpg");
 }
 
-#build {
+#itemcount {
   position: fixed;
   border: 1px, solid , black;
   border: solid;
   border-color: white;
   background-image: url(../images/fliesen.png);
-  overflow-y: auto;
 }
 
 #info {
@@ -25,5 +24,4 @@ body {
   border: solid;
   border-color: white;
   background-image: url(../images/fliesen.png);
-  overflow-y: auto;
 }
