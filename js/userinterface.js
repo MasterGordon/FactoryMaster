@@ -10,25 +10,6 @@ $(document).ready(function() {
   })
 })
 
-var screenleftpos = 0
-var screentoppos = 0
-
-var infoleftpos = 0
-var itemcounttoppos = 0
-
-var cursorScreenX = -1
-var cursorScreenY = -1
-
-var cursorItemCountX = -1
-var cursorItemCountY = -1
-
-var cursorInfoX = -1
-var cursorInfoY = -1
-
-var isCursorInScreen = true
-var isCursorInItemCount = true
-var isCursorInInfo = true
-
 function style() {
   var screenMarginTop = window.innerHeight - 912
   var screenMarginLeft = (window.innerWidth - 1200) / 2
@@ -54,6 +35,26 @@ function pxToInt(px) {
 }
 
 //SELECTION UND BOX TRACKING
+
+var screenleftpos = 0
+var screentoppos = 0
+
+var infoleftpos = 0
+var itemcounttoppos = 0
+
+var cursorScreenX = -1
+var cursorScreenY = -1
+
+var cursorItemCountX = -1
+var cursorItemCountY = -1
+
+var cursorInfoX = -1
+var cursorInfoY = -1
+
+var isCursorInScreen = true
+var isCursorInItemCount = true
+var isCursorInInfo = true
+
 function onDocumentMouseMove(event) {
 
   var mX = event.clientX - screenleftpos;
