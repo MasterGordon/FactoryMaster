@@ -1,3 +1,5 @@
+var tileClasses = []
+
 //Hier sind alle im Tiles welche im Spiel präsent sind
 
 class Conveyorbelt extends Tile {
@@ -9,4 +11,7 @@ class Conveyorbelt extends Tile {
       "1": []
     }
   }
+}
+for(var i=0;i<1000;i++){
+tileClasses.push(Conveyorbelt)
 }

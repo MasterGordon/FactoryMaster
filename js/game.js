@@ -7,8 +7,11 @@ var timestep = 1000 / 48
 var delta = 0
 var lastFrameTimeMs = 0
 var ctx = {}
+var infoCtx = {}
 var currentFactory = 0
 var fulltime = 0
+
+var mode = "none"
 
 $(document).ready(function() {
   loadGameData()
@@ -90,8 +93,8 @@ function render() {
   for (var i = 0; i < tilesToRender.length; i++) {
     var tile = tilesToRender[i]
     var img = new Image
-    var tmp = tile.getTexture(fulltime,0)
-    if (tmp!="0") {
+    var tmp = tile.getTexture(fulltime, 0)
+    if (tmp != "0") {
       img.src = tmp
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
@@ -108,18 +111,20 @@ function render() {
   for (var i = 0; i < tilesToRender.length; i++) {
     var tile = tilesToRender[i]
     var img = new Image
-    var tmp = tile.getTexture(fulltime,1)
-    if (tmp!="0") {
+    var tmp = tile.getTexture(fulltime, 1)
+    if (tmp != "0") {
       img.src = tmp
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
   }
   //DRAW CURSOR BOX
-  if(isCursorInScreen){
+  if (isCursorInScreen) {
     ctx.globalAlpha = 0.4
-    ctx.fillRect(cursorScreenX*48,cursorScreenY*48,48,48)
+    ctx.fillRect(cursorScreenX * 48, cursorScreenY * 48, 48, 48)
     ctx.globalAlpha = 1
   }
+  //DRAW INFO BAR
+  drawInfoBar()
 }
 
 function getItemFormId(id) {
@@ -141,4 +146,38 @@ function prepairRender() {
   canvas = $('#info')[0];
   canvas.width = 432
   canvas.height = 240
+  infoCtx = canvas.getContext('2d')
+  //tileClasses
+  for(var i=0;i<tileClasses.length;i++){
+    var tmp = new tileClasses[i]()
+    var src = ""
+    if(tmp.texture[1].length>0){
+      src = ' src="images/tiles/'+tmp.texture[1][0]+'.png"'
+    }
+    var style = ''
+    if(tmp.texture[0].length>0){
+      style = ' style="background-image: url(images/tiles/'+tmp.texture[0][0]+'.png)"'
+    }
+    var tag = '<img class="buildtile"'+src+style+'>'
+    console.log(tag)
+    $('#buildselect').append(tag)
+  }
+}
+
+var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "rocket.png"]
+
+function drawInfoBar() {
+  infoCtx.clearRect(0, 0, innerWidth, innerHeight)
+  for (var i = 0; i < infoBarIcons.length; i++) {
+    if (infoBarIcons[i] != null) {
+      var img = new Image;
+      img.src = "images/ui/" + infoBarIcons[i];
+      infoCtx.drawImage(img, i * 48, 0, 48, 48);
+    }
+  }
+}
+
+function buildselect() {
+  $('#buildselect').show()
+  mode = "build"
 }

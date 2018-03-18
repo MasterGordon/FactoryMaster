@@ -4,7 +4,6 @@ class Tile {
     this.y = y
     this.direction = "right"
     this.input = new Inventory()
-    this.frames = 1
     this.name = "base"
     this.texture = {
       "0": [],

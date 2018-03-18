@@ -23,5 +23,40 @@ body {
   border: 1px, solid , black;
   border: solid;
   border-color: white;
-  background-image: url(../images/fliesen.png);
+  background-image: url(../images/infobg.png);
+}
+
+#buildselect {
+  position: fixed;
+  border: 1px, solid , black;
+  border: solid;
+  border-color: yellow;
+  background-image: url(../images/infobg.png);
+  width: 1200;
+  height: 576;
+  overflow-y: scroll;
+  padding: 4;
+}
+
+.buildtile {
+  width: 48;
+  height: 48;
+  margin: 4;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 24;
+}
+
+::-webkit-scrollbar-track {
+  background: #B0BEC5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #78909C;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #546E7A;
 }

@@ -5,6 +5,9 @@ $(window).resize(function() {
 $(document).ready(function() {
   style();
   document.addEventListener('mousemove', onDocumentMouseMove, false);
+  $('body').on("contextmenu",function(){
+    return false;
+  })
 })
 
 var screenleftpos = 0
@@ -23,6 +26,8 @@ function style() {
 
   $('#screen').css('margin-top', screenMarginTop)
   $('#screen').css('margin-left', screenMarginLeft)
+  $('#buildselect').css('margin-top', screenMarginTop)
+  $('#buildselect').css('margin-left', screenMarginLeft)
   $('#info').css('margin-top', itemCountMarginTop)
   $('#info').css('margin-left', infoMarginLeft)
   $('#itemcount').css('margin-top', itemCountMarginTop)
