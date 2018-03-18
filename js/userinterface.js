@@ -8,6 +8,7 @@ $(document).ready(function() {
   $('body').on("contextmenu", function() {
     return false;
   })
+  clickEvents()
 })
 
 function style() {
@@ -101,4 +102,37 @@ function onDocumentMouseMove(event) {
   } else {
     isCursorInInfo = false
   }
+}
+
+function clickEvents() {
+  $('#info').click(function() {
+    if (cursorInfoY == 0) {
+      switch (cursorInfoX) {
+        case 0:
+          //BUILD BUTTON
+          if (mode == "none") {
+            $('#buildselect').fadeIn(200)
+            mode = "selectbuilding"
+          } else {
+            $('#buildselect').fadeOut(200)
+            mode = "none"
+          }
+          break
+      }
+    }
+  })
+}
+
+var toBuild = {}
+
+function buildEvents(){
+  $('img').click(function() {
+    var id = $(this).attr("id");
+    if(id.startsWith("build_")){
+      id = parseInt(id.substr(6))
+      toBuild = tileClasses[id]
+      mode = "build"
+      $('#buildselect').fadeOut(200)
+    }
+  })
 }

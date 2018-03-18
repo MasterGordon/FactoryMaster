@@ -119,9 +119,27 @@ function render() {
   }
   //DRAW CURSOR BOX
   if (isCursorInScreen) {
-    ctx.globalAlpha = 0.4
-    ctx.fillRect(cursorScreenX * 48, cursorScreenY * 48, 48, 48)
-    ctx.globalAlpha = 1
+    if (mode == "build") {
+      ctx.globalAlpha = 0.6
+      var tile = new toBuild()
+      var img = new Image
+      var tmp = tile.getTexture(fulltime, 0)
+      if (tmp != "0") {
+        img.src = tmp
+        drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, 0)
+      }
+      img = new Image
+      tmp = tile.getTexture(fulltime, 1)
+      if (tmp != "0") {
+        img.src = tmp
+        drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, 0)
+      }
+      ctx.globalAlpha = 1
+    } else {
+      ctx.globalAlpha = 0.4
+      ctx.fillRect(cursorScreenX * 48, cursorScreenY * 48, 48, 48)
+      ctx.globalAlpha = 1
+    }
   }
   //DRAW INFO BAR
   drawInfoBar()
@@ -148,20 +166,25 @@ function prepairRender() {
   canvas.height = 240
   infoCtx = canvas.getContext('2d')
   //tileClasses
-  for(var i=0;i<tileClasses.length;i++){
+  var tilesLoaded = 0
+  console.log("Building Tileselection-Menu...")
+  for (var i = 0; i < tileClasses.length; i++) {
     var tmp = new tileClasses[i]()
     var src = ""
-    if(tmp.texture[1].length>0){
-      src = ' src="images/tiles/'+tmp.texture[1][0]+'.png"'
+    if (tmp.texture[1].length > 0) {
+      src = ' src="images/tiles/' + tmp.texture[1][0] + '.png"'
     }
     var style = ''
-    if(tmp.texture[0].length>0){
-      style = ' style="background-image: url(images/tiles/'+tmp.texture[0][0]+'.png)"'
+    if (tmp.texture[0].length > 0) {
+      style = ' style="background-image: url(images/tiles/' + tmp.texture[0][0] + '.png)"'
     }
-    var tag = '<img class="buildtile"'+src+style+'>'
-    console.log(tag)
+    var tag = '<img id="build_' + i + '" draggable="false" class="buildtile"' + src + style + '>'
     $('#buildselect').append(tag)
+    tilesLoaded++
   }
+  console.log(tilesLoaded + "/" + tileClasses.length + " Tiles Loaded!")
+  $('#buildselect').hide()
+  buildEvents()
 }
 
 var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "rocket.png"]

@@ -32,8 +32,8 @@ body {
   border: solid;
   border-color: yellow;
   background-image: url(../images/infobg.png);
-  width: 1200;
-  height: 576;
+  width: 1192;
+  height: 568;
   overflow-y: scroll;
   padding: 4;
 }
