@@ -12,6 +12,4 @@ class Conveyorbelt extends Tile {
     }
   }
 }
-for(var i=0;i<1000;i++){
 tileClasses.push(Conveyorbelt)
-}
