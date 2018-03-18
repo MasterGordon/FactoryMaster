@@ -176,8 +176,3 @@ function drawInfoBar() {
     }
   }
 }
-
-function buildselect() {
-  $('#buildselect').show()
-  mode = "build"
-}
