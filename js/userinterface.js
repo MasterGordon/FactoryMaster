@@ -136,9 +136,9 @@ function buildEvents(){
     }
   })
   $('#screen').click(function() {
-    if(mode="build"){
-      if(factorys[currentfactory].tiles[cursorScreenX][cursorScreenY]!=null){
-        factorys[currentfactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX,cursorScreenY)
+    if(mode=="build"){
+      if(factorys[currentFactory].tiles[cursorScreenX][cursorScreenY]!=null){
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX,cursorScreenY)
       }
     }
   })
