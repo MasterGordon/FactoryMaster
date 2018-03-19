@@ -135,4 +135,11 @@ function buildEvents(){
       $('#buildselect').fadeOut(200)
     }
   })
+  $('#screen').click(function() {
+    if(mode="build"){
+      if(factorys[currentfactory].tiles[cursorScreenX][cursorScreenY]!=null){
+        factorys[currentfactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX,cursorScreenY)
+      }
+    }
+  })
 }
