@@ -118,17 +118,29 @@ function clickEvents() {
             mode = "none"
           }
           break
+        case 1:
+          //MOVE BUTTON
+          if (mode == "none") {
+            mode = "move"
+          } else {
+            mode = "none"
+          }
+          break
       }
     }
   })
 }
 
 var toBuild = {}
+var moveFromX = 0
+var moveFromY = 0
+var moveFromCX = -1
+var moveFromCY = -1
 
-function buildEvents(){
+function buildEvents() {
   $('img').click(function() {
     var id = $(this).attr("id");
-    if(id.startsWith("build_")){
+    if (id.startsWith("build_")) {
       id = parseInt(id.substr(6))
       toBuild = tileClasses[id]
       mode = "build"
@@ -136,10 +148,73 @@ function buildEvents(){
     }
   })
   $('#screen').click(function() {
-    if(mode=="build"){
-      if(factorys[currentFactory].tiles[cursorScreenX][cursorScreenY]!=null){
-        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX,cursorScreenY)
+    if (mode == "build") {
+      if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY)
       }
+    }
+    if (mode == "move") {
+      if (isCursorInScreen) {
+        if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
+          moveFromCX = cursorScreenX
+          moveFromCY = cursorScreenY
+        } else if (moveFromCX != -1) {
+          if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
+            factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = factorys[currentFactory].tiles[moveFromCX][moveFromCY]
+            factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].x = cursorScreenX
+            factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].y = cursorScreenY
+            factorys[currentFactory].tiles[moveFromCX][moveFromCY] = 0
+          } else {
+            moveFromCX = cursorScreenX
+            moveFromCY = cursorScreenY
+          }
+          moveFromCX = -1
+          moveFromCY = -1
+        }
+      }
+    }
+  })
+
+  $('body').mousedown(function() {
+    if (mode == "move") {
+      if (isCursorInScreen) {
+        moveFromX = cursorScreenX
+        moveFromY = cursorScreenY
+      }
+    }
+  })
+
+  $('body').mouseup(function() {
+    if (mode == "move") {
+      if (isCursorInScreen && moveFromX != -1) {
+        if (moveFromX != cursorScreenX || moveFromY != cursorScreenY) {
+          if (factorys[currentFactory].tiles[moveFromX][moveFromY] != 0 && factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
+            factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = factorys[currentFactory].tiles[moveFromX][moveFromY]
+            factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].x = cursorScreenX
+            factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].y = cursorScreenY
+            factorys[currentFactory].tiles[moveFromX][moveFromY] = 0
+          }
+          moveFromX = -1
+          moveFromY = -1
+
+        }
+      }
+    }
+  })
+
+  $('body').on("contextmenu", function() {
+    if (mode == "build") {
+      mode = "none"
+      return false
+    }
+    if (mode == "selectbuilding") {
+      mode = "none"
+      $('#buildselect').fadeOut(200)
+      return false
+    }
+    if (mode == "move") {
+      mode = "none"
+      return false
     }
   })
 }

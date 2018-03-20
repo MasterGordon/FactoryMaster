@@ -189,8 +189,33 @@ function prepairRender() {
 
 var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "rocket.png"]
 
+var infoGlowOpacity = 0
+var infoGlowOpacityD = 0.03
+
 function drawInfoBar() {
   infoCtx.clearRect(0, 0, innerWidth, innerHeight)
+  var selectedX = -1;
+  if (mode == "build" || mode == "selectbuilding") {
+    selectedX = 0
+  } else if(mode=="move"){
+    selectedX = 1
+  }
+
+  if (selectedX != -1) {
+    infoCtx.globalAlpha = infoGlowOpacity + 0.2
+    infoCtx.beginPath();
+    infoCtx.arc(selectedX * 48 + 24, 24, 24, 0, 2 * Math.PI);
+    infoCtx.fillStyle = "orange"
+    infoCtx.fill()
+    if (infoGlowOpacity < 0) {
+      infoGlowOpacityD = +0.02
+    }
+    if (infoGlowOpacity > 0.4) {
+      infoGlowOpacityD = -0.02
+    }
+    infoGlowOpacity += infoGlowOpacityD
+    infoCtx.globalAlpha = 1
+  }
   for (var i = 0; i < infoBarIcons.length; i++) {
     if (infoBarIcons[i] != null) {
       var img = new Image;
