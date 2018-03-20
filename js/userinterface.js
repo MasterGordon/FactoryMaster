@@ -114,8 +114,7 @@ function clickEvents() {
             $('#buildselect').fadeIn(200)
             mode = "selectbuilding"
           } else {
-            $('#buildselect').fadeOut(200)
-            mode = "none"
+            closeUi()
           }
           break
         case 1:
@@ -123,7 +122,15 @@ function clickEvents() {
           if (mode == "none") {
             mode = "move"
           } else {
-            mode = "none"
+            closeUi()
+          }
+          break
+        case 2:
+          //ROTATE BUTTON
+          if (mode == "none") {
+            mode = "rotate"
+          } else {
+            closeUi()
           }
           break
       }
@@ -148,6 +155,11 @@ function buildEvents() {
     }
   })
   $('#screen').click(function() {
+    if(mode == "rotate"){
+      if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].rotate()
+      }
+    }
     if (mode == "build") {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
         factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY)
@@ -203,18 +215,26 @@ function buildEvents() {
   })
 
   $('body').on("contextmenu", function() {
-    if (mode == "build") {
-      mode = "none"
-      return false
-    }
-    if (mode == "selectbuilding") {
-      mode = "none"
-      $('#buildselect').fadeOut(200)
-      return false
-    }
-    if (mode == "move") {
-      mode = "none"
-      return false
-    }
+    closeUi()
   })
+}
+
+function closeUi() {
+  if (mode == "build") {
+    mode = "none"
+    return false
+  }
+  if (mode == "selectbuilding") {
+    mode = "none"
+    $('#buildselect').fadeOut(200)
+    return false
+  }
+  if (mode == "move") {
+    mode = "none"
+    return false
+  }
+  if (mode == "rotate") {
+    mode = "none"
+    return false
+  }
 }

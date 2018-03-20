@@ -116,6 +116,13 @@ function render() {
       img.src = tmp
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
+    if(mode == "rotate"){
+      var img2 = new Image
+      img2.src = "images/ui/rotationOverlay.png"
+      ctx.globalAlpha = 0.4
+      drawRotatedImage(img2, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
+      ctx.globalAlpha = 1
+    }
   }
   //DRAW CURSOR BOX
   if (isCursorInScreen) {
@@ -199,10 +206,12 @@ function drawInfoBar() {
     selectedX = 0
   } else if(mode=="move"){
     selectedX = 1
+  } else if(mode=="rotate"){
+    selectedX = 2
   }
 
   if (selectedX != -1) {
-    infoCtx.globalAlpha = infoGlowOpacity + 0.2
+    infoCtx.globalAlpha = infoGlowOpacity + 0.25
     infoCtx.beginPath();
     infoCtx.arc(selectedX * 48 + 24, 24, 24, 0, 2 * Math.PI);
     infoCtx.fillStyle = "orange"
@@ -210,7 +219,7 @@ function drawInfoBar() {
     if (infoGlowOpacity < 0) {
       infoGlowOpacityD = +0.02
     }
-    if (infoGlowOpacity > 0.4) {
+    if (infoGlowOpacity > 0.45) {
       infoGlowOpacityD = -0.02
     }
     infoGlowOpacity += infoGlowOpacityD

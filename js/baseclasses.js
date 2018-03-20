@@ -12,7 +12,7 @@ class Tile {
   }
 
   getTexture(fulltime, layer) {
-    if (this.texture[layer].length==0)
+    if (this.texture[layer].length == 0)
       return "0"
     return "images/tiles/" + this.texture[layer][(fulltime % this.texture[layer].length)] + ".png";
   }
@@ -22,6 +22,23 @@ class Tile {
     while (this.input.items.length > 1) {
       var item = this.input.items.pop()
       item.setDFromDirection(this.direction)
+    }
+  }
+
+  rotate() {
+    switch (this.direction) {
+      case "right":
+        this.direction = "down"
+        break;
+      case "down":
+        this.direction = "left"
+        break;
+      case "left":
+        this.direction = "up"
+        break;
+      case "up":
+        this.direction = "right"
+        break;
     }
   }
 }
