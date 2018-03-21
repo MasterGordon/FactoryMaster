@@ -76,11 +76,8 @@ function gametick(timestep) {
     factorys[i].moveItems()
   }
 
-  if (time % 24 == 0) {
-    for (var i = 0; i < factorys.length; i++) {
-      factorys[i].moveItems()
-      factorys[i].workTiles()
-    }
+  for (var i = 0; i < factorys.length; i++) {
+    factorys[i].workTiles()
   }
 }
 
@@ -105,7 +102,6 @@ function render() {
     var img = new Image
     img.src = "images/items/" + getItemFormId(item.id).name + ".png"
     ctx.drawImage(img, item.x, item.y, 48, 48)
-    console.log(item.x)
   }
   //RENDER TILE-LAYER1
   for (var i = 0; i < tilesToRender.length; i++) {
@@ -116,7 +112,7 @@ function render() {
       img.src = tmp
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
-    if(mode == "rotate"){
+    if (mode == "rotate") {
       var img2 = new Image
       img2.src = "images/ui/rotationOverlay.png"
       ctx.globalAlpha = 0.4
@@ -204,9 +200,9 @@ function drawInfoBar() {
   var selectedX = -1;
   if (mode == "build" || mode == "selectbuilding") {
     selectedX = 0
-  } else if(mode=="move"){
+  } else if (mode == "move") {
     selectedX = 1
-  } else if(mode=="rotate"){
+  } else if (mode == "rotate") {
     selectedX = 2
   }
 

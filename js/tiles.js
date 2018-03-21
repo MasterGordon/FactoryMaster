@@ -5,7 +5,7 @@ var tileClasses = []
 class Conveyorbelt extends Tile {
   constructor(x, y) {
     super(x, y)
-    this.name = "conveyorbelt"
+    this.name = "conveyorbelt"    
     this.texture = {
       "0": ["conveyorbelt00", "conveyorbelt01", "conveyorbelt02", "conveyorbelt03", "conveyorbelt04", "conveyorbelt05", "conveyorbelt06"],
       "1": []

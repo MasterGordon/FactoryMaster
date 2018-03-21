@@ -19,7 +19,7 @@ class Tile {
 
   work() {
     //Default Conveyor-Belt Verhalten
-    while (this.input.items.length > 1) {
+    while (this.input.items.length > 0) {
       var item = this.input.items.pop()
       item.setDFromDirection(this.direction)
     }
