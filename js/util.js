@@ -31,3 +31,11 @@ function drawRotatedImage(image, x, y, angle) {
   ctx.drawImage(image, -(image.width / 2), -(image.height / 2));
   ctx.restore();
 }
+
+function infoDrawRotatedImage(image, x, y, angle) {
+  infoCtx.save();
+  infoCtx.translate(x, y);
+  infoCtx.rotate(angle * TO_RADIANS);
+  infoCtx.drawImage(image, -(image.width / 2), -(image.height / 2));
+  infoCtx.restore();
+}

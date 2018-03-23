@@ -11,11 +11,14 @@ var infoCtx = {}
 var currentFactory = 0
 var fulltime = 0
 
+var lang = {}
+
 var mode = "none"
 
 $(document).ready(function() {
   loadGameData()
   loadItems()
+  loadLang()
   prepairRender()
   requestAnimationFrame(loop)
 })
@@ -31,6 +34,15 @@ function loadItems() {
   itemRequest.send(null)
   var json = JSON.parse(itemRequest.responseText)
   items = json.items
+}
+
+function loadLang() {
+  var langCode = "en"
+  var langRequest = new XMLHttpRequest();
+  langRequest.open('GET', 'lang/' + langCode + '.json', false)
+  langRequest.send(null)
+  var json = JSON.parse(langRequest.responseText)
+  lang = json
 }
 
 function loopp(timestamp) {
@@ -194,6 +206,7 @@ var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "
 
 var infoGlowOpacity = 0
 var infoGlowOpacityD = 0.03
+var selectedTile = 0
 
 function drawInfoBar() {
   infoCtx.clearRect(0, 0, innerWidth, innerHeight)
@@ -227,5 +240,15 @@ function drawInfoBar() {
       img.src = "images/ui/" + infoBarIcons[i];
       infoCtx.drawImage(img, i * 48, 0, 48, 48);
     }
+  }
+  if(toBuild!=0){
+    selectedTile = new toBuild()
+  }
+  if(selectedTile != 0){
+    $('#infoDesc h1').text(lang.tiles[selectedTile.name].name)
+    $('#infoDesc p').text(lang.tiles[selectedTile.name].description)
+  }else{
+    $('#infoDesc h1').text("")
+    $('#infoDesc p').text("")
   }
 }

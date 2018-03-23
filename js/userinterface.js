@@ -23,6 +23,8 @@ function style() {
   $('#buildselect').css('margin-left', screenMarginLeft)
   $('#info').css('margin-top', itemCountMarginTop)
   $('#info').css('margin-left', infoMarginLeft)
+  $('#infoDesc').css('margin-top', itemCountMarginTop + 51)
+  $('#infoDesc').css('margin-left', infoMarginLeft + 5)
   $('#itemcount').css('margin-top', itemCountMarginTop)
   $('#itemcount').css('margin-left', screenMarginLeft)
   screenleftpos = screenMarginLeft
@@ -138,7 +140,7 @@ function clickEvents() {
   })
 }
 
-var toBuild = {}
+var toBuild = 0
 var moveFromX = 0
 var moveFromY = 0
 var moveFromCX = -1
@@ -155,7 +157,7 @@ function buildEvents() {
     }
   })
   $('#screen').click(function() {
-    if(mode == "rotate"){
+    if (mode == "rotate") {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
         factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].rotate()
       }
@@ -185,7 +187,30 @@ function buildEvents() {
         }
       }
     }
+    if ((mode == "none") && isCursorInScreen) {
+      if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
+        selectedTile = factorys[currentFactory].tiles[cursorScreenX][cursorScreenY]
+      } else {
+        selectedTile = 0
+      }
+    }else if(mode!="build"){
+      selectedTile = 0
+    }
   })
+
+  $('img').hover(
+  function() {
+    //ENTER
+    var id = $(this).attr("id");
+    if (id.startsWith("build_")) {
+      id = parseInt(id.substr(6))
+      selectedTile = new tileClasses[id]()
+    }
+  }, function() {
+    //LEAVE
+    selectedTile = 0
+  }
+);
 
   $('body').mousedown(function() {
     if (mode == "move") {
@@ -220,8 +245,10 @@ function buildEvents() {
 }
 
 function closeUi() {
+  selectedTile = 0
   if (mode == "build") {
     mode = "none"
+    toBuild = 0
     return false
   }
   if (mode == "selectbuilding") {

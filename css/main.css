@@ -1,18 +1,18 @@
 #screen {
   position: fixed;
-  border: 1px, solid , black;
+  border: 1px, solid, black;
   border: solid;
   border-color: white;
   background-image: url(../images/fliesen.png);
 }
 
 body {
-   background-image: url("../images/wool.jpg");
+  background-image: url("../images/wool.jpg");
 }
 
 #itemcount {
   position: fixed;
-  border: 1px, solid , black;
+  border: 1px, solid, black;
   border: solid;
   border-color: white;
   background-image: url(../images/fliesen.png);
@@ -20,7 +20,7 @@ body {
 
 #info {
   position: fixed;
-  border: 1px, solid , black;
+  border: 1px, solid, black;
   border: solid;
   border-color: white;
   background-image: url(../images/infobg.png);
@@ -28,7 +28,7 @@ body {
 
 #buildselect {
   position: fixed;
-  border: 1px, solid , black;
+  border: 1px, solid, black;
   border: solid;
   border-color: yellow;
   background-image: url(../images/infobg.png);
@@ -38,6 +38,26 @@ body {
   padding: 4;
 }
 
+#infoDesc {
+  position: fixed;
+  width: 240;
+  height: 192;
+  font-family: 'Electrolize', sans-serif;
+  direction: rtl;
+}
+
+#infoDesc h1 {
+  font-size: 26px;
+  direction: ltr;
+}
+
+#infoDesc p {
+  font-size: 19px;
+  overflow-y: auto;
+  direction: ltr;
+  height: 166;
+}
+
 .buildtile {
   width: 48;
   height: 48;
@@ -45,8 +65,9 @@ body {
 }
 
 /* Custom Scrollbar */
+
 ::-webkit-scrollbar {
-  width: 24;
+  width: 12;
 }
 
 ::-webkit-scrollbar-track {
