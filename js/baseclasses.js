@@ -18,24 +18,24 @@ class Tile {
     }
   }
 
-  loadImages(){
-    if(this.texture["0"].length>0){
-      for(var i=0;i<this.texture["0"].length;i++){
+  loadImages() {
+    if (this.texture["0"].length > 0) {
+      for (var i = 0; i < this.texture["0"].length; i++) {
         var img = new Image
-        img.src = "images/tiles/"+this.texture["0"][i]+".png"
+        img.src = "images/tiles/" + this.texture["0"][i] + ".png"
         this.images["0"].push(img)
       }
     }
-    if(this.texture["1"].length>0){
-      for(var i=0;i<this.texture["1"].length;i++){
+    if (this.texture["1"].length > 0) {
+      for (var i = 0; i < this.texture["1"].length; i++) {
         var img = new Image
-        img.src = "images/tiles/"+this.texture["1"][i]+".png"
+        img.src = "images/tiles/" + this.texture["1"][i] + ".png"
         this.images["1"].push(img)
       }
     }
   }
 
-  unloadImages(){
+  unloadImages() {
     this.images = {
       "0": [],
       "1": []
@@ -174,11 +174,11 @@ class Factory {
     return temp
   }
 
-  despawnOldItems(){
+  despawnOldItems() {
     var time = new Date().getTime()
-    for(var i=0;i<this.items.length;i++){
-      if(this.items[i].spawntime+1000*60*5<time){
-        this.items.splice(i,1)
+    for (var i = 0; i < this.items.length; i++) {
+      if (this.items[i].spawntime + 1000 * 60 * 5 < time) {
+        this.items.splice(i, 1)
       }
     }
   }
@@ -191,6 +191,10 @@ class Factory {
         }
       }
     }
+  }
+
+  deleteItem(item) {
+    this.items.splice(this.items.indexOf(item), 1)
   }
 
 }

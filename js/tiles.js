@@ -40,3 +40,27 @@ class Treefarm extends Tile {
   }
 }
 tileClasses.push(Treefarm)
+
+class Collector extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.name = "collector"
+    this.hasNoInventory = true
+    this.texture = {
+      "0": [],
+      "1": ["collector10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    console.log(this.input)
+    while (this.input.items.length > 0) {
+      var item = this.input.items.pop()
+      inventory.addItem(item)
+      this.factory.deleteItem(item)
+      console.log(item)
+    }
+  }
+}
+tileClasses.push(Collector)
