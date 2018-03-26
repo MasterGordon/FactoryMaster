@@ -39,3 +39,7 @@ function infoDrawRotatedImage(image, x, y, angle) {
   infoCtx.drawImage(image, -(image.width / 2), -(image.height / 2));
   infoCtx.restore();
 }
+
+function formatCount(c){
+  return c
+}

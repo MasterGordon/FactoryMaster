@@ -1,4 +1,5 @@
 var factorys = []
+var inventory = {}
 
 var items = []
 
@@ -8,6 +9,7 @@ var delta = 0
 var lastFrameTimeMs = 0
 var ctx = {}
 var infoCtx = {}
+var inventoryCtx = {}
 var currentFactory = 0
 var fulltime = 0
 
@@ -26,6 +28,7 @@ $(document).ready(function() {
 function loadGameData() {
   //TODO: Check for Cookies
   factorys.push(new Factory())
+  inventory = new Inventory()
 }
 
 function loadItems() {
@@ -86,10 +89,8 @@ function gametick(timestep) {
   //Wird 40 mal in einer Sekunde aufgerufen
   for (var i = 0; i < factorys.length; i++) {
     factorys[i].moveItems()
-  }
-
-  for (var i = 0; i < factorys.length; i++) {
     factorys[i].workTiles()
+    factorys[i].despawnOldItems()
   }
 }
 
@@ -101,10 +102,8 @@ function render() {
   //RENDER TILE-LAYER0
   for (var i = 0; i < tilesToRender.length; i++) {
     var tile = tilesToRender[i]
-    var img = new Image
-    var tmp = tile.getTexture(fulltime, 0)
-    if (tmp != "0") {
-      img.src = tmp
+    var img = tile.getImage(fulltime, 0)
+    if (img != "0") {
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
   }
@@ -118,10 +117,8 @@ function render() {
   //RENDER TILE-LAYER1
   for (var i = 0; i < tilesToRender.length; i++) {
     var tile = tilesToRender[i]
-    var img = new Image
-    var tmp = tile.getTexture(fulltime, 1)
-    if (tmp != "0") {
-      img.src = tmp
+    var img = tile.getImage(fulltime, 1)
+    if (img != "0") {
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
     if (mode == "rotate") {
@@ -137,16 +134,12 @@ function render() {
     if (mode == "build") {
       ctx.globalAlpha = 0.6
       var tile = new toBuild()
-      var img = new Image
-      var tmp = tile.getTexture(fulltime, 0)
-      if (tmp != "0") {
-        img.src = tmp
+      var img = tile.getImage(fulltime, 0)
+      if (img != "0") {
         drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, 0)
       }
-      img = new Image
-      tmp = tile.getTexture(fulltime, 1)
-      if (tmp != "0") {
-        img.src = tmp
+      img = tile.getImage(fulltime, 1)
+      if (img != "0") {
         drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, 0)
       }
       ctx.globalAlpha = 1
@@ -158,6 +151,14 @@ function render() {
   }
   //DRAW INFO BAR
   drawInfoBar()
+  if (selectedTile != 0 && mode != "buildselect" && mode != "build") {
+    if (selectedTile.hasNoInventory === undefined)
+      drawInventory(selectedTile.input, lang.tiles[selectedTile.name].name)
+    else
+      drawInventory(inventory, lang["player"])
+  } else {
+    drawInventory(inventory, lang["player"])
+  }
 }
 
 function getItemFormId(id) {
@@ -176,6 +177,7 @@ function prepairRender() {
   canvas = $('#itemcount')[0];
   canvas.width = 720
   canvas.height = 240
+  inventoryCtx = canvas.getContext('2d')
   canvas = $('#info')[0];
   canvas.width = 432
   canvas.height = 240
@@ -241,13 +243,13 @@ function drawInfoBar() {
       infoCtx.drawImage(img, i * 48, 0, 48, 48);
     }
   }
-  if(toBuild!=0){
+  if (toBuild != 0) {
     selectedTile = new toBuild()
   }
-  if(selectedTile != 0){
+  if (selectedTile != 0) {
     $('#infoDesc h1').text(lang.tiles[selectedTile.name].name)
     $('#infoDesc p').text(lang.tiles[selectedTile.name].description)
-  }else{
+  } else {
     $('#infoDesc h1').text("")
     $('#infoDesc p').text("")
   }

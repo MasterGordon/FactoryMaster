@@ -1,20 +1,51 @@
 class Tile {
-  constructor(x, y) {
+  constructor(x, y, factory) {
     this.x = x
     this.y = y
     this.direction = "right"
     this.input = new Inventory()
     this.name = "base"
+    this.factory = factory
+    this.currentwork = 0
+    this.maxwork = 0
     this.texture = {
+      "0": [],
+      "1": []
+    }
+    this.images = {
       "0": [],
       "1": []
     }
   }
 
-  getTexture(fulltime, layer) {
-    if (this.texture[layer].length == 0)
+  loadImages(){
+    if(this.texture["0"].length>0){
+      for(var i=0;i<this.texture["0"].length;i++){
+        var img = new Image
+        img.src = "images/tiles/"+this.texture["0"][i]+".png"
+        this.images["0"].push(img)
+      }
+    }
+    if(this.texture["1"].length>0){
+      for(var i=0;i<this.texture["1"].length;i++){
+        var img = new Image
+        img.src = "images/tiles/"+this.texture["1"][i]+".png"
+        this.images["1"].push(img)
+      }
+    }
+  }
+
+  unloadImages(){
+    this.images = {
+      "0": [],
+      "1": []
+    }
+  }
+
+  getImage(fulltime, layer) {
+    if (this.images[layer].length == 0)
       return "0"
-    return "images/tiles/" + this.texture[layer][(fulltime % this.texture[layer].length)] + ".png";
+    return this.images[layer][(fulltime % this.images[layer].length)]
   }
 
   work() {
@@ -86,6 +117,7 @@ class Item {
     this.y = y
     this.dx = 0
     this.dy = 0
+    this.spawntime = new Date().getTime()
   }
 
   setDFromDirection(direction) {
@@ -140,6 +172,15 @@ class Factory {
       }
     }
     return temp
+  }
+
+  despawnOldItems(){
+    var time = new Date().getTime()
+    for(var i=0;i<this.items.length;i++){
+      if(this.items[i].spawntime+1000*60*5<time){
+        this.items.splice(i,1)
+      }
+    }
   }
 
   workTiles() {

@@ -164,7 +164,7 @@ function buildEvents() {
     }
     if (mode == "build") {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
-        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY)
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
       }
     }
     if (mode == "move") {
@@ -193,24 +193,25 @@ function buildEvents() {
       } else {
         selectedTile = 0
       }
-    }else if(mode!="build"){
+    } else if (mode != "build") {
       selectedTile = 0
     }
   })
 
   $('img').hover(
-  function() {
-    //ENTER
-    var id = $(this).attr("id");
-    if (id.startsWith("build_")) {
-      id = parseInt(id.substr(6))
-      selectedTile = new tileClasses[id]()
+    function() {
+      //ENTER
+      var id = $(this).attr("id");
+      if (id.startsWith("build_")) {
+        id = parseInt(id.substr(6))
+        selectedTile = new tileClasses[id]()
+      }
+    },
+    function() {
+      //LEAVE
+      selectedTile = 0
     }
-  }, function() {
-    //LEAVE
-    selectedTile = 0
-  }
-);
+  );
 
   $('body').mousedown(function() {
     if (mode == "move") {
@@ -263,5 +264,59 @@ function closeUi() {
   if (mode == "rotate") {
     mode = "none"
     return false
+  }
+}
+
+var itemId = []
+var itemCount = []
+
+function drawInventory(inventory, title) {
+  if (!(inventory instanceof Inventory))
+    return false;
+  itemId = []
+  itemCount = []
+
+  for (let item of inventory.items) {
+    var id = item.id
+    var index = itemId.indexOf(item.id)
+    if (index == -1) {
+      itemId.push(id)
+      itemCount.push(1)
+    } else {
+      itemCount[index]++
+    }
+  }
+
+  inventoryCtx.clearRect(0, 0, innerWidth, innerHeight)
+  inventoryCtx.font = "20px Electrolize"
+  inventoryCtx.fillStyle = "#a3a3a3"
+  inventoryCtx.fillRect(0, 0, 15 * 48, 24);
+  inventoryCtx.fillStyle = "black"
+  inventoryCtx.fillText(lang.inventory + " - " + title, 2, 18)
+  inventoryCtx.fillStyle = "black"
+  inventoryCtx.textAlign = "end"
+  inventoryCtx.fillText(lang.more, 48 * 15 - 2, 18)
+  inventoryCtx.textAlign = "start"
+  inventoryCtx.font = "16px Electrolize"
+  var currentIndex = 0
+  if (currentIndex == itemId.length)
+    return true
+  for (var y = 0; y < 3; y++) {
+    for (var x = 0; x < 10; x++) {
+      var img = new Image
+      img.src = "images/items/" + items[itemId[currentIndex]].name + ".png"
+      inventoryCtx.drawImage(img, 12 + x * 72, 36 + y * 72, 48, 48)
+
+      var formattedCount = formatCount(itemCount[currentIndex])
+      inventoryCtx.strokeStyle = "black"
+      inventoryCtx.lineWidth = 2
+      inventoryCtx.strokeText("x" + formattedCount, 2 + x * 72, 94 + y * 72)
+      inventoryCtx.fillStyle = "white"
+      inventoryCtx.fillText("x" + formattedCount, 2 + x * 72, 94 + y * 72)
+
+      currentIndex++
+      if (currentIndex == itemId.length)
+        return true
+    }
   }
 }

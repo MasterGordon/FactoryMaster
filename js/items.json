@@ -2,5 +2,8 @@
   "items": [{
     "id": 0,
     "name": "coal"
+  },{
+    "id": 1,
+    "name": "log"
   }]
 }

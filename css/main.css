@@ -15,7 +15,8 @@ body {
   border: 1px, solid, black;
   border: solid;
   border-color: white;
-  background-image: url(../images/fliesen.png);
+  background-image: url(../images/inventorybg.png);
+  background-position: bottom 0px right 0px;
 }
 
 #info {
