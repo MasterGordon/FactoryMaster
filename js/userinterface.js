@@ -58,6 +58,8 @@ var isCursorInScreen = true
 var isCursorInItemCount = true
 var isCursorInInfo = true
 
+var mousedown = false
+
 function onDocumentMouseMove(event) {
 
   var mX = event.clientX - screenleftpos;
@@ -103,6 +105,11 @@ function onDocumentMouseMove(event) {
     isCursorInInfo = true
   } else {
     isCursorInInfo = false
+  }
+  if (mousedown && mode == "build") {
+    if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
+      factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
+    }
   }
 }
 
@@ -162,11 +169,6 @@ function buildEvents() {
         factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].rotate()
       }
     }
-    if (mode == "build") {
-      if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
-        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
-      }
-    }
     if (mode == "move") {
       if (isCursorInScreen) {
         if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
@@ -177,6 +179,8 @@ function buildEvents() {
             factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = factorys[currentFactory].tiles[moveFromCX][moveFromCY]
             factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].x = cursorScreenX
             factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].y = cursorScreenY
+            while (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].input.items.length > 0)
+              var item = factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].input.items.pop()
             factorys[currentFactory].tiles[moveFromCX][moveFromCY] = 0
           } else {
             moveFromCX = cursorScreenX
@@ -185,6 +189,11 @@ function buildEvents() {
           moveFromCX = -1
           moveFromCY = -1
         }
+      }
+    }
+    if (mode == "build") {
+      if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
       }
     }
     if ((mode == "none") && isCursorInScreen) {
@@ -213,7 +222,10 @@ function buildEvents() {
     }
   );
 
-  $('body').mousedown(function() {
+
+  $('body').mousedown(function(e) {
+    if (e.which == 1)
+      mousedown = true
     if (mode == "move") {
       if (isCursorInScreen) {
         moveFromX = cursorScreenX
@@ -222,7 +234,9 @@ function buildEvents() {
     }
   })
 
-  $('body').mouseup(function() {
+  $('body').mouseup(function(e) {
+    if (e.which == 1)
+      mousedown = false
     if (mode == "move") {
       if (isCursorInScreen && moveFromX != -1) {
         if (moveFromX != cursorScreenX || moveFromY != cursorScreenY) {
@@ -230,6 +244,8 @@ function buildEvents() {
             factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = factorys[currentFactory].tiles[moveFromX][moveFromY]
             factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].x = cursorScreenX
             factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].y = cursorScreenY
+            while (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].input.items.length > 0)
+              var item = factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].input.items.pop()
             factorys[currentFactory].tiles[moveFromX][moveFromY] = 0
           }
           moveFromX = -1
@@ -262,6 +278,10 @@ function closeUi() {
     return false
   }
   if (mode == "rotate") {
+    mode = "none"
+    return false
+  }
+  if (mode == "delete") {
     mode = "none"
     return false
   }
