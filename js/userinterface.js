@@ -310,9 +310,9 @@ function drawInventory(inventory, title) {
       var formattedCount = formatCount(itemCount[currentIndex])
       inventoryCtx.strokeStyle = "black"
       inventoryCtx.lineWidth = 2
-      inventoryCtx.strokeText("x" + formattedCount, 2 + x * 72, 94 + y * 72)
+      inventoryCtx.strokeText("x" + formattedCount, 4 + x * 72, 91 + y * 72)
       inventoryCtx.fillStyle = "white"
-      inventoryCtx.fillText("x" + formattedCount, 2 + x * 72, 94 + y * 72)
+      inventoryCtx.fillText("x" + formattedCount, 4 + x * 72, 91 + y * 72)
 
       currentIndex++
       if (currentIndex == itemId.length)
