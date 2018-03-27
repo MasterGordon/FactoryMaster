@@ -94,11 +94,12 @@ class Inventory {
       this.items.push(item)
   }
 
-  take(id, count) {
+  take(id, count, factory) {
     if (this.countOf(id) >= count) {
       for (var j = 0; j < count; j++) {
         for (var i = 0; i < this.items.length; i++) {
           if (this.items[i].id == id) {
+            factory.deleteItem(this.items[i])
             this.items.splice(i, 1)
             break;
           }
@@ -156,7 +157,8 @@ class Factory {
       if (this.items[i].x % 48 == 0 && this.items[i].y % 48 == 0) {
         var tile = this.tiles[this.items[i].x / 48][this.items[i].y / 48]
         if (tile != 0) {
-          tile.input.addItem(this.items[i])
+          if (tile.input.items.indexOf(this.items[i]) == -1)
+            tile.input.addItem(this.items[i])
         }
       }
     }
@@ -194,7 +196,12 @@ class Factory {
   }
 
   deleteItem(item) {
-    this.items.splice(this.items.indexOf(item), 1)
+    for (var i = 0; i < this.items.length; i++) {
+      if (this.items[i].x == item.x && this.items[i].y == item.y && this.items[i].id == item.id) {
+        this.items.splice(i, 1)
+        return
+      }
+    }
   }
 
 }

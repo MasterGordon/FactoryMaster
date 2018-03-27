@@ -41,6 +41,39 @@ class Treefarm extends Tile {
 }
 tileClasses.push(Treefarm)
 
+class Saw extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96
+    this.currentwork = 0
+    this.name = "saw"
+    this.texture = {
+      "0": [],
+      "1": ["saw10", "saw10", "saw10", "saw10", "saw11", "saw11", "saw11", "saw11", "saw12", "saw12", "saw12", "saw12", "saw13", "saw13", "saw13", "saw13"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    //Items für ein Pank
+    var requieredCount = 5
+    if (this.input.countOf(1) >= requieredCount) {
+      if (this.currentwork == 96) {
+        this.input.take(1, requieredCount,this.factory)
+        var item = new Item(2, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+tileClasses.push(Saw)
+
 class Collector extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
@@ -54,12 +87,10 @@ class Collector extends Tile {
   }
 
   work() {
-    console.log(this.input)
     while (this.input.items.length > 0) {
       var item = this.input.items.pop()
       inventory.addItem(item)
       this.factory.deleteItem(item)
-      console.log(item)
     }
   }
 }
