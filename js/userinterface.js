@@ -142,6 +142,14 @@ function clickEvents() {
             closeUi()
           }
           break
+        case 3:
+          //ROTATE BUTTON
+          if (mode == "none") {
+            mode = "delete"
+          } else {
+            closeUi()
+          }
+          break
       }
     }
   })
@@ -167,6 +175,11 @@ function buildEvents() {
     if (mode == "rotate") {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
         factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].rotate()
+      }
+    }
+    if (mode == "delete") {
+      if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = 0
       }
     }
     if (mode == "move") {

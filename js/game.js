@@ -145,6 +145,10 @@ function render() {
       ctx.globalAlpha = 1
     } else {
       ctx.globalAlpha = 0.4
+      if (mode == "delete")
+        ctx.fillStyle = "#FF0000";
+      else
+        ctx.fillStyle = "black";
       ctx.fillRect(cursorScreenX * 48, cursorScreenY * 48, 48, 48)
       ctx.globalAlpha = 1
     }
@@ -219,6 +223,8 @@ function drawInfoBar() {
     selectedX = 1
   } else if (mode == "rotate") {
     selectedX = 2
+  } else if (mode == "delete") {
+    selectedX = 3
   }
 
   if (selectedX != -1) {
