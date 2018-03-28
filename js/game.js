@@ -155,7 +155,7 @@ function render() {
   }
   //DRAW INFO BAR
   drawInfoBar()
-  if (selectedTile != 0 && mode != "buildselect" && mode != "build") {
+  if (selectedTile != 0 && mode != "selectbuilding" && mode != "build") {
     if (selectedTile.hasNoInventory === undefined)
       drawInventory(selectedTile.input, lang.tiles[selectedTile.name].name)
     else
