@@ -259,4 +259,11 @@ function drawInfoBar() {
     $('#infoDesc h1').text("")
     $('#infoDesc p').text("")
   }
+  if(selectedTile.maxwork!=0){
+    $('#infoDesc p').css("height", 154)
+    infoCtx.fillStyle = "green";
+    infoCtx.fillRect(0, 228, 432*(selectedTile.currentwork/selectedTile.maxwork), 12)
+  }else{
+    $('#infoDesc p').css("height", 166)
+  }
 }

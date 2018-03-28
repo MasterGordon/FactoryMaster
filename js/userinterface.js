@@ -60,8 +60,28 @@ var isCursorInInfo = true
 
 var mousedown = false
 
-function onDocumentMouseMove(event) {
+var tooltip = ""
 
+function onDocumentMouseMove(event) {
+  //Tooltip POS
+  setTooltip()
+  if (tooltip) {
+    var tooltipX = event.clientX + 3
+    var tooltipY = event.clientY - $('#tooltip').height() - 6
+
+    if (tooltipX + $('#tooltip').width() > innerWidth) {
+      tooltipX -= ($('#tooltip').width() + 12)
+    }
+
+    if (tooltipY < 0) {
+      tooltipY += $('#tooltip').height() + 3
+    }
+
+    $('#tooltip').css("top", tooltipY)
+    $('#tooltip').css("left", tooltipX)
+  }
+
+  //Track CursorPos
   var mX = event.clientX - screenleftpos;
   var mY = event.clientY - screentoppos;
   if (mX < 0 || mX > 1200 || mY < 0 || mY > 576) {
@@ -82,8 +102,8 @@ function onDocumentMouseMove(event) {
         cursorInfoY = Math.floor(mY / 48);
       }
     } else {
-      cursorItemCountX = Math.floor(mX / 48);
-      cursorItemCountY = Math.floor(mY / 48);
+      cursorItemCountX = Math.floor(mX / 72);
+      cursorItemCountY = Math.floor((mY - 24) / 72);
     }
   } else {
     cursorScreenX = Math.floor(mX / 48);
@@ -160,6 +180,33 @@ var moveFromX = 0
 var moveFromY = 0
 var moveFromCX = -1
 var moveFromCY = -1
+
+//itemId[]
+
+function setTooltip() {
+  if (cursorInfoY == 0) {
+    if (lang.infotooltips[cursorInfoX] == "") {
+      $('#tooltip').hide()
+      tooltip = false
+      return
+    }
+    $('#tooltip').text(lang.infotooltips[cursorInfoX])
+    $('#tooltip').show()
+    tooltip = true
+    return;
+  }
+  if (isCursorInItemCount) {
+    if (cursorItemCountX + cursorItemCountY * 10 < itemId.length) {
+      $('#tooltip').text(lang.items[itemId[cursorItemCountX + cursorItemCountY * 10]])
+      $('#tooltip').show()
+      tooltip = true
+      return;
+    }
+  }
+
+  $('#tooltip').hide()
+  tooltip = false
+}
 
 function buildEvents() {
   $('img').click(function() {
