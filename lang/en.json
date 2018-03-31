@@ -18,9 +18,10 @@
     }
   },
   "items": ["Dollars", "Log", "Planks"],
-  "more": "show more...",
+  "more": "Sell Items",
   "inventory": "Inventory",
   "player": "Player",
-  "infotooltips": ["Build", "Move", "Rotate", "Delete!", "Upgrade", "Information", "Go To Space!!", "", ""],
-  "cost": "Cost"
+  "infotooltips": ["Build", "Move", "Rotate", "Delete!", "", "Upgrade", "Information", "", "Go To Space!!"],
+  "cost": "Cost",
+  "clickToSell": "Click on items to sell them."
 }

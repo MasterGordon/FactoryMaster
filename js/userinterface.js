@@ -21,12 +21,16 @@ function style() {
   $('#screen').css('margin-left', screenMarginLeft)
   $('#buildselect').css('margin-top', screenMarginTop)
   $('#buildselect').css('margin-left', screenMarginLeft)
+  $('#inventoryBig').css('margin-top', screenMarginTop)
+  $('#inventoryBig').css('margin-left', screenMarginLeft)
   $('#info').css('margin-top', itemCountMarginTop)
   $('#info').css('margin-left', infoMarginLeft)
   $('#infoDesc').css('margin-top', itemCountMarginTop + 51)
   $('#infoDesc').css('margin-left', infoMarginLeft + 5)
   $('#itemcount').css('margin-top', itemCountMarginTop)
   $('#itemcount').css('margin-left', screenMarginLeft)
+  $('#showmore').css('margin-top', itemCountMarginTop)
+  $('#showmore').css('margin-left', screenMarginLeft + 520)
   $('#money').css('margin-top', itemCountMarginTop - 42)
   $('#money').css('margin-left', screenMarginLeft + 3)
   screenleftpos = screenMarginLeft
@@ -137,6 +141,14 @@ function onDocumentMouseMove(event) {
 }
 
 function clickEvents() {
+  $('#showmore').click(function() {
+    if (mode == "none") {
+      $('#inventoryBig').fadeIn(200)
+      mode = "showmore"
+    } else {
+      closeUi()
+    }
+  })
   $('#info').click(function() {
     if (cursorInfoY == 0) {
       switch (cursorInfoX) {
@@ -186,7 +198,11 @@ var moveFromCY = -1
 
 //itemId[]
 
+var hoverTooltip = false
+
 function setTooltip() {
+  if (hoverTooltip)
+    return
   if (cursorInfoY == 0) {
     if (lang.infotooltips[cursorInfoX] == "") {
       $('#tooltip').hide()
@@ -286,7 +302,6 @@ function buildEvents() {
     }
   );
 
-
   $('body').mousedown(function(e) {
     if (e.which == 1)
       mousedown = true
@@ -349,6 +364,11 @@ function closeUi() {
     mode = "none"
     return false
   }
+  if (mode == "showmore") {
+    mode = "none"
+    $('#inventoryBig').fadeOut(200)
+    return false
+  }
 }
 
 var itemId = []
@@ -402,5 +422,67 @@ function drawInventory(inventory, title) {
       if (currentIndex == itemId.length)
         return true
     }
+  }
+}
+
+function drawBigInventory(inventory) {
+  if (!(inventory instanceof Inventory))
+    return false;
+  itemId = []
+  itemCount = []
+
+  for (let item of inventory.items) {
+    var id = item.id
+    var index = itemId.indexOf(item.id)
+    if (index == -1) {
+      itemId.push(id)
+      itemCount.push(1)
+    } else {
+      itemCount[index]++
+    }
+  }
+
+  //inventoryCtx.clearRect(0, 0, innerWidth, innerHeight)
+  //inventoryCtx.font = "20px Electrolize"
+  //inventoryCtx.fillStyle = "#a3a3a3"
+  //inventoryCtx.fillRect(0, 0, 25 * 48, 24);
+  //inventoryCtx.fillStyle = "black"
+  //inventoryCtx.fillText(lang.inventory + " - " + title, 2, 18)
+  //inventoryCtx.fillStyle = "black"
+  //inventoryCtx.textAlign = "start"
+  var currentIndex = 0
+  $('#itemsScroll').empty()
+  while (currentIndex != itemId.length) {
+    $('#itemsScroll').append('<canvas class="itemBig" style="width: 72; height: 72" id="itemBig_' + itemId[currentIndex] + '"></canvas>')
+    $('#itemBig_' + itemId[currentIndex])[0].width = 72;
+    $('#itemBig_' + itemId[currentIndex])[0].height = 72
+    var itemCtx = $('#itemBig_' + itemId[currentIndex])[0].getContext("2d")
+    var img = new Image
+    img.src = "images/items/" + items[itemId[currentIndex]].name + ".png"
+    itemCtx.font = "16px Electrolize"
+    itemCtx.drawImage(img, 12, 12, 48, 48)
+
+    var formattedCount = formatCount(itemCount[currentIndex])
+    itemCtx.strokeStyle = "black"
+    itemCtx.lineWidth = 2
+    itemCtx.strokeText("x" + formattedCount, 4, 67)
+    itemCtx.fillStyle = "white"
+    itemCtx.fillText("x" + formattedCount, 4, 67)
+
+    currentIndex++
+    $('#itemBig_' + itemId[currentIndex]).hover(
+      function() {
+        //ENTER
+        console.log("TRIGGER")
+        hoverTooltip = true
+        $('#tooltip').text(lang.items[itemId[currentIndex]] + "(" + formatCount(items[itemId[currentIndex]].value) + " " + lang.items[0] + ")")
+        $('#tooltip').show()
+        tooltip = true
+      },
+      function() {
+        //LEAVE
+        hoverTooltip = false
+      }
+    );
   }
 }

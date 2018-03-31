@@ -1,12 +1,15 @@
 {
   "items": [{
     "id": 0,
-    "name": "money"
+    "name": "money",
+    "value": 1
   },{
     "id": 1,
-    "name": "log"
+    "name": "log",
+    "value": 1
   },{
     "id": 2,
-    "name": "planks"
+    "name": "planks",
+    "value": 6
   }]
 }

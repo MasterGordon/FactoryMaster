@@ -165,6 +165,9 @@ function render() {
     drawInventory(inventory, lang["player"])
   }
   $('#money').text(money + " " + lang.items[0])
+  if(mode == "showmore"){
+    drawBigInventory(inventory)
+  }
 }
 
 function getItemFormId(id) {
@@ -207,7 +210,9 @@ function prepairRender() {
   }
   console.log(tilesLoaded + "/" + tileClasses.length + " Tiles Loaded!")
   $('#buildselect').hide()
+  $('#inventoryBig').hide()
   buildEvents()
+  $('#clickToSell').text(lang.clickToSell)
 }
 
 var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "rocket.png"]

@@ -69,6 +69,7 @@ body {
   border: 2px;
   border-style: solid;
   border-color: gray;
+  z-index: 100;
 }
 
 #money {
@@ -80,16 +81,61 @@ body {
   line-height: 42px;
   text-align: center;
   background-image: url(../images/moneybg.png);
+  z-index: -1;
+}
+
+.itemBig {
+  width: 72;
+  height: 72;
+  background-image: url(../images/inventorybg.png);
+}
+
+#showmore {
+  width: 200;
+  height: 24;
+  position: fixed;
+}
+
+#inventoryBig {
+  position: fixed;
+  border: 1px, solid, black;
+  border: solid;
+  border-color: yellow;
+  background-image: url("../images/wool.jpg");
+  width: 1192;
+  height: 568;
+  padding: 4;
+}
+
+#clickToSell {
+  width: 1192;
+  height: 38;
+  font-family: 'Electrolize', sans-serif;
+  font-size: 22px;
+  line-height: 38px;
+  text-align: center;
+  color: floralwhite;
+}
+
+#itemsScroll {
+  overflow-y: scroll;
+  width: 1192;
+  height: 530;
 }
 
 body {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 .buildtile {
