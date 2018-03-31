@@ -7,6 +7,10 @@ class Conveyorbelt extends Tile {
     super(x, y, factory)
     this.name = "conveyorbelt"
     this.hasNoInventory = true
+    this.cost = [{
+      "id": 0,
+      "count": 20
+    }]
     this.texture = {
       "0": ["conveyorbelt00", "conveyorbelt01", "conveyorbelt02", "conveyorbelt03", "conveyorbelt04", "conveyorbelt05", "conveyorbelt06"],
       "1": []
@@ -23,6 +27,10 @@ class Treefarm extends Tile {
     this.currentwork = 0
     this.name = "treefarm"
     this.hasNoInventory = true
+    this.cost = [{
+      "id": 0,
+      "count": 30
+    }]
     this.texture = {
       "0": [],
       "1": ["treefarm10", "treefarm10", "treefarm10", "treefarm11", "treefarm11", "treefarm11", "treefarm12", "treefarm12", "treefarm12", "treefarm13", "treefarm13", "treefarm13", "treefarm14", "treefarm14", "treefarm14", "treefarm15", "treefarm15", "treefarm15"]
@@ -47,6 +55,15 @@ class Saw extends Tile {
     this.maxwork = 96
     this.currentwork = 0
     this.name = "saw"
+    this.cost = [{
+        "id": 0,
+        "count": 50
+      },
+      {
+        "id": 1,
+        "count": 50
+      }
+    ]
     this.texture = {
       "0": [],
       "1": ["saw10", "saw10", "saw10", "saw10", "saw11", "saw11", "saw11", "saw11", "saw12", "saw12", "saw12", "saw12", "saw13", "saw13", "saw13", "saw13"]
@@ -59,7 +76,7 @@ class Saw extends Tile {
     var requieredCount = 5
     if (this.input.countOf(1) >= requieredCount) {
       if (this.currentwork == 96) {
-        this.input.take(1, requieredCount,this.factory)
+        this.input.take(1, requieredCount, this.factory)
         var item = new Item(2, this.x * 48, this.y * 48)
         this.factory.items.push(item)
         item.setDFromDirection(this.direction)
@@ -79,6 +96,10 @@ class Collector extends Tile {
     super(x, y, factory)
     this.name = "collector"
     this.hasNoInventory = true
+    this.cost = [{
+      "id": 0,
+      "count": 50
+    }]
     this.texture = {
       "0": [],
       "1": ["collector10"]

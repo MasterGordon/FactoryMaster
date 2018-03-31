@@ -1,5 +1,6 @@
 var factorys = []
 var inventory = {}
+var money = 100
 
 var items = []
 
@@ -163,6 +164,7 @@ function render() {
   } else {
     drawInventory(inventory, lang["player"])
   }
+  $('#money').text(money + " " + lang.items[0])
 }
 
 function getItemFormId(id) {
@@ -259,11 +261,26 @@ function drawInfoBar() {
     $('#infoDesc h1').text("")
     $('#infoDesc p').text("")
   }
-  if(selectedTile.maxwork!=0){
+  if (selectedTile.maxwork != 0 && mode != "selectbuilding" && mode != "building") {
     $('#infoDesc p').css("height", 154)
     infoCtx.fillStyle = "green";
-    infoCtx.fillRect(0, 228, 432*(selectedTile.currentwork/selectedTile.maxwork), 12)
-  }else{
+    infoCtx.fillRect(0, 228, 432 * (selectedTile.currentwork / selectedTile.maxwork), 12)
+  } else {
     $('#infoDesc p').css("height", 166)
+  }
+  if (mode == "selectbuilding" || mode == "building") {
+    if (selectedTile != 0) {
+      infoCtx.textAlign = "center"
+      infoCtx.font = "18px Electrolize"
+      infoCtx.fillStyle = "black";
+      infoCtx.fillText(lang.cost, 336, 66)
+      infoCtx.textAlign = "start"
+      for (var i = 0; i < selectedTile.cost.length; i++) {
+        if (selectedTile.cost[i].id == 0)
+          infoCtx.fillText(selectedTile.cost[i].count + " " + lang.items[selectedTile.cost[i].id], 246, 86 + 20 * i)
+        else
+          infoCtx.fillText(selectedTile.cost[i].count + "x " + lang.items[selectedTile.cost[i].id], 246, 86 + 20 * i)
+      }
+    }
   }
 }

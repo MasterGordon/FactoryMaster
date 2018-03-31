@@ -35,6 +35,32 @@ class Tile {
     }
   }
 
+  pay() {
+    var items = 0
+    for (var i = 0; i < this.cost.length; i++) {
+      if (this.cost[i].id == 0) {
+        if (this.cost[i].count <= money) {
+          items++
+        }
+      } else {
+        if (inventory.countOf(this.cost[i].id) >= this.cost[i].count) {
+          items++
+        }
+      }
+    }
+    if (items == this.cost.length) {
+      for (var i = 0; i < this.cost.length; i++) {
+        if (this.cost[i].id == 0) {
+          money -= this.cost[i].count
+        } else {
+          inventory.take(this.cost[i].id, this.cost[i].count, null)
+        }
+      }
+      return true
+    }
+    return false
+  }
+
   unloadImages() {
     this.images = {
       "0": [],
@@ -99,7 +125,8 @@ class Inventory {
       for (var j = 0; j < count; j++) {
         for (var i = 0; i < this.items.length; i++) {
           if (this.items[i].id == id) {
-            factory.deleteItem(this.items[i])
+            if (factory != null)
+              factory.deleteItem(this.items[i])
             this.items.splice(i, 1)
             break;
           }

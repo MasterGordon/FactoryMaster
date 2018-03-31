@@ -71,6 +71,27 @@ body {
   border-color: gray;
 }
 
+#money {
+  position: fixed;
+  font-family: 'Electrolize', sans-serif;
+  font-size: 22px;
+  width: 1200;
+  height: 42px;
+  line-height: 42px;
+  text-align: center;
+  background-image: url(../images/moneybg.png);
+}
+
+body {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
 .buildtile {
   width: 48;
   height: 48;

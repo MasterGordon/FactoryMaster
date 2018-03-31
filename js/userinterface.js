@@ -27,6 +27,8 @@ function style() {
   $('#infoDesc').css('margin-left', infoMarginLeft + 5)
   $('#itemcount').css('margin-top', itemCountMarginTop)
   $('#itemcount').css('margin-left', screenMarginLeft)
+  $('#money').css('margin-top', itemCountMarginTop - 42)
+  $('#money').css('margin-left', screenMarginLeft + 3)
   screenleftpos = screenMarginLeft
   screentoppos = screenMarginTop
   infoleftpos = infoMarginLeft
@@ -128,7 +130,8 @@ function onDocumentMouseMove(event) {
   }
   if (mousedown && mode == "build") {
     if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
-      factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
+      if (new toBuild().pay())
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
     }
   }
 }
@@ -253,7 +256,8 @@ function buildEvents() {
     }
     if (mode == "build") {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
-        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
+        if (new toBuild().pay())
+          factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
       }
     }
     if ((mode == "none") && isCursorInScreen) {
