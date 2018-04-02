@@ -1,6 +1,6 @@
 none
 selectbuilding
-building
+build
 rotate
 delete
 showmore

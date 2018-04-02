@@ -374,6 +374,25 @@ function closeUi() {
   }
 }
 
+function sort() {
+  if (itemId.length > 1) {
+    var swapped = true
+    while (swapped) {
+      swapped = false
+      for (var i = 0; i < itemId.length - 1; i++) {
+        if (itemId[i] > itemId[i + 1]) {
+          var id = itemId[i]
+          var count = itemCount[i]
+          itemId[i] = itemId[i + 1]
+          itemCount[i] = itemCount[i + 1]
+          itemCount[i + 1] = count
+          itemId[i + 1] = id
+          swapped = true
+        }
+      }
+    }
+  }
+}
 
 function drawInventory(inventory, title) {
   if (!(inventory instanceof Inventory))
@@ -391,6 +410,7 @@ function drawInventory(inventory, title) {
       itemCount[index]++
     }
   }
+  sort()
 
   inventoryCtx.clearRect(0, 0, innerWidth, innerHeight)
   inventoryCtx.font = "20px Electrolize"
@@ -445,9 +465,9 @@ function drawBigInventory(inventory) {
       itemCount[index]++
     }
   }
-  //var swapped =
-  for(var i=0;i<items.length;i++){
-      $('#itemBig_' + i)[0].getContext("2d").clearRect(0, 0, 72, 72)
+  sort()
+  for (var i = 0; i < items.length; i++) {
+    $('#itemBig_' + i)[0].getContext("2d").clearRect(0, 0, 72, 72)
   }
   var currentIndex = 0
   while (currentIndex != itemId.length) {

@@ -311,7 +311,7 @@ function drawInfoBar() {
   } else {
     $('#infoDesc p').css("height", 166)
   }
-  if (mode == "selectbuilding" || mode == "building") {
+  if (mode == "selectbuilding" || mode == "build") {
     if (selectedTile != 0) {
       infoCtx.textAlign = "center"
       infoCtx.font = "18px Electrolize"
