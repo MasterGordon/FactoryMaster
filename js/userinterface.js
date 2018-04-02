@@ -445,7 +445,7 @@ function drawBigInventory(inventory) {
       itemCount[index]++
     }
   }
-  var swapped =
+  //var swapped =
   for(var i=0;i<items.length;i++){
       $('#itemBig_' + i)[0].getContext("2d").clearRect(0, 0, 72, 72)
   }
