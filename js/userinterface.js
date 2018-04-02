@@ -132,7 +132,7 @@ function onDocumentMouseMove(event) {
   } else {
     isCursorInInfo = false
   }
-  if (mousedown && mode == "build") {
+  if (mousedown && mode == "build" && isCursorInScreen) {
     if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
       if (new toBuild().pay())
         factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
@@ -273,7 +273,7 @@ function buildEvents() {
         }
       }
     }
-    if (mode == "build") {
+    if (mode == "build" && isCursorInScreen) {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
         if (new toBuild().pay())
           factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
@@ -445,6 +445,7 @@ function drawBigInventory(inventory) {
       itemCount[index]++
     }
   }
+  var swapped =
   for(var i=0;i<items.length;i++){
       $('#itemBig_' + i)[0].getContext("2d").clearRect(0, 0, 72, 72)
   }
