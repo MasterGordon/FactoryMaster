@@ -30,7 +30,7 @@ function style() {
   $('#itemcount').css('margin-top', itemCountMarginTop)
   $('#itemcount').css('margin-left', screenMarginLeft)
   $('#showmore').css('margin-top', itemCountMarginTop)
-  $('#showmore').css('margin-left', screenMarginLeft + 520)
+  $('#showmore').css('margin-left', screenMarginLeft + 370)
   $('#money').css('margin-top', itemCountMarginTop - 42)
   $('#money').css('margin-left', screenMarginLeft + 3)
   screenleftpos = screenMarginLeft
