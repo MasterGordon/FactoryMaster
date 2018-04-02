@@ -165,7 +165,7 @@ function render() {
     drawInventory(inventory, lang["player"])
   }
   $('#money').text(money + " " + lang.items[0])
-  if(mode == "showmore"){
+  if (mode == "showmore") {
     drawBigInventory(inventory)
   }
 }
@@ -212,6 +212,44 @@ function prepairRender() {
   $('#buildselect').hide()
   $('#inventoryBig').hide()
   buildEvents()
+  //Build Sell/Select Items Menu
+  for (var i = 0; i < items.length; i++) {
+    $('#itemsScroll').append('<canvas class="itemBig" id="itemBig_' + i + '"></canvas>')
+    $('#itemBig_' + i)[0].width = 72
+    $('#itemBig_' + i)[0].height = 72
+  }
+  $('canvas').hover(
+    function() {
+      //ENTER
+      var id = $(this).attr("id");
+      if (id.startsWith("itemBig_")) {
+        id = parseInt(id.substr(8))
+        if (id < itemId.length) {
+          hoverTooltip = true
+          $('#tooltip').text(lang.items[itemId[id]] + " (" + formatCount(items[itemId[id]].value) + " " + lang.items[0] + ")")
+          $('#tooltip').show()
+          tooltip = true
+        }
+      }
+    },
+    function() {
+      //LEAVE
+      hoverTooltip = false
+    }
+  );
+  $('canvas').click(
+    function() {
+      //ENTER
+      var id = $(this).attr("id");
+      if (id.startsWith("itemBig_")) {
+        id = parseInt(id.substr(8))
+        if (id < itemId.length) {
+          if(inventory.take(itemId[id],1)){
+            money += items[itemId[id]].value
+          }
+        }
+      }
+    })
   $('#clickToSell').text(lang.clickToSell)
 }
 

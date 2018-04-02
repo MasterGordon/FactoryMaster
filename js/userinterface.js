@@ -227,6 +227,9 @@ function setTooltip() {
   tooltip = false
 }
 
+var itemId = []
+var itemCount = []
+
 function buildEvents() {
   $('img').click(function() {
     var id = $(this).attr("id");
@@ -371,8 +374,6 @@ function closeUi() {
   }
 }
 
-var itemId = []
-var itemCount = []
 
 function drawInventory(inventory, title) {
   if (!(inventory instanceof Inventory))
@@ -425,6 +426,9 @@ function drawInventory(inventory, title) {
   }
 }
 
+var itembg = new Image
+itembg.src = "images/inventorybg.png"
+
 function drawBigInventory(inventory) {
   if (!(inventory instanceof Inventory))
     return false;
@@ -441,25 +445,17 @@ function drawBigInventory(inventory) {
       itemCount[index]++
     }
   }
-
-  //inventoryCtx.clearRect(0, 0, innerWidth, innerHeight)
-  //inventoryCtx.font = "20px Electrolize"
-  //inventoryCtx.fillStyle = "#a3a3a3"
-  //inventoryCtx.fillRect(0, 0, 25 * 48, 24);
-  //inventoryCtx.fillStyle = "black"
-  //inventoryCtx.fillText(lang.inventory + " - " + title, 2, 18)
-  //inventoryCtx.fillStyle = "black"
-  //inventoryCtx.textAlign = "start"
+  for(var i=0;i<items.length;i++){
+      $('#itemBig_' + i)[0].getContext("2d").clearRect(0, 0, 72, 72)
+  }
   var currentIndex = 0
-  $('#itemsScroll').empty()
   while (currentIndex != itemId.length) {
-    $('#itemsScroll').append('<canvas class="itemBig" style="width: 72; height: 72" id="itemBig_' + itemId[currentIndex] + '"></canvas>')
-    $('#itemBig_' + itemId[currentIndex])[0].width = 72;
-    $('#itemBig_' + itemId[currentIndex])[0].height = 72
-    var itemCtx = $('#itemBig_' + itemId[currentIndex])[0].getContext("2d")
+    var itemCtx = $('#itemBig_' + currentIndex)[0].getContext("2d")
     var img = new Image
     img.src = "images/items/" + items[itemId[currentIndex]].name + ".png"
+    itemCtx.clearRect(0, 0, innerWidth, innerHeight)
     itemCtx.font = "16px Electrolize"
+    itemCtx.drawImage(itembg, 0, 0, 72, 72)
     itemCtx.drawImage(img, 12, 12, 48, 48)
 
     var formattedCount = formatCount(itemCount[currentIndex])
@@ -470,19 +466,5 @@ function drawBigInventory(inventory) {
     itemCtx.fillText("x" + formattedCount, 4, 67)
 
     currentIndex++
-    $('#itemBig_' + itemId[currentIndex]).hover(
-      function() {
-        //ENTER
-        console.log("TRIGGER")
-        hoverTooltip = true
-        $('#tooltip').text(lang.items[itemId[currentIndex]] + "(" + formatCount(items[itemId[currentIndex]].value) + " " + lang.items[0] + ")")
-        $('#tooltip').show()
-        tooltip = true
-      },
-      function() {
-        //LEAVE
-        hoverTooltip = false
-      }
-    );
   }
 }
