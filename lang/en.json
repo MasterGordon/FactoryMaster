@@ -15,13 +15,30 @@
     "saw": {
       "name": "Saw",
       "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    },
+    "spliter": {
+      "name": "Spliter",
+      "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    },
+    "warehouse": {
+      "name": "Warehouse",
+      "description": "Sells items of one type automaticly from your Inventory. You can define a ammount that gets holdback. Can sell up to 500 items per interval.",
+      "options": {
+        "pivot": "Holdback",
+        "toSell": "Item to sell"
+      }
+    },
+    "quarry": {
+      "name": "Quarry",
+      "description": "Mines stone slowly but safely."
     }
   },
-  "items": ["Dollars", "Log", "Planks"],
+  "items": ["None", "Log", "Planks", "Stone"],
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
   "player": "Player",
   "infotooltips": ["Build", "Move", "Rotate", "Delete!", "", "Upgrade", "Information", "", "Go To Space!!"],
   "cost": "Cost",
-  "clickToSell": "Click on items to sell them."
+  "clickToSell": "Click on items to sell them.",
+  "money": "Dollars"
 }

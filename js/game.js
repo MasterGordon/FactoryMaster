@@ -13,6 +13,8 @@ var infoCtx = {}
 var inventoryCtx = {}
 var currentFactory = 0
 var fulltime = 0
+var selectItemCallback = 0
+var selectedItemId = 0
 
 var lang = {}
 
@@ -164,7 +166,7 @@ function render() {
   } else {
     drawInventory(inventory, lang["player"])
   }
-  $('#money').text(money + " " + lang.items[0])
+  $('#money').text(money + " " + lang.money)
   if (mode == "showmore") {
     drawBigInventory(inventory)
   }
@@ -211,25 +213,42 @@ function prepairRender() {
   console.log(tilesLoaded + "/" + tileClasses.length + " Tiles Loaded!")
   $('#buildselect').hide()
   $('#inventoryBig').hide()
+  $('#selectItem').hide()
+  $('#options').hide()
+  for (var i = 0; i < items.length; i++) {
+    var tag = '<img id="itemSel_' + i + '" draggable="false" class="buildtile itemhover" src="images/items/' + items[i].name + '.png">'
+    $('#selectItem').append(tag)
+    $('#itemSel_' + i).click(function() {
+      var id = $(this).attr("id");
+      id = parseInt(id.substr(8))
+      selectedItemId = id
+      selectedTile[selectItemVal] = selectedItemId
+      mode = "none"
+      $('#selectItem').fadeOut(200)
+      options()
+    })
+  }
   buildEvents()
   //Build Sell/Select Items Menu
   for (var i = 0; i < items.length; i++) {
-    $('#itemsScroll').append('<canvas class="itemBig" id="itemBig_' + i + '"></canvas>')
+    $('#itemsScroll').append('<canvas class="itemBig itemhover" id="itemBig_' + i + '"></canvas>')
     $('#itemBig_' + i)[0].width = 72
     $('#itemBig_' + i)[0].height = 72
   }
-  $('canvas').hover(
+  $('.itemhover').hover(
     function() {
       //ENTER
       var id = $(this).attr("id");
-      if (id.startsWith("itemBig_")) {
+      if (id.startsWith("itemBig_") || id.startsWith("itemSel_")) {
         id = parseInt(id.substr(8))
-        if (id < itemId.length) {
-          hoverTooltip = true
-          $('#tooltip').text(lang.items[itemId[id]] + " (" + formatCount(items[itemId[id]].value) + " " + lang.items[0] + ")")
-          $('#tooltip').show()
-          tooltip = true
-        }
+        if ($(this).attr("id").startsWith("itemBig_"))
+          if (id < itemId.length) {
+            id = itemId[id]
+          } else return
+        hoverTooltip = true
+        $('#tooltip').text(lang.items[id] + " (" + formatCount(items[id].value) + " " + lang.money + ")")
+        $('#tooltip').show()
+        tooltip = true
       }
     },
     function() {
@@ -239,17 +258,17 @@ function prepairRender() {
   );
   $('canvas').click(
     function() {
-      //ENTER
       var id = $(this).attr("id");
       if (id.startsWith("itemBig_")) {
         id = parseInt(id.substr(8))
         if (id < itemId.length) {
-          if(inventory.take(itemId[id],1)){
+          if (inventory.take(itemId[id], 1)) {
             money += items[itemId[id]].value
           }
         }
       }
     })
+  //End Sell/Select Items Menu
   $('#clickToSell').text(lang.clickToSell)
 }
 
@@ -320,7 +339,7 @@ function drawInfoBar() {
       infoCtx.textAlign = "start"
       for (var i = 0; i < selectedTile.cost.length; i++) {
         if (selectedTile.cost[i].id == 0)
-          infoCtx.fillText(selectedTile.cost[i].count + " " + lang.items[selectedTile.cost[i].id], 246, 86 + 20 * i)
+          infoCtx.fillText(selectedTile.cost[i].count + " " + lang.money, 246, 86 + 20 * i)
         else
           infoCtx.fillText(selectedTile.cost[i].count + "x " + lang.items[selectedTile.cost[i].id], 246, 86 + 20 * i)
       }

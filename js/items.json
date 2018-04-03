@@ -1,8 +1,8 @@
 {
   "items": [{
     "id": 0,
-    "name": "money",
-    "value": 1
+    "name": "none",
+    "value": 0
   },{
     "id": 1,
     "name": "log",
@@ -11,5 +11,9 @@
     "id": 2,
     "name": "planks",
     "value": 6
+  },{
+    "id": 3,
+    "name": "stone",
+    "value": 2
   }]
 }

@@ -21,12 +21,16 @@ function style() {
   $('#screen').css('margin-left', screenMarginLeft)
   $('#buildselect').css('margin-top', screenMarginTop)
   $('#buildselect').css('margin-left', screenMarginLeft)
+  $('#selectItem').css('margin-top', screenMarginTop)
+  $('#selectItem').css('margin-left', screenMarginLeft)
   $('#inventoryBig').css('margin-top', screenMarginTop)
   $('#inventoryBig').css('margin-left', screenMarginLeft)
   $('#info').css('margin-top', itemCountMarginTop)
   $('#info').css('margin-left', infoMarginLeft)
   $('#infoDesc').css('margin-top', itemCountMarginTop + 51)
   $('#infoDesc').css('margin-left', infoMarginLeft + 5)
+  $('#options').css('margin-top', itemCountMarginTop + 51)
+  $('#options').css('margin-left', infoMarginLeft + 245)
   $('#itemcount').css('margin-top', itemCountMarginTop)
   $('#itemcount').css('margin-left', screenMarginLeft)
   $('#showmore').css('margin-top', itemCountMarginTop)
@@ -230,6 +234,33 @@ function setTooltip() {
 var itemId = []
 var itemCount = []
 
+function options(){
+  $('#options').empty()
+  for (var i = 0; i < selectedTile.options.length; i++) {
+    if (selectedTile.options[i].type == "item") {
+      $('#options').append("<span class='optionslable'>" + lang.tiles[selectedTile.name].options[selectedTile.options[i].var] + ": </span><img id='option_" + selectedTile.options[i].var+"' src='images/items/" + items[selectedTile[selectedTile.options[i].var]].name + ".png'>")
+      $("#option_" + selectedTile.options[i].var).click(function() {
+        $('#selectItem').fadeIn(200)
+        mode = "selectItem"
+        selectItemVal = $(this).attr("id").substr(7)
+      })
+    } else if (selectedTile.options[i].type == "amount") {
+      $('#options').append("<span class='optionslable'>" + lang.tiles[selectedTile.name].options[selectedTile.options[i].var] + ": </span><input id='option_" + selectedTile.options[i].var+"'></input>")
+      $("#option_" + selectedTile.options[i].var).spinner({
+        min: 0,
+        numberFormat: "n",
+        change: function(event, ui) {
+          $(this).spinner("value", Math.max(0, $(this).spinner("value")))
+          selectedTile[$(this).attr("id").substr(7)] = $(this).spinner("value");
+        }
+      })
+      $("#option_" + selectedTile.options[i].var).spinner("value", selectedTile[selectedTile.options[i].var])
+    }
+    $('#options').append("<br>")
+  }
+  $('#options').show()
+}
+
 function buildEvents() {
   $('img').click(function() {
     var id = $(this).attr("id");
@@ -282,11 +313,18 @@ function buildEvents() {
     if ((mode == "none") && isCursorInScreen) {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
         selectedTile = factorys[currentFactory].tiles[cursorScreenX][cursorScreenY]
-      } else {
+        //Click auf Tile
+        if (selectedTile.options != undefined) {
+          //Has Options
+          options()
+        }
+      } else if (mode != "selectItem") {
         selectedTile = 0
+        $('#options').hide()
       }
     } else if (mode != "build") {
       selectedTile = 0
+      $('#options').hide()
     }
   })
 
@@ -301,7 +339,8 @@ function buildEvents() {
     },
     function() {
       //LEAVE
-      selectedTile = 0
+      if (mode == "selectbuilding")
+        selectedTile = 0
     }
   );
 
@@ -345,6 +384,7 @@ function buildEvents() {
 
 function closeUi() {
   selectedTile = 0
+  $('#options').hide()
   if (mode == "build") {
     mode = "none"
     toBuild = 0
@@ -370,6 +410,11 @@ function closeUi() {
   if (mode == "showmore") {
     mode = "none"
     $('#inventoryBig').fadeOut(200)
+    return false
+  }
+  if (mode == "selectItem") {
+    mode = "none"
+    $('#selectItem').fadeOut(200)
     return false
   }
 }
