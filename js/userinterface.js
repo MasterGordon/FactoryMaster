@@ -92,29 +92,30 @@ function onDocumentMouseMove(event) {
   }
 
   //Track CursorPos
-  var mX = event.clientX - screenleftpos;
-  var mY = event.clientY - screentoppos;
+  var mX = event.clientX - infoleftpos;
+  var mY = event.clientY - itemcounttoppos;
+  if (mX < 0 || mX > 432 || mY < 0 || mY > 240) {
+    cursorInfoX = -1
+    cursorInfoY = -1
+  } else {
+    cursorInfoX = Math.floor(mX / 48);
+    cursorInfoY = Math.floor(mY / 48);
+  }
+  mX = event.clientX - screenleftpos;
+  mY = event.clientY - itemcounttoppos;
+  if (mX < 0 || mX > 720 || mY < 0 || mY > 240) {
+    cursorItemCountX = -1
+    cursorItemCountY = -1
+
+  } else {
+    cursorItemCountX = Math.floor(mX / 72);
+    cursorItemCountY = Math.floor((mY - 24) / 72);
+  }
+  mX = event.clientX - screenleftpos;
+  mY = event.clientY - screentoppos;
   if (mX < 0 || mX > 1200 || mY < 0 || mY > 576) {
     cursorScreenX = -1
     cursorScreenY = -1
-    mX = event.clientX - screenleftpos;
-    mY = event.clientY - itemcounttoppos;
-    if (mX < 0 || mX > 720 || mY < 0 || mY > 240) {
-      cursorItemCountX = -1
-      cursorItemCountY = -1
-      mX = event.clientX - infoleftpos;
-      mY = event.clientY - itemcounttoppos;
-      if (mX < 0 || mX > 432 || mY < 0 || mY > 240) {
-        cursorInfoX = -1
-        cursorInfoY = -1
-      } else {
-        cursorInfoX = Math.floor(mX / 48);
-        cursorInfoY = Math.floor(mY / 48);
-      }
-    } else {
-      cursorItemCountX = Math.floor(mX / 72);
-      cursorItemCountY = Math.floor((mY - 24) / 72);
-    }
   } else {
     cursorScreenX = Math.floor(mX / 48);
     cursorScreenY = Math.floor(mY / 48);
@@ -207,7 +208,7 @@ var hoverTooltip = false
 function setTooltip() {
   if (hoverTooltip)
     return
-  if (cursorInfoY == 0) {
+  if (cursorInfoY == 0 && isCursorInInfo) {
     if (lang.infotooltips[cursorInfoX] == "") {
       $('#tooltip').hide()
       tooltip = false
