@@ -145,14 +145,19 @@ function render() {
     if (mode == "build") {
       ctx.globalAlpha = 0.6
       var tile = new toBuild()
+      tile.direction = buildRotation
       var img = tile.getImage(fulltime, 0)
       if (img != "0") {
-        drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, 0)
+        drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, directions[tile.direction].degree)
       }
       img = tile.getImage(fulltime, 1)
       if (img != "0") {
-        drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, 0)
+        drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, directions[tile.direction].degree)
       }
+      var img2 = new Image
+      img2.src = "images/ui/rotationOverlay.png"
+      ctx.globalAlpha = 0.4
+      drawRotatedImage(img2, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, directions[tile.direction].degree)
       ctx.globalAlpha = 1
     } else {
       ctx.globalAlpha = 0.4

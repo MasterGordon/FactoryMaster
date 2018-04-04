@@ -71,6 +71,7 @@ var isCursorInInfo = true
 var mousedown = false
 
 var tooltip = ""
+var buildRotation = "right"
 
 function onDocumentMouseMove(event) {
   //Tooltip POS
@@ -139,8 +140,10 @@ function onDocumentMouseMove(event) {
   }
   if (mousedown && mode == "build" && isCursorInScreen) {
     if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
-      if (new toBuild().pay())
+      if (new toBuild().pay()) {
         factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
+        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].direction = buildRotation
+      }
     }
   }
 }
@@ -265,11 +268,48 @@ function options() {
 }
 
 function buildEvents() {
+  $(window).bind('mousewheel DOMMouseScroll', function(event) {
+    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+      // scroll up
+      switch (buildRotation) {
+        case "right":
+          buildRotation = "up"
+          break;
+        case "down":
+          buildRotation = "right"
+          break;
+        case "left":
+          buildRotation = "down"
+          break;
+        case "up":
+          buildRotation = "left"
+          break;
+      }
+
+    } else {
+      // scroll down
+      switch (buildRotation) {
+        case "right":
+          buildRotation = "down"
+          break;
+        case "down":
+          buildRotation = "left"
+          break;
+        case "left":
+          buildRotation = "up"
+          break;
+        case "up":
+          buildRotation = "right"
+          break;
+      }
+    }
+  });
   $('img').click(function() {
     var id = $(this).attr("id");
     if (id.startsWith("build_")) {
       id = parseInt(id.substr(6))
       toBuild = tileClasses[id]
+      buildRotation = "right"
       mode = "build"
       $('#buildselect').fadeOut(200)
     }
@@ -304,8 +344,10 @@ function buildEvents() {
     }
     if (mode == "build" && isCursorInScreen) {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] == 0) {
-        if (new toBuild().pay())
+        if (new toBuild().pay()) {
           factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = new toBuild(cursorScreenX, cursorScreenY, factorys[currentFactory])
+          factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].direction = buildRotation
+        }
       }
     }
     if ((mode == "none") && isCursorInScreen) {
