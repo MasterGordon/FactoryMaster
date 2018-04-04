@@ -156,7 +156,7 @@ function render() {
       }
       var img2 = new Image
       img2.src = "images/ui/rotationOverlay.png"
-      ctx.globalAlpha = 0.4
+      ctx.globalAlpha = 0.2
       drawRotatedImage(img2, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, directions[tile.direction].degree)
       ctx.globalAlpha = 1
     } else {
