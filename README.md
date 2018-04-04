@@ -12,6 +12,15 @@ Das Ziel dieses Projektes ist es ein auf Javascript und HTML5 basierten "clon" v
 - Eröffnen von neuen Fabriken
 - Reisen auf Planeten um dort mit neuen Rohstoffen zu arbeiten
 
+## Hotkeys
+Hotkey  |  Action
+--|--
+1  |  Build
+2  |  Move
+3  |  Rotate
+4  |  Delete
+i  |  Toggle Item Render (to Prevent Lags)
+
 ##
 [Link zur Aktuellen live Version][f6f130bf]
 

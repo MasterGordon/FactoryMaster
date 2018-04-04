@@ -233,8 +233,10 @@ function setTooltip() {
 
 var itemId = []
 var itemCount = []
+var deleteFromX = -1
+var deleteFromY = -1
 
-function options(){
+function options() {
   $('#options').empty()
   for (var i = 0; i < selectedTile.options.length; i++) {
     if (selectedTile.options[i].type == "item") {
@@ -275,11 +277,6 @@ function buildEvents() {
     if (mode == "rotate") {
       if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
         factorys[currentFactory].tiles[cursorScreenX][cursorScreenY].rotate()
-      }
-    }
-    if (mode == "delete") {
-      if (factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] != 0) {
-        factorys[currentFactory].tiles[cursorScreenX][cursorScreenY] = 0
       }
     }
     if (mode == "move") {
@@ -353,9 +350,42 @@ function buildEvents() {
         moveFromY = cursorScreenY
       }
     }
+    if (mode == "delete") {
+      deleteFromX = cursorScreenX
+      deleteFromY = cursorScreenY
+    }
   })
 
   $('body').mouseup(function(e) {
+    if (mode == "delete") {
+      var minX = 0
+      var maxX = 0
+      var minY = 0
+      var maxY = 0
+      if (deleteFromX <= cursorScreenX) {
+        minX = deleteFromX
+        maxX = cursorScreenX
+      } else {
+        maxX = deleteFromX
+        minX = cursorScreenX
+      }
+      if (deleteFromY <= cursorScreenY) {
+        minY = deleteFromY
+        maxY = cursorScreenY
+      } else {
+        maxY = deleteFromY
+        minY = cursorScreenY
+      }
+      for (var x = minX; x <= maxX; x++) {
+        for (var y = minY; y <= maxY; y++) {
+          if (factorys[currentFactory].tiles[x][y] != 0) {
+            factorys[currentFactory].tiles[x][y] = 0
+          }
+        }
+      }
+      deleteFromX = -1
+      deleteFromY = -1
+    }
     if (e.which == 1)
       mousedown = false
     if (mode == "move") {

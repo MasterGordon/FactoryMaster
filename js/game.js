@@ -20,6 +20,8 @@ var lang = {}
 
 var mode = "none"
 
+var renderItems = true
+
 $(document).ready(function() {
   loadGameData()
   loadItems()
@@ -40,6 +42,11 @@ function loadItems() {
   itemRequest.send(null)
   var json = JSON.parse(itemRequest.responseText)
   items = json.items
+  for (var i = 0; i < items.length; i++) {
+    var image = new Image
+    image.src = "images/items/" + items[i].name + ".png"
+    items[i].img = image
+  }
 }
 
 function loadLang() {
@@ -111,12 +118,13 @@ function render() {
     }
   }
   //RENDER Items
-  for (var i = 0; i < factorys[currentFactory].items.length; i++) {
-    var item = factorys[currentFactory].items[i]
-    var img = new Image
-    img.src = "images/items/" + getItemFormId(item.id).name + ".png"
-    ctx.drawImage(img, item.x, item.y, 48, 48)
-  }
+  if (renderItems)
+    for (var i = 0; i < factorys[currentFactory].items.length; i++) {
+      var item = factorys[currentFactory].items[i]
+      //  var img = new Image
+      //  img.src = "images/items/" + getItemFormId(item.id).name + ".png"
+      ctx.drawImage(items[item.id].img, item.x, item.y, 48, 48)
+    }
   //RENDER TILE-LAYER1
   for (var i = 0; i < tilesToRender.length; i++) {
     var tile = tilesToRender[i]
@@ -148,11 +156,34 @@ function render() {
       ctx.globalAlpha = 1
     } else {
       ctx.globalAlpha = 0.4
-      if (mode == "delete")
+      if (mode == "delete") {
         ctx.fillStyle = "#FF0000";
-      else
+        if (deleteFromX != -1) {
+          var lowerX = 0
+          var deltaX = 0
+          if (deleteFromX < cursorScreenX) {
+            lowerX = deleteFromX
+            deltaX = cursorScreenX - deleteFromX + 1
+          } else {
+            lowerX = cursorScreenX
+            deltaX = deleteFromX - cursorScreenX + 1
+          }
+          var lowerY = 0
+          var deltaY = 0
+          if (deleteFromY < cursorScreenY) {
+            lowerY = deleteFromY
+            deltaY = cursorScreenY - deleteFromY + 1
+          } else {
+            lowerY = cursorScreenY
+            deltaY = deleteFromY - cursorScreenY + 1
+          }
+          ctx.fillRect(lowerX * 48, lowerY * 48, deltaX * 48, deltaY * 48)
+        }
+      } else {
         ctx.fillStyle = "black";
-      ctx.fillRect(cursorScreenX * 48, cursorScreenY * 48, 48, 48)
+      }
+      if (deleteFromX == -1)
+        ctx.fillRect(cursorScreenX * 48, cursorScreenY * 48, 48, 48)
       ctx.globalAlpha = 1
     }
   }
