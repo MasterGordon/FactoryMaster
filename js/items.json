@@ -6,7 +6,7 @@
   },{
     "id": 1,
     "name": "log",
-    "value": 1
+    "value": 4
   },{
     "id": 2,
     "name": "planks",
@@ -15,5 +15,9 @@
     "id": 3,
     "name": "stone",
     "value": 2
+  },{
+    "id": 4,
+    "name": "charcoal",
+    "value": 14
   }]
 }

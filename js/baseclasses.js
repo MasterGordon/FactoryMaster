@@ -1,3 +1,4 @@
+var noPay = false
 class Tile {
   constructor(x, y, factory) {
     this.x = x
@@ -36,6 +37,8 @@ class Tile {
   }
 
   pay() {
+    if (noPay)
+      return true
     var items = 0
     for (var i = 0; i < this.cost.length; i++) {
       if (this.cost[i].id == 0) {

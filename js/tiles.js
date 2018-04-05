@@ -23,7 +23,7 @@ tileClasses.push(Conveyorbelt)
 class Treefarm extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
-    this.maxwork = 96
+    this.maxwork = 96 * 5
     this.currentwork = 0
     this.name = "treefarm"
     this.hasNoInventory = true
@@ -52,12 +52,12 @@ tileClasses.push(Treefarm)
 class Saw extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
-    this.maxwork = 96
+    this.maxwork = 48
     this.currentwork = 0
     this.name = "saw"
     this.cost = [{
         "id": 0,
-        "count": 50
+        "count": 750
       },
       {
         "id": 1,
@@ -75,11 +75,13 @@ class Saw extends Tile {
     //Items für ein Pank
     var requieredCount = 5
     if (this.input.countOf(1) >= requieredCount) {
-      if (this.currentwork == 96) {
+      if (this.currentwork == this.maxwork) {
         this.input.take(1, requieredCount, this.factory)
-        var item = new Item(2, this.x * 48, this.y * 48)
-        this.factory.items.push(item)
-        item.setDFromDirection(this.direction)
+        for (var i = 0; i < 4; i++) {
+          var item = new Item(2, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+        }
         this.currentwork = 0
       } else {
         this.currentwork++
@@ -91,6 +93,57 @@ class Saw extends Tile {
 }
 tileClasses.push(Saw)
 
+class Charcoalmeiler extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96 * 10
+    this.currentwork = 0
+    this.name = "charcoalmeiler"
+    this.cost = [{
+        "id": 0,
+        "count": 1000
+      },
+      {
+        "id": 3,
+        "count": 30
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["charcoalmeiler10", "charcoalmeiler10", "charcoalmeiler10", "charcoalmeiler11", "charcoalmeiler11", "charcoalmeiler11", "charcoalmeiler12", "charcoalmeiler12", "charcoalmeiler12", "charcoalmeiler13", "charcoalmeiler13", "charcoalmeiler13", "charcoalmeiler14", "charcoalmeiler14", "charcoalmeiler14", "charcoalmeiler15", "charcoalmeiler15", "charcoalmeiler15", "charcoalmeiler16", "charcoalmeiler16", "charcoalmeiler16", "charcoalmeiler17", "charcoalmeiler17", "charcoalmeiler17", "charcoalmeiler18", "charcoalmeiler18", "charcoalmeiler18", "charcoalmeiler19", "charcoalmeiler19", "charcoalmeiler19", "charcoalmeiler110", "charcoalmeiler111", "charcoalmeiler110", "charcoalmeiler111", "charcoalmeiler110", "charcoalmeiler111", "charcoalmeiler110", "charcoalmeiler111", "charcoalmeiler110", "charcoalmeiler111", "charcoalmeiler110", "charcoalmeiler111", "charcoalmeiler110", "charcoalmeiler111", "charcoalmeiler112", "charcoalmeiler112", "charcoalmeiler112", "charcoalmeiler112", "charcoalmeiler112", "charcoalmeiler113", "charcoalmeiler113", "charcoalmeiler113", "charcoalmeiler113", "charcoalmeiler113", "charcoalmeiler114", "charcoalmeiler114", "charcoalmeiler114", "charcoalmeiler114", "charcoalmeiler114"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime/4)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  work() {
+    //Items für ein Pank
+    var requieredCount = 10
+    if (this.input.countOf(2) >= requieredCount) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(2, requieredCount, this.factory)
+        for (var i = 0; i < 5; i++) {
+          var item = new Item(4, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+        }
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+tileClasses.push(Charcoalmeiler)
+
 class Quarry extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
@@ -100,8 +153,8 @@ class Quarry extends Tile {
     this.hasNoInventory = true
     this.cost = [{
       "id": 0,
-      "count": 100
-    },{
+      "count": 10000
+    }, {
       "id": 2,
       "count": 50
     }]

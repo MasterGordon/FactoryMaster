@@ -1,6 +1,5 @@
 $(document).ready(function() {
   $(document).keypress(function(e) {
-    console.log(e.originalEvent)
     switch (e.originalEvent.key) {
       case "1":
         //BUILD
