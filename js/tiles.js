@@ -7,6 +7,7 @@ class Conveyorbelt extends Tile {
     super(x, y, factory)
     this.name = "conveyorbelt"
     this.hasNoInventory = true
+    this.index = 0
     this.cost = [{
       "id": 0,
       "count": 20
@@ -26,6 +27,7 @@ class Treefarm extends Tile {
     this.maxwork = 96 * 5
     this.currentwork = 0
     this.name = "treefarm"
+    this.index = 1
     this.hasNoInventory = true
     this.cost = [{
       "id": 0,
@@ -55,6 +57,7 @@ class Saw extends Tile {
     this.maxwork = 48
     this.currentwork = 0
     this.name = "saw"
+    this.index = 2
     this.cost = [{
         "id": 0,
         "count": 750
@@ -99,6 +102,7 @@ class Charcoalmeiler extends Tile {
     this.maxwork = 96 * 10
     this.currentwork = 0
     this.name = "charcoalmeiler"
+    this.index = 3
     this.cost = [{
         "id": 0,
         "count": 1000
@@ -148,6 +152,7 @@ class Quarry extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
     this.maxwork = 96 * 3
+    this.index = 4
     this.currentwork = 0
     this.name = "quarry"
     this.hasNoInventory = true
@@ -181,6 +186,7 @@ class Collector extends Tile {
     super(x, y, factory)
     this.name = "collector"
     this.hasNoInventory = true
+    this.index = 5
     this.cost = [{
       "id": 0,
       "count": 50
@@ -207,6 +213,7 @@ class Spliter extends Tile {
     super(x, y, factory)
     this.name = "spliter"
     this.hasNoInventory = true
+    this.index = 6
     this.odd = true
     this.cost = [{
       "id": 0,
@@ -268,6 +275,7 @@ class Warehouse extends Tile {
     this.hasNoInventory = true
     this.maxwork = 48 * 10
     this.sellPower = 500
+    this.index = 7
     this.cost = [{
       "id": 0,
       "count": 20000

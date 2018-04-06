@@ -30,10 +30,80 @@ $(document).ready(function() {
   requestAnimationFrame(loop)
 })
 
+var game = {}
+
+$(window).on("beforeunload", function() {
+  save()
+})
+
+function save() {
+  game = {}
+  game.money = money
+  game.inventory = []
+  for (var i = 0; i < inventory.items.length; i++) {
+    game.inventory.push(inventory.items[i].id)
+  }
+  game.factorys = []
+  for (var i = 0; i < factorys.length; i++) {
+    game.factorys.push({})
+    game.factorys[i].tier = factorys[i].tier
+    game.factorys[i].tiles = []
+    for (var x = 0; x < 25; x++) {
+      game.factorys[i].tiles[x] = []
+      for (var y = 0; y < 12; y++) {
+        game.factorys[i].tiles[x][y] = 0
+      }
+    }
+    for (var x = 0; x < 25; x++) {
+      for (var y = 0; y < 12; y++) {
+        if (factorys[i].tiles[x][y] != 0) {
+          game.factorys[i].tiles[x][y] = {}
+          game.factorys[i].tiles[x][y].index = factorys[i].tiles[x][y].index
+          game.factorys[i].tiles[x][y].direction = factorys[i].tiles[x][y].direction
+          game.factorys[i].tiles[x][y].x = factorys[i].tiles[x][y].x
+          game.factorys[i].tiles[x][y].y = factorys[i].tiles[x][y].y
+          if (factorys[i].tiles[x][y].options != undefined) {
+            for (var o = 0; o < factorys[i].tiles[x][y].options.length; o++) {
+              var val = factorys[i].tiles[x][y].options[o].var
+              game.factorys[i].tiles[x][y][val] = factorys[i].tiles[x][y][val]
+            }
+          }
+        }
+      }
+    }
+  }
+  Cookies.set("game", JSON.stringify(game))
+}
+
 function loadGameData() {
-  //TODO: Check for Cookies
+  //Keine Save Vorhanden
   factorys.push(new Factory())
   inventory = new Inventory()
+  game = Cookies.get("game")
+  if (game != undefined) {
+    game = JSON.parse(game)
+    money = game.money
+    inventory = new Inventory()
+    factorys = []
+    for (var i = 0; i < game.inventory.length; i++) {
+      inventory.addItem(new Item(game.inventory[i]))
+    }
+    for (var i = 0; i < game.factorys.length; i++) {
+      factorys.push(new Factory)
+      for (var x = 0; x < 25; x++) {
+        for (var y = 0; y < 12; y++) {
+          if (game.factorys[i].tiles[x][y] != 0) {
+            var keys = Object.keys(game.factorys[i].tiles[x][y])
+            factorys[i].tiles[x][y] = new tileClasses[game.factorys[i].tiles[x][y].index](game.factorys[i].tiles[x][y].x, game.factorys[i].tiles[x][y].y)
+            factorys[i].tiles[x][y].factory = factorys[i]
+            for (var key = 0; key < keys.length; key++) {
+              factorys[i].tiles[x][y][keys[key]] = game.factorys[i].tiles[x][y][keys[key]]
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 function loadItems() {

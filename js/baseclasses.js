@@ -171,11 +171,13 @@ class Item {
 class Factory {
   constructor(tier) {
     this.tier = tier
+    if (this.tier == undefined)
+      this.tier = 0
     this.tiles = []
     this.items = []
-    for (var x = 0; x < 32; x++) {
+    for (var x = 0; x < 25; x++) {
       this.tiles[x] = []
-      for (var y = 0; y < 16; y++) {
+      for (var y = 0; y < 12; y++) {
         this.tiles[x][y] = 0
       }
     }
@@ -196,8 +198,8 @@ class Factory {
 
   getTiles() {
     var temp = []
-    for (var x = 0; x < 32; x++) {
-      for (var y = 0; y < 16; y++) {
+    for (var x = 0; x < 25; x++) {
+      for (var y = 0; y < 12; y++) {
         if (this.tiles[x][y] != 0) {
           temp.push(this.tiles[x][y])
         }
@@ -216,8 +218,8 @@ class Factory {
   }
 
   workTiles() {
-    for (var x = 0; x < 32; x++) {
-      for (var y = 0; y < 16; y++) {
+    for (var x = 0; x < 25; x++) {
+      for (var y = 0; y < 12; y++) {
         if (this.tiles[x][y] != 0) {
           this.tiles[x][y].work()
         }
