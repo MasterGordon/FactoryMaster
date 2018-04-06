@@ -186,11 +186,16 @@ class Factory {
   moveItems() {
     for (var i = 0; i < this.items.length; i++) {
       this.items[i].move()
-      if (this.items[i].x % 48 == 0 && this.items[i].y % 48 == 0) {
-        var tile = this.tiles[this.items[i].x / 48][this.items[i].y / 48]
-        if (tile != 0) {
-          if (tile.input.items.indexOf(this.items[i]) == -1)
-            tile.input.addItem(this.items[i])
+      if (this.items[i].x <= 0 || this.items[i].x >= 1200 || this.items[i].y <= 0 || this.items[i].y >= 576) {
+        console.log("removed Item")
+        this.deleteItem(this.items[i])
+      } else {
+        if (this.items[i].x % 48 == 0 && this.items[i].y % 48 == 0) {
+          var tile = this.tiles[this.items[i].x / 48][this.items[i].y / 48]
+          if (tile != 0) {
+            if (tile.input.items.indexOf(this.items[i]) == -1)
+              tile.input.addItem(this.items[i])
+          }
         }
       }
     }

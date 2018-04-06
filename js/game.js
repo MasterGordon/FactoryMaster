@@ -128,7 +128,7 @@ function loadLang() {
   lang = json
 }
 
-function loopp(timestamp) {
+function loop(timestamp) {
   //Check Gametick Rate
   if (timestamp < lastFrameTimeMs + (1000 / 48)) {
     requestAnimationFrame(loop)
@@ -152,7 +152,7 @@ function loopp(timestamp) {
 
 var lastRender = 0
 
-function loop(timestamp) {
+function loopp(timestamp) {
   var progress = timestamp - lastRender
 
   gametick(progress)
@@ -161,6 +161,7 @@ function loop(timestamp) {
   lastRender = timestamp
   window.requestAnimationFrame(loop)
 }
+var tick = []
 
 function gametick(timestep) {
   //time gibt an in den Wievielten von 40 Ticks man sich befindet
@@ -171,6 +172,11 @@ function gametick(timestep) {
     factorys[i].moveItems()
     factorys[i].workTiles()
     factorys[i].despawnOldItems()
+  }
+  tick.push(new Date().getTime())
+  if (tick.length > 48) {
+    tick = tick.splice(1)
+    $("#speed").text("Game Speed: " + ((tick[47] - tick[0]+30) / 10) + "%")
   }
 }
 
