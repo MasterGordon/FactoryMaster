@@ -23,6 +23,11 @@ var mode = "none"
 var renderItems = true
 
 $(document).ready(function() {
+  $("#speed").click(function() {
+    save()
+    $("#speed").fadeOut("fast")
+    $("#speed").fadeIn("fast")
+  })
   loadGameData()
   loadItems()
   loadLang()
@@ -176,7 +181,7 @@ function gametick(timestep) {
   tick.push(new Date().getTime())
   if (tick.length > 48) {
     tick = tick.splice(1)
-    $("#speed").text("Game Speed: " + ((tick[47] - tick[0]+30) / 10) + "%")
+    $("#speed").text("Game Speed: " + ((tick[47] - tick[0] + 30) / 10) + "%")
   }
 }
 
