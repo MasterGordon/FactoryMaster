@@ -168,11 +168,14 @@ class Item {
   }
 }
 
+//var bodenvorkommen = ["copper","stonecoal","browncoal",""]
+
 class Factory {
   constructor(tier) {
     this.tier = tier
     if (this.tier == undefined)
       this.tier = 0
+
     this.tiles = []
     this.items = []
     for (var x = 0; x < 25; x++) {
@@ -186,7 +189,7 @@ class Factory {
   moveItems() {
     for (var i = 0; i < this.items.length; i++) {
       this.items[i].move()
-      if (this.items[i].x <= 0 || this.items[i].x >= 1200 || this.items[i].y <= 0 || this.items[i].y >= 576) {
+      if (this.items[i].x < 0 || this.items[i].x >= 1200 || this.items[i].y < 0 || this.items[i].y >= 576) {
         console.log("removed Item")
         this.deleteItem(this.items[i])
       } else {
