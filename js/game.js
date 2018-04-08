@@ -23,10 +23,13 @@ var mode = "none"
 var renderItems = true
 
 $(document).ready(function() {
-  $("#speed").click(function() {
+  $("#save").click(function() {
     save()
-    $("#speed").fadeOut("fast")
-    $("#speed").fadeIn("fast")
+    $("#textarea").text(JSON.stringify(game))
+  })
+  $("#load").click(function() {
+    game = JSON.parse($("#textarea").val())
+    loadGameData()
   })
   loadGameData()
   loadItems()
@@ -35,10 +38,10 @@ $(document).ready(function() {
   requestAnimationFrame(loop)
 })
 
-var game = {}
+var game = 0
 
 $(window).on("beforeunload", function() {
-  save()
+  //save()
 })
 
 function save() {
@@ -84,9 +87,9 @@ function loadGameData() {
   //Keine Save Vorhanden
   factorys.push(new Factory())
   inventory = new Inventory()
-  game = Cookies.get("game")
-  if (game != undefined) {
-    game = JSON.parse(game)
+  //game = Cookies.get("game")
+  if (game != 0) {
+    //game = JSON.parse(game)
     money = game.money
     inventory = new Inventory()
     factorys = []
