@@ -25,7 +25,7 @@ var renderItems = true
 $(document).ready(function() {
   $("#save").click(function() {
     save()
-    $("#textarea").text(JSON.stringify(game))
+    $("#textarea").val(JSON.stringify(game))
   })
   $("#load").click(function() {
     game = JSON.parse($("#textarea").val())
