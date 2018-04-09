@@ -66,8 +66,8 @@ function save() {
       for (var y = 0; y < 12; y++) {
         if (factorys[i].tiles[x][y] != 0) {
           game.factorys[i].tiles[x][y] = {}
-          game.factorys[i].tiles[x][y].index = factorys[i].tiles[x][y].index
-          game.factorys[i].tiles[x][y].direction = factorys[i].tiles[x][y].direction
+          game.factorys[i].tiles[x][y].i = factorys[i].tiles[x][y].i
+          game.factorys[i].tiles[x][y].d = directions[factorys[i].tiles[x][y].direction].d
           game.factorys[i].tiles[x][y].x = factorys[i].tiles[x][y].x
           game.factorys[i].tiles[x][y].y = factorys[i].tiles[x][y].y
           if (factorys[i].tiles[x][y].options != undefined) {
@@ -102,10 +102,13 @@ function loadGameData() {
         for (var y = 0; y < 12; y++) {
           if (game.factorys[i].tiles[x][y] != 0) {
             var keys = Object.keys(game.factorys[i].tiles[x][y])
-            factorys[i].tiles[x][y] = new tileClasses[game.factorys[i].tiles[x][y].index](game.factorys[i].tiles[x][y].x, game.factorys[i].tiles[x][y].y)
+            factorys[i].tiles[x][y] = new tileClasses[game.factorys[i].tiles[x][y].i](game.factorys[i].tiles[x][y].x, game.factorys[i].tiles[x][y].y)
             factorys[i].tiles[x][y].factory = factorys[i]
             for (var key = 0; key < keys.length; key++) {
-              factorys[i].tiles[x][y][keys[key]] = game.factorys[i].tiles[x][y][keys[key]]
+              if (keys[key] == "d")
+                factorys[i].tiles[x][y].direction = d[game.factorys[i].tiles[x][y]["d"]]
+              else
+                factorys[i].tiles[x][y][keys[key]] = game.factorys[i].tiles[x][y][keys[key]]
             }
           }
         }

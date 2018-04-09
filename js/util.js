@@ -1,25 +1,31 @@
 var directions = {
   "right": {
+    "d": 0,
     "degree": 0,
     "dx": 1,
     "dy": 0
   },
   "down": {
+    "d": 1,
     "degree": 90,
     "dx": 0,
     "dy": 1
   },
   "left": {
+    "d": 2,
     "degree": 180,
     "dx": -1,
     "dy": 0
   },
   "up": {
+    "d": 3,
     "degree": 270,
     "dx": 0,
     "dy": -1
   }
 }
+
+var d = ["right","down","left","up"]
 
 //Umrechnung von Grad zu Bogenmaß
 var TO_RADIANS = Math.PI / 180;
