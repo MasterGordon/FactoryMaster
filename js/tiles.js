@@ -75,15 +75,114 @@ class Saw extends Tile {
   work() {
     //Items für ein Pank
     var requieredCount = 5
-    if (this.input.countOf(1) >= requieredCount) {
+    if (this.input.countOf(1) >= requieredCount || this.input.countOf(2) >= 1) {
       if (this.currentwork == this.maxwork) {
-        this.input.take(1, requieredCount, this.factory)
-        for (var i = 0; i < 4; i++) {
-          var item = new Item(2, this.x * 48, this.y * 48)
+        if (this.input.countOf(1) >= requieredCount) {
+          this.input.take(1, requieredCount, this.factory)
+          for (var i = 0; i < 4; i++) {
+            var item = new Item(2, this.x * 48, this.y * 48)
+            this.factory.items.push(item)
+            item.setDFromDirection(this.direction)
+          }
+        } else {
+          this.input.take(2, 1, this.factory)
+          var item = new Item(5, this.x * 48, this.y * 48)
           this.factory.items.push(item)
           item.setDFromDirection(this.direction)
         }
         this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
+class Weaver extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 48 * 3
+    this.currentwork = 0
+    this.name = "weaver"
+    this.i = 10
+    this.cost = [{
+        "id": 2,
+        "count": 200
+      },
+      {
+        "id": 3,
+        "count": 100
+      },
+      {
+        "id": 0,
+        "count": 25000
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["weaver10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    //Items für ein Pank
+    var requieredCount = 5
+    if (this.input.countOf(2) >= requieredCount) {
+      if (this.currentwork == this.maxwork) {
+        this.currentwork = 0
+        var item = new Item(9, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
+class Papermanufactory extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 48 * 10
+    this.currentwork = 0
+    this.name = "papermanufactory"
+    this.i = 11
+    this.cost = [{
+        "id": 2,
+        "count": 200
+      },
+      {
+        "id": 3,
+        "count": 500
+      },
+      {
+        "id": 0,
+        "count": 10000
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["papermanufactory10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    //Items für ein Pank
+    var requieredCount = 5
+    if (this.input.countOf(9) >= 10 && this.input.countOf(5) >= 100) {
+      if (this.currentwork == this.maxwork) {
+        this.currentwork = 0
+        for (var i = 0; i < 10; i++) {
+          var item = new Item(7, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+        }
       } else {
         this.currentwork++
       }
@@ -117,7 +216,7 @@ class Charcoalmeiler extends Tile {
   }
 
   getImage(fulltime, layer) {
-    fulltime = Math.round(fulltime/4)
+    fulltime = Math.round(fulltime / 4)
     if (this.images[layer].length == 0)
       return "0"
     return this.images[layer][(fulltime % this.images[layer].length)]
@@ -261,6 +360,104 @@ class Spliter extends Tile {
   }
 }
 
+class FilterRight extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.name = "filterright"
+    this.hasNoInventory = true
+    this.i = 9
+    this.filter = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50000
+    }, {
+      "id": 2,
+      "count": 200
+    }]
+    this.options = [{
+      "type": "item",
+      "var": "filter"
+    }]
+    this.texture = {
+      "0": ["conveyorbelt00", "conveyorbelt01", "conveyorbelt02", "conveyorbelt03", "conveyorbelt04", "conveyorbelt05", "conveyorbelt06"],
+      "1": ["filterright10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    while (this.input.items.length > 0) {
+      var item = this.input.items.pop()
+      var d = this.direction
+      if (item.id == this.filter)
+        switch (this.direction) {
+          case "right":
+            d = "down"
+            break;
+          case "down":
+            d = "left"
+            break;
+          case "left":
+            d = "up"
+            break;
+          case "up":
+            d = "right"
+            break;
+        }
+      item.setDFromDirection(d)
+    }
+  }
+}
+
+class FilterLeft extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.name = "filterleft"
+    this.hasNoInventory = true
+    this.i = 8
+    this.filter = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50000
+    }, {
+      "id": 2,
+      "count": 200
+    }]
+    this.options = [{
+      "type": "item",
+      "var": "filter"
+    }]
+    this.texture = {
+      "0": ["conveyorbelt00", "conveyorbelt01", "conveyorbelt02", "conveyorbelt03", "conveyorbelt04", "conveyorbelt05", "conveyorbelt06"],
+      "1": ["filterleft10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    while (this.input.items.length > 0) {
+      var item = this.input.items.pop()
+      var d = this.direction
+      if (item.id == this.filter)
+        switch (this.direction) {
+          case "right":
+            d = "up"
+            break;
+          case "down":
+            d = "right"
+            break;
+          case "left":
+            d = "down"
+            break;
+          case "up":
+            d = "left"
+            break;
+        }
+      item.setDFromDirection(d)
+    }
+  }
+}
+
 class Warehouse extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
@@ -274,7 +471,7 @@ class Warehouse extends Tile {
       "count": 20000
     }]
     this.pivot = 0
-    this.toSell = 1
+    this.toSell = 0
     this.options = [{
       "type": "item",
       "var": "toSell"
@@ -311,3 +508,7 @@ tileClasses.push(Quarry)
 tileClasses.push(Collector)
 tileClasses.push(Spliter)
 tileClasses.push(Warehouse)
+tileClasses.push(FilterLeft)
+tileClasses.push(FilterRight)
+tileClasses.push(Weaver)
+tileClasses.push(Papermanufactory)

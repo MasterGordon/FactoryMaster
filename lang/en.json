@@ -14,7 +14,7 @@
     },
     "saw": {
       "name": "Saw",
-      "description": "Cuts 5 Logs in to 4 Planks. Works only if it contains 5 Log. It works fast!"
+      "description": "Cuts 5 Logs in to 4 Planks. Works only if it contains 5 Log. Can also cut Planks into Sawdust. It works fast!"
     },
     "spliter": {
       "name": "Spliter",
@@ -39,14 +39,37 @@
     "charcoalmeiler": {
       "name": "Charcoal Meiler",
       "description": "Requieres 10 Planks to burn them down to 5 Charcoal."
+    },
+    "papermanufactory": {
+      "name": "Paper Manufactory",
+      "description": "Uses 10 Sive and 100 Sawdust to create 10 Rawpaper"
+    },
+    "weaver": {
+      "name": "Weaver",
+      "description": "Makes a Siev out of 5 Planks."
+    },
+    "filterleft": {
+      "name": "Item Filter (left)",
+      "description": "Puts a selected Item to the left and all other straight.",
+      "options": {
+        "filter": "Filtered Item"
+      }
+    },
+    "filterright": {
+      "name": "Item Filter (right)",
+      "description": "Puts a selected Item to the right and all other straight.",
+      "options": {
+        "filter": "Filtered Item"
+      }
     }
   },
-  "items": ["None", "Log", "Planks", "Stone","Charcoal"],
+  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Koks", "Briquettes"],
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
   "player": "Player",
   "infotooltips": ["Build", "Move", "Rotate", "Delete!", "", "Upgrade", "Information", "", "Go To Space!!"],
   "cost": "Cost",
   "clickToSell": "Click on items to sell them.",
-  "money": "Dollars"
+  "money": "Dollars",
+  "numbers": ["", " Thousand", " Million", " Billion", " Trillion", " Quadrillion", " Quintillion", " Sextillion", " Septillion", " Octillion", " Nonillion", " Decillion", " Undecillion", " Duodecillion", " Tredecillion", " Quattuordecillion", " Quindecillion", " Sexdecillion", " Septendecillion", " Octodecillion", " Novemdecillion", " Vigintillion"]
 }

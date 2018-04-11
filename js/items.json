@@ -19,5 +19,37 @@
     "id": 4,
     "name": "charcoal",
     "value": 14
+  },{
+    "id": 5,
+    "name": "sawdust",
+    "value": 1
+  },{
+    "id": 6,
+    "name": "charcoaldust",
+    "value": 3
+  },{
+    "id": 7,
+    "name": "rawpaper",
+    "value": 30
+  },{
+    "id": 8,
+    "name": "paper",
+    "value": 200
+  },{
+    "id": 9,
+    "name": "siev",
+    "value": 33
+  },{
+    "id": 10,
+    "name": "paperfilter",
+    "value": 100
+  },{
+    "id": 11,
+    "name": "koks",
+    "value": 14
+  },{
+    "id": 12,
+    "name": "briquettes",
+    "value": 14
   }]
 }

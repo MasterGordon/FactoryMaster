@@ -289,7 +289,7 @@ function render() {
   } else {
     drawInventory(inventory, lang["player"])
   }
-  $('#money').text(money + " " + lang.money)
+  $('#money').text(formatCount(money) + " " + lang.money)
   if (mode == "showmore") {
     drawBigInventory(inventory)
   }
