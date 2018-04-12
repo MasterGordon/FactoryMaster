@@ -47,6 +47,8 @@ function infoDrawRotatedImage(image, x, y, angle) {
 }
 
 function formatCount(c) {
+  if (c == 0)
+    return 0
   for (var pow = 0; pow < lang.numbers.length; pow++) {
     if (c / Math.pow(10, pow * 3) >= 1 && c / Math.pow(10, pow * 3) < 1000) {
       return round(c / Math.pow(10, pow * 3), 3) + lang.numbers[pow]

@@ -1,0 +1,95 @@
+body {
+  background-image: url("../images/wool.jpg");
+}
+
+#login {
+  position: fixed;
+  width: 520;
+  background-color: floralwhite;
+  font-family: 'Electrolize', sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-color: #35170B;
+  border-width: 5;
+  border-style: solid;
+}
+
+#register {
+  position: fixed;
+  width: 520;
+  background-color: floralwhite;
+  font-family: 'Electrolize', sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-color: #35170B;
+  border-width: 5;
+  border-style: solid;
+}
+
+#login_button {
+  font-family: 'Electrolize', sans-serif;
+  background-color: #35170B;
+  color: white;
+  cursor: pointer;
+}
+
+#register_button {
+  font-family: 'Electrolize', sans-serif;
+  background-color: #35170B;
+  color: white;
+  cursor: pointer;
+}
+
+p {
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
+  color: #35170B;
+}
+
+.change {
+  margin-top: 5px;
+  display: block;
+  text-align: center;
+  font-size: 1em;
+  color: #35170B;
+  cursor: pointer;
+}
+
+.change:hover {
+  display: block;
+  text-align: center;
+  font-size: 1em;
+  color: #FF6E35;
+}
+
+.form {
+  width: 400;
+  margin-left: 60;
+  font-size: 1.5em;
+  text-align: center;
+  border-color: #35170B;
+  border-width: 1;
+  border-style: solid;
+  color: #35170B;
+}
+
+.logo {
+  width: 500;
+  margin-left: 10;
+}
+
+body {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome and Opera */
+}

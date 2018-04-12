@@ -1,0 +1,93 @@
+<html>
+
+<head>
+  <title>Factory Master</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Electrolize" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/cssreset.css">
+  <link rel="stylesheet" type="text/css" href="css/login.css">
+  <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+  <!-- Libs -->
+  <script src="js/libs/jquery.js"></script>
+  <script src="js/libs/copyCSS.js"></script>
+  <script src="js/libs/js.cookie.js"></script>
+  <script src="jquery-ui/jquery-ui.min.js"></script>
+  <!-- Own scripts-->
+</head>
+
+<body>
+  <div id="login">
+    <img class="logo" draggable="false" src="images/logo.svg"><br><br>
+    <p>Username:</p><input class="form" id="login_username"></input><br><br>
+    <p>Password:</p><input class="form" id="login_password" type="password"></input><br><br>
+    <button class="form" id="login_button">Login</button>
+    <p class="change">Register?</p>
+  </div>
+  <div id="register">
+    <img class="logo" draggable="false" src="images/logo.svg"><br><br>
+    <p>Username:</p><input class="form" id="register_username"></input><br><br>
+    <p>Password:</p><input class="form" id="register_password1" type="password"></input><br><br>
+    <p>Repeat Password:</p><input class="form" id="register_password2" type="password"></input><br><br>
+    <button class="form" id="register_button">Register</button>
+    <p class="change">Login?</p>
+  </div>
+  <script>
+    $(window).resize(function() {
+      style();
+    })
+    $(document).ready(function() {
+      style();
+      $("#register").hide()
+    })
+
+    function style() {
+      var loginMarginTop = (window.innerHeight - $('#login').outerHeight()) / 2
+      var loginMarginLeft = (window.innerWidth - $('#login').outerWidth()) / 2
+      $('#login').css('margin-top', loginMarginTop)
+      $('#login').css('margin-left', loginMarginLeft)
+      var registerMarginTop = (window.innerHeight - $('#register').outerHeight()) / 2
+      var registerMarginLeft = (window.innerWidth - $('#register').outerWidth()) / 2
+      $('#register').css('margin-top', registerMarginTop)
+      $('#register').css('margin-left', registerMarginLeft)
+    }
+
+    $("#login_button").click(function() {
+      $.get("php/login.php?username=" + $("#login_username").val() + "&password=" + $("#login_password").val(), function(data) {
+        if (JSON.parse(data).status == "error") {
+          $("#login").css("background-color", "red")
+        } else {
+          $("#login").css("background-color", "green")
+          window.location.replace("game.html")
+        }
+      })
+    })
+
+    $("#register_button").click(function() {
+      $("#register_username").css("background-color", "white")
+      $("#register_password1").css("background-color", "white")
+      $("#register_password2").css("background-color", "white")
+      $.get("php/register.php?username=" + $("#register_username").val() + "&password1=" + $("#register_password1").val() + "&password2=" + $("#register_password2").val(), function(data) {
+        if (JSON.parse(data).status == "error") {
+          $("#register").css("background-color", "red")
+        } else if (JSON.parse(data).status == "succes") {
+          $("#login").css("background-color", "green")
+          window.location.replace("game.html")
+        } else {
+          $("#register_" + JSON.parse(data).status).css("background-color", "red")
+        }
+      })
+    })
+
+    $(".change").click(function() {
+      $("#login").toggle()
+      $("#register").toggle()
+    })
+    $(document).keypress(function(e){
+      if(e.which == 13){
+        $("button:visible").click()
+      }
+    })
+  </script>
+</body>
+
+</html>

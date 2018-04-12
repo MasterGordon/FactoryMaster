@@ -253,7 +253,7 @@ class Quarry extends Tile {
     this.hasNoInventory = true
     this.cost = [{
       "id": 0,
-      "count": 10000
+      "count": 5000
     }, {
       "id": 2,
       "count": 50

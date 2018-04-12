@@ -39,6 +39,14 @@ body {
   padding: 4;
 }
 
+#playerinfo {
+  position: fixed;
+  width: 100%;
+  text-align: right;
+  top: 0;
+  color: floralwhite;
+}
+
 #selectItem {
   position: fixed;
   border: 1px, solid, black;

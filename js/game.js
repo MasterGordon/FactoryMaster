@@ -5,6 +5,7 @@ var money = 100
 var items = []
 
 var time = 0
+var gametime = 0
 var timestep = 1000 / 48
 var delta = 0
 var lastFrameTimeMs = 0
@@ -22,14 +23,21 @@ var mode = "none"
 
 var renderItems = true
 
+var playername = "Player"
+var lastsave = 0
+
 $(document).ready(function() {
-  $("#save").click(function() {
+  $("#forcesave").click(function() {
     save()
-    $("#textarea").val(JSON.stringify(game))
   })
-  $("#load").click(function() {
-    game = JSON.parse($("#textarea").val())
-    loadGameData()
+  $("#logout").click(function() {
+    $.get("php/logout.php", function(data) {
+      window.location.replace("index.html")
+    })
+  })
+  $.get("php/playerdata.php", function(data) {
+    if (JSON.parse(data).status == "nologin")
+      window.location.replace("index.html")
   })
   loadGameData()
   loadItems()
@@ -47,6 +55,7 @@ $(window).on("beforeunload", function() {
 function save() {
   game = {}
   game.money = money
+  game.gametime = gametime
   game.inventory = []
   for (var i = 0; i < inventory.items.length; i++) {
     game.inventory.push(inventory.items[i].id)
@@ -81,40 +90,64 @@ function save() {
     }
   }
   Cookies.set("game", JSON.stringify(game))
+  $.ajax({
+    url: 'php/savegame.php',
+    type: 'POST',
+    data: {
+      gamedata: JSON.stringify(game),
+      "gametime": gametime
+    },
+    success: function(result) {
+      console.log(result)
+      if (JSON.parse(result).status == "succes") {
+        lastsave = new Date().getTime()
+      }
+    }
+  });
 }
 
 function loadGameData() {
+  lastsave = new Date().getTime()
   //Keine Save Vorhanden
   factorys.push(new Factory())
   inventory = new Inventory()
   //game = Cookies.get("game")
-  if (game != 0) {
-    //game = JSON.parse(game)
-    money = game.money
-    inventory = new Inventory()
-    factorys = []
-    for (var i = 0; i < game.inventory.length; i++) {
-      inventory.addItem(new Item(game.inventory[i]))
+  $.get("php/playerdata.php", function(data) {
+    if (JSON.parse(data).gametime != undefined) {
+      game = JSON.parse(data)
+    } else {
+      game = 0
     }
-    for (var i = 0; i < game.factorys.length; i++) {
-      factorys.push(new Factory)
-      for (var x = 0; x < 25; x++) {
-        for (var y = 0; y < 12; y++) {
-          if (game.factorys[i].tiles[x][y] != 0) {
-            var keys = Object.keys(game.factorys[i].tiles[x][y])
-            factorys[i].tiles[x][y] = new tileClasses[game.factorys[i].tiles[x][y].i](game.factorys[i].tiles[x][y].x, game.factorys[i].tiles[x][y].y)
-            factorys[i].tiles[x][y].factory = factorys[i]
-            for (var key = 0; key < keys.length; key++) {
-              if (keys[key] == "d")
-                factorys[i].tiles[x][y].direction = d[game.factorys[i].tiles[x][y]["d"]]
-              else
-                factorys[i].tiles[x][y][keys[key]] = game.factorys[i].tiles[x][y][keys[key]]
+    if (game != 0) {
+      //game = JSON.parse(game)
+      console.log("Loading Game")
+      money = game.money
+      gametime = game.gametime
+      inventory = new Inventory()
+      factorys = []
+      for (var i = 0; i < game.inventory.length; i++) {
+        inventory.addItem(new Item(game.inventory[i]))
+      }
+      for (var i = 0; i < game.factorys.length; i++) {
+        factorys.push(new Factory)
+        for (var x = 0; x < 25; x++) {
+          for (var y = 0; y < 12; y++) {
+            if (game.factorys[i].tiles[x][y] != 0) {
+              var keys = Object.keys(game.factorys[i].tiles[x][y])
+              factorys[i].tiles[x][y] = new tileClasses[game.factorys[i].tiles[x][y].i](game.factorys[i].tiles[x][y].x, game.factorys[i].tiles[x][y].y)
+              factorys[i].tiles[x][y].factory = factorys[i]
+              for (var key = 0; key < keys.length; key++) {
+                if (keys[key] == "d")
+                  factorys[i].tiles[x][y].direction = d[game.factorys[i].tiles[x][y]["d"]]
+                else
+                  factorys[i].tiles[x][y][keys[key]] = game.factorys[i].tiles[x][y][keys[key]]
+              }
             }
           }
         }
       }
     }
-  }
+  });
 }
 
 function loadItems() {
@@ -177,6 +210,7 @@ var tick = []
 function gametick(timestep) {
   //time gibt an in den Wievielten von 40 Ticks man sich befindet
   time++
+  gametime++
   time = time % 48
   //Wird 40 mal in einer Sekunde aufgerufen
   for (var i = 0; i < factorys.length; i++) {
@@ -188,6 +222,9 @@ function gametick(timestep) {
   if (tick.length > 48) {
     tick = tick.splice(1)
     $("#speed").text("Game Speed: " + ((tick[47] - tick[0] + 30) / 10) + "%")
+  }
+  if (Math.round((new Date().getTime() - lastsave) / 60000) > 5 && lastsave != 0) {
+    save()
   }
 }
 
@@ -293,6 +330,7 @@ function render() {
   if (mode == "showmore") {
     drawBigInventory(inventory)
   }
+  $('#lastsave').text("last save " + Math.round((new Date().getTime() - lastsave) / 60000) + "min ago")
 }
 
 function getItemFormId(id) {

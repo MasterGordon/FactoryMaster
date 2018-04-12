@@ -12,7 +12,11 @@ $(document).ready(function() {
 })
 
 function style() {
-  var screenMarginTop = window.innerHeight - 912
+  var top = 0
+  if (window.innerHeight < 910) {
+    top = 43
+  }
+  var screenMarginTop = window.innerHeight - 912 + top
   var screenMarginLeft = (window.innerWidth - 1200) / 2
   var itemCountMarginTop = screenMarginTop + 624
   var infoMarginLeft = screenMarginLeft + 768
