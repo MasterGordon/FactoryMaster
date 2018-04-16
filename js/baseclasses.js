@@ -168,14 +168,58 @@ class Item {
   }
 }
 
-//var bodenvorkommen = ["copper","stonecoal","browncoal",""]
+var bodenvorkommen = ["bauxite", //0
+  "beryllium", //1
+  "lead", //2
+  "chrome", //3
+  "diamonds", //4
+  "iron", //5
+  "naturalgas", //6
+  "oil", //7
+  "gold", //8
+  "kaolin", //9
+  "cobalt", //10
+  "coal", //11
+  "copper", //12
+  "lithium", //13
+  "magnesium", //14
+  "manganese", //15
+  "molybdenum", //16
+  "nickel", //17
+  "phosphate", //18
+  "platinum", //19
+  "potash", //20
+  "rubies", //21
+  "silver", //22
+  "soda", //23
+  "tantalum", //24
+  "titanium", //25
+  "uranium", //26
+  "vanadium", //27
+  "tungsten", //28
+  "zinc", //29
+  "tin", //30
+  "salt" //31
+]
 
 class Factory {
   constructor(tier) {
+    this.ores = []
     this.tier = tier
     if (this.tier == undefined)
       this.tier = 0
-
+    if (this.tier == 0) {
+      this.ores.push(5)
+      this.ores.push(11)
+      this.ores.push(12)
+      this.ores.push(23)
+    } else {
+      var myrng = new Math.seedrandom(this.tier);
+      this.ores.push(Math.abs(myrng.int32()) % bodenvorkommen.length)
+      this.ores.push(Math.abs(myrng.int32()) % bodenvorkommen.length)
+      this.ores.push(Math.abs(myrng.int32()) % bodenvorkommen.length)
+      this.ores.push(Math.abs(myrng.int32()) % bodenvorkommen.length)
+    }
     this.tiles = []
     this.items = []
     for (var x = 0; x < 25; x++) {
@@ -199,6 +243,26 @@ class Factory {
             if (tile.input.items.indexOf(this.items[i]) == -1)
               tile.input.addItem(this.items[i])
           }
+        }
+      }
+    }
+  }
+
+  unloadImages() {
+    for (var x = 0; x < 25; x++) {
+      for (var y = 0; y < 12; y++) {
+        if (this.tiles[x][y] != 0) {
+          this.tiles[x][y].unloadImages()
+        }
+      }
+    }
+  }
+
+  loadImages() {
+    for (var x = 0; x < 25; x++) {
+      for (var y = 0; y < 12; y++) {
+        if (this.tiles[x][y] != 0) {
+          this.tiles[x][y].loadImages()
         }
       }
     }

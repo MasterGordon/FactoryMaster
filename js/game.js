@@ -1,3 +1,9 @@
+var version = "Indev 1.0"
+
+var factorysToBuy = 0
+var factoryPrice = 50000
+var factoryRerollPrice = 2
+
 var factorys = []
 var inventory = {}
 var money = 100
@@ -56,6 +62,9 @@ function save() {
   game = {}
   game.money = money
   game.gametime = gametime
+  game.factorysToBuy = factorysToBuy
+  game.factoryRerollPrice = factoryRerollPrice
+  game.factoryPrice = factoryPrice
   game.inventory = []
   for (var i = 0; i < inventory.items.length; i++) {
     game.inventory.push(inventory.items[i].id)
@@ -113,7 +122,7 @@ function loadGameData() {
   inventory = new Inventory()
   //game = Cookies.get("game")
   $.get("php/playerdata.php", function(data) {
-    if (JSON.parse(data).gametime != undefined) {
+    if (JSON.parse(data).money != undefined) {
       game = JSON.parse(data)
     } else {
       game = 0
@@ -123,6 +132,9 @@ function loadGameData() {
       console.log("Loading Game")
       money = game.money
       gametime = game.gametime
+      factorysToBuy = game.factorysToBuy
+      factoryRerollPrice = game.factoryRerollPrice
+      factoryPrice = game.factoryPrice
       inventory = new Inventory()
       factorys = []
       for (var i = 0; i < game.inventory.length; i++) {
@@ -221,7 +233,7 @@ function gametick(timestep) {
   tick.push(new Date().getTime())
   if (tick.length > 48) {
     tick = tick.splice(1)
-    $("#speed").text("Game Speed: " + ((tick[47] - tick[0] + 30) / 10) + "%")
+    $("#speed").html("Game Speed: " + ((tick[47] - tick[0] + 30) / 10) + "%<br>" + version)
   }
   if (Math.round((new Date().getTime() - lastsave) / 60000) > 5 && lastsave != 0) {
     save()
@@ -376,6 +388,7 @@ function prepairRender() {
   $('#inventoryBig').hide()
   $('#selectItem').hide()
   $('#options').hide()
+  $('#selectFactory').hide()
   for (var i = 0; i < items.length; i++) {
     var tag = '<img id="itemSel_' + i + '" draggable="false" class="buildtile itemhover" src="images/items/' + items[i].name + '.png">'
     $('#selectItem').append(tag)
@@ -433,7 +446,7 @@ function prepairRender() {
   $('#clickToSell').text(lang.clickToSell)
 }
 
-var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "rocket.png"]
+var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "factorys.png"]
 
 var infoGlowOpacity = 0
 var infoGlowOpacityD = 0.03
@@ -450,6 +463,8 @@ function drawInfoBar() {
     selectedX = 2
   } else if (mode == "delete") {
     selectedX = 3
+  } else if (mode == "selectFactory") {
+    selectedX = 8
   }
 
   if (selectedX != -1) {
@@ -481,8 +496,8 @@ function drawInfoBar() {
     $('#infoDesc h1').text(lang.tiles[selectedTile.name].name)
     $('#infoDesc p').text(lang.tiles[selectedTile.name].description)
   } else {
-    $('#infoDesc h1').text("")
-    $('#infoDesc p').text("")
+    $('#infoDesc h1').text("Factory " + currentFactory)
+    $('#infoDesc p').html("<br>"+lang.mineralslable + "<br><br> - " + lang.minerals[factorys[currentFactory].ores[0]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[1]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[2]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[3]])
   }
   if (selectedTile.maxwork != 0 && mode != "selectbuilding" && mode != "building") {
     $('#infoDesc p').css("height", 154)

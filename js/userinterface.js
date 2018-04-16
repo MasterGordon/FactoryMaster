@@ -25,6 +25,8 @@ function style() {
   $('#screen').css('margin-left', screenMarginLeft)
   $('#buildselect').css('margin-top', screenMarginTop)
   $('#buildselect').css('margin-left', screenMarginLeft)
+  $('#selectFactory').css('margin-top', screenMarginTop)
+  $('#selectFactory').css('margin-left', screenMarginLeft)
   $('#selectItem').css('margin-top', screenMarginTop)
   $('#selectItem').css('margin-left', screenMarginLeft)
   $('#inventoryBig').css('margin-top', screenMarginTop)
@@ -193,6 +195,16 @@ function clickEvents() {
           //ROTATE BUTTON
           if (mode == "none") {
             mode = "delete"
+          } else {
+            closeUi()
+          }
+          break
+        case 8:
+          //selectFactory BUTTON
+          if (mode == "none") {
+            mode = "selectFactory"
+            drawFactorys()
+            $('#selectFactory').fadeIn(200)
           } else {
             closeUi()
           }
@@ -494,6 +506,11 @@ function closeUi() {
     $('#selectItem').fadeOut(200)
     return false
   }
+  if (mode == "selectFactory") {
+    mode = "none"
+    $('#selectFactory').fadeOut(200)
+    return false
+  }
 }
 
 function sort() {
@@ -609,5 +626,50 @@ function drawBigInventory(inventory) {
     itemCtx.fillText("x" + formattedCount, 4, 67)
 
     currentIndex++
+  }
+}
+
+function drawFactorys() {
+  $('#factoryScroll').empty()
+  if (factorysToBuy == 0)
+    factorysToBuy = gametime
+  for (var i = 0; i < factorys.length; i++) {
+    $('#factoryScroll').append('<div id="factory' + i + '" class="factory"><h1>Factory ' + i + '</h1><div class="minerals"><br><h2>' + lang.mineralslable + '</h2>' + "<br> - " + lang.minerals[factorys[i].ores[0]] + "<br> - " + lang.minerals[factorys[i].ores[1]] + "<br> - " + lang.minerals[factorys[i].ores[2]] + "<br> - " + lang.minerals[factorys[i].ores[3]] + '</div></div>')
+    $('#factory' + i).click(function() {
+      var id = $(this).attr("id");
+      id = parseInt(id.substr(7))
+      factorys[currentFactory].unloadImages()
+      factorys[id].loadImages()
+      currentFactory = id
+      closeUi()
+    })
+  }
+  $('#buyfactory').empty()
+  $('#buyfactory').append('<div id="reroll" class="factoryToBuy"><br><h2>' + lang.clickToBuyFactory + '</h2><img src="images/ui/reroll.png"/><span>' + lang.reroll + '<br><span>' + formatCount(factoryRerollPrice) + ' ' + lang.money + '</span></span></div>')
+  $('#reroll').click(function() {
+    if (money >= factoryRerollPrice) {
+      money -= factoryRerollPrice
+      factorysToBuy = gametime
+      factoryRerollPrice = factoryRerollPrice * 3.5
+      drawFactorys()
+    }
+  })
+  var myrng = new Math.seedrandom(factorysToBuy);
+  for (var i = 0; i < 4; i++) {
+    tier = Math.abs(myrng.int32())
+    var rng = new Math.seedrandom(tier);
+    $('#buyfactory').append('<div class="factoryToBuy" id="factoryToBuy' + tier + '"><br><p>' + lang.minerals[Math.abs(rng.int32()) % bodenvorkommen.length] + '</p><p>' + lang.minerals[Math.abs(rng.int32()) % bodenvorkommen.length] + '</p><p>' + lang.minerals[Math.abs(rng.int32()) % bodenvorkommen.length] + '</p><p>' + lang.minerals[Math.abs(rng.int32()) % bodenvorkommen.length] + '</p><h1>' + formatCount(factoryPrice) + " " + lang.money + '</h1></div>')
+    $('#factoryToBuy' + tier).click(function() {
+      var id = $(this).attr("id");
+      id = parseInt(id.substr(12))
+      if (money >= factoryPrice) {
+        money -= factoryPrice
+        factoryPrice = factoryPrice * 1.7 + 240000
+        factoryRerollPrice = Math.round(factoryRerollPrice / 2 + 1)
+        factorys.push(new Factory(id))
+        factorysToBuy = gametime
+        drawFactorys()
+      }
+    })
   }
 }

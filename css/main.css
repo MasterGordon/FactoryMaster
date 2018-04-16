@@ -39,6 +39,106 @@ body {
   padding: 4;
 }
 
+#selectFactory {
+  position: fixed;
+  border: 1px, solid, black;
+  border: solid;
+  border-color: yellow;
+  background-image: url(../images/infobg.png);
+  width: 1192;
+  height: 568;
+  padding: 4;
+}
+
+.factory {
+  float: left;
+  width: 289;
+  margin: 2;
+  height: 140;
+  font-family: 'Electrolize', sans-serif;
+  background-color: lightgray;
+}
+
+.factory h1 {
+  float: left;
+  font-size: 20;
+  line-height: 7;
+  width: 40%;
+  height: 100%;
+  margin-left: 10%;
+}
+
+.factory h2 {
+  font-size: 18;
+}
+
+#buyfactory {
+  width: 1192;
+  height: 128;
+  font-family: 'Electrolize', sans-serif;
+  color: floralwhite;
+}
+
+.factoryToBuy {
+  float: left;
+  height: 120;
+  width: 230;
+  background-color: lightgray;
+  margin: 2px;
+}
+
+.factoryToBuy p {
+  text-align: center;
+  color: black;
+  float: left;
+  font-size: 18px;
+  line-height: 29px;
+  width: 50%;
+}
+
+.factoryToBuy h1 {
+  text-align: center;
+  color: black;
+  float: left;
+  font-size: 20px;
+  line-height: 43px;
+  width: 100%;
+}
+
+.factoryToBuy h2 {
+  text-align: center;
+  color: black;
+  float: left;
+  font-size: 18px;
+  line-height: 43px;
+  width: 100%;
+}
+
+.factoryToBuy span {
+  text-align: center;
+  color: black;
+  float: left;
+  font-size: 18px;
+  line-height: 24px;
+  width: 65%;
+}
+
+.factoryToBuy span span {
+font-size: 12px;
+width: 100%
+}
+
+.factoryToBuy img {
+  float: left;
+  margin-left: 16;
+}
+
+#factoryScroll {
+  overflow-y: scroll;
+  width: 1192;
+  height: 440;
+}
+
 #playerinfo {
   position: fixed;
   width: 100%;
