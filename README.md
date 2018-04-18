@@ -24,7 +24,7 @@ i  |  Toggle Item Render (to Prevent Lags)
 ##
 [Link zur Aktuellen live Version][f6f130bf]
 
-  [f6f130bf]: https://polemoz.net/FactoryMaster/ "Link zur Aktuellen live Version"
+[f6f130bf]: https://polemoz.net/FactoryMaster/ "Link zur Aktuellen live Version"
 
 ## Programme zu Entwicklung
 
