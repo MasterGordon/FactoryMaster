@@ -15,6 +15,8 @@ if(isset($_SESSION["login"])){
   		while($row = $result->fetch_assoc()) {
         echo $row["gamedata"];
       }
+    }else{
+      echo '{}';
     }
   }
 }else{

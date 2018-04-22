@@ -494,10 +494,13 @@ function drawInfoBar() {
   }
   if (selectedTile != 0) {
     $('#infoDesc h1').text(lang.tiles[selectedTile.name].name)
-    $('#infoDesc p').text(lang.tiles[selectedTile.name].description)
+    if (selectedTile.maxwork != 0)
+      $('#infoDesc p').text((selectedTile.maxwork / 48) + " Sec | " + lang.tiles[selectedTile.name].description)
+    else
+      $('#infoDesc p').text(lang.tiles[selectedTile.name].description)
   } else {
     $('#infoDesc h1').text("Factory " + currentFactory)
-    $('#infoDesc p').html("<br>"+lang.mineralslable + "<br><br> - " + lang.minerals[factorys[currentFactory].ores[0]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[1]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[2]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[3]])
+    $('#infoDesc p').html("<br>" + lang.mineralslable + "<br><br> - " + lang.minerals[factorys[currentFactory].ores[0]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[1]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[2]] + "<br> - " + lang.minerals[factorys[currentFactory].ores[3]])
   }
   if (selectedTile.maxwork != 0 && mode != "selectbuilding" && mode != "building") {
     $('#infoDesc p').css("height", 154)

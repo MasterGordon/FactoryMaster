@@ -40,13 +40,25 @@
       "name": "Charcoal Meiler",
       "description": "Requieres 10 Planks to burn them down to 5 Charcoal."
     },
+    "advancedcharcoalmeiler": {
+      "name": "Advanced Charcoal Meiler",
+      "description": "Requieres 10 Planks to burn them down to 5 Charcoal. Creates Charcoaldust every 4th time."
+    },
+    "briquettepress": {
+      "name": "Briquettepress",
+      "description": "Requieres 5 Charcoaldust to press them into Briquettes."
+    },
+    "cokery": {
+      "name": "Cokery",
+      "description": "Burns 15 Charcoal into 15 Coke. Requieres 2 Briquettes or 2 Coke."
+    },
     "papermanufactory": {
       "name": "Paper Manufactory",
       "description": "Uses 10 Sive and 100 Sawdust to create 10 Rawpaper"
     },
     "weaver": {
       "name": "Weaver",
-      "description": "Makes a Siev out of 5 Planks."
+      "description": "Makes a Siev out of 5 Planks. Puts together Sievs and Paper/Rawpaper to make filter"
     },
     "filterleft": {
       "name": "Item Filter (left)",
@@ -96,7 +108,7 @@
     "tin",
     "salt"
   ],
-  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Koks", "Briquettes"],
+  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Coke", "Briquettes"],
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
   "player": "Player",

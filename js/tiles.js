@@ -133,7 +133,19 @@ class Weaver extends Tile {
     if (this.input.countOf(2) >= requieredCount) {
       if (this.currentwork == this.maxwork) {
         this.currentwork = 0
+        this.input.take(2, requieredCount, this.factory)
         var item = new Item(9, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+      } else {
+        this.currentwork++
+      }
+    } else if (this.input.countOf(9) >= 1 && this.input.countOf(7) >= 1) {
+      if (this.currentwork == this.maxwork) {
+        this.currentwork = 0
+        this.input.take(9, 1, this.factory)
+        this.input.take(7, 1, this.factory)
+        var item = new Item(10, this.x * 48, this.y * 48)
         this.factory.items.push(item)
         item.setDFromDirection(this.direction)
       } else {
@@ -177,6 +189,8 @@ class Papermanufactory extends Tile {
     var requieredCount = 5
     if (this.input.countOf(9) >= 10 && this.input.countOf(5) >= 100) {
       if (this.currentwork == this.maxwork) {
+        this.input.take(9, 10, this.factory)
+        this.input.take(5, 100, this.factory)
         this.currentwork = 0
         for (var i = 0; i < 10; i++) {
           var item = new Item(7, this.x * 48, this.y * 48)
@@ -243,6 +257,184 @@ class Charcoalmeiler extends Tile {
   }
 }
 
+class AdvancedCharcoalmeiler extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96 * 10
+    this.currentwork = 0
+    this.name = "advancedcharcoalmeiler"
+    this.i = 12
+    this.dust = 0
+    this.cost = [{
+        "id": 0,
+        "count": 50000
+      },
+      {
+        "id": 3,
+        "count": 1000
+      },
+      {
+        "id": 10,
+        "count": 200
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["advancedcharcoalmeiler10", "advancedcharcoalmeiler10", "advancedcharcoalmeiler10", "advancedcharcoalmeiler11", "advancedcharcoalmeiler11", "advancedcharcoalmeiler11", "advancedcharcoalmeiler12", "advancedcharcoalmeiler12", "advancedcharcoalmeiler12", "advancedcharcoalmeiler13", "advancedcharcoalmeiler13", "advancedcharcoalmeiler13", "advancedcharcoalmeiler14", "advancedcharcoalmeiler14", "advancedcharcoalmeiler14", "advancedcharcoalmeiler15", "advancedcharcoalmeiler15", "advancedcharcoalmeiler15", "advancedcharcoalmeiler16", "advancedcharcoalmeiler16", "advancedcharcoalmeiler16", "advancedcharcoalmeiler17", "advancedcharcoalmeiler17", "advancedcharcoalmeiler17", "advancedcharcoalmeiler18", "advancedcharcoalmeiler18", "advancedcharcoalmeiler18", "advancedcharcoalmeiler19", "advancedcharcoalmeiler19", "advancedcharcoalmeiler19", "advancedcharcoalmeiler110", "advancedcharcoalmeiler111", "advancedcharcoalmeiler110", "advancedcharcoalmeiler111", "advancedcharcoalmeiler110", "advancedcharcoalmeiler111", "advancedcharcoalmeiler110", "advancedcharcoalmeiler111", "advancedcharcoalmeiler110", "advancedcharcoalmeiler111", "advancedcharcoalmeiler110", "advancedcharcoalmeiler111", "advancedcharcoalmeiler110", "advancedcharcoalmeiler111", "advancedcharcoalmeiler112", "advancedcharcoalmeiler112", "advancedcharcoalmeiler112", "advancedcharcoalmeiler112", "advancedcharcoalmeiler112", "advancedcharcoalmeiler113", "advancedcharcoalmeiler113", "advancedcharcoalmeiler113", "advancedcharcoalmeiler113", "advancedcharcoalmeiler113", "advancedcharcoalmeiler114", "advancedcharcoalmeiler114", "advancedcharcoalmeiler114", "advancedcharcoalmeiler114", "advancedcharcoalmeiler114"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 4)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  work() {
+    //Items für ein Pank
+    var requieredCount = 10
+    if (this.input.countOf(2) >= requieredCount) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(2, requieredCount, this.factory)
+        for (var i = 0; i < 5; i++) {
+          var item = new Item(4, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+        }
+        this.dust++
+          if (this.dust == 4) {
+            var item = new Item(6, this.x * 48, this.y * 48)
+            this.factory.items.push(item)
+            item.setDFromDirection(this.direction)
+            this.dust = 0
+          }
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
+class Briquettepress extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96
+    this.currentwork = 0
+    this.name = "briquettepress"
+    this.i = 13
+    this.dust = 0
+    this.cost = [{
+      "id": 0,
+      "count": 100000
+    }]
+    this.texture = {
+      "0": [],
+      "1": ["briquettepress10", "briquettepress11", "briquettepress12", "briquettepress13", "briquettepress14", "briquettepress15", "briquettepress16", "briquettepress17", "briquettepress18", "briquettepress17", "briquettepress16", "briquettepress15", "briquettepress14", "briquettepress13", "briquettepress12", "briquettepress11", "briquettepress10", "briquettepress10", "briquettepress10"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 4)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  work() {
+    //Items für ein Pank
+    var requieredCount = 5
+    if (this.input.countOf(6) >= requieredCount) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(6, requieredCount, this.factory)
+        var item = new Item(12, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
+
+class Cokery extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96 * 10
+    this.currentwork = 0
+    this.name = "cokery"
+    this.i = 14
+    this.dust = 0
+    this.cost = [{
+        "id": 0,
+        "count": 60000
+      },
+      {
+        "id": 3,
+        "count": 1400
+      },
+      {
+        "id": 6,
+        "count": 20
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["cokery10", "cokery11", "cokery12", "cokery13"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  work() {
+    //Items für ein Pank
+    if (this.input.countOf(4) >= 15 && this.input.countOf(12) >= 2) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(12, 2, this.factory)
+        this.input.take(4, 15, this.factory)
+        for (var i = 0; i < 15; i++) {
+          var item = new Item(11, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+        }
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else if (this.input.countOf(4) >= 15 && this.input.countOf(11) >= 2) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(11, 2, this.factory)
+        this.input.take(4, 15, this.factory)
+        for (var i = 0; i < 15; i++) {
+          var item = new Item(11, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+        }
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
 class Quarry extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
@@ -287,7 +479,7 @@ class Collector extends Tile {
     }]
     this.texture = {
       "0": [],
-      "1": ["collector10"]
+      "1": ["collector13", "collector10", "collector11", "collector12", "collector13", "collector13", "collector13"]
     }
     this.loadImages()
   }
@@ -298,6 +490,13 @@ class Collector extends Tile {
       inventory.addItem(item)
       this.factory.deleteItem(item)
     }
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
   }
 }
 
@@ -512,3 +711,6 @@ tileClasses.push(FilterLeft)
 tileClasses.push(FilterRight)
 tileClasses.push(Weaver)
 tileClasses.push(Papermanufactory)
+tileClasses.push(AdvancedCharcoalmeiler)
+tileClasses.push(Briquettepress)
+tileClasses.push(Cokery)

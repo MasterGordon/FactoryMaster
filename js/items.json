@@ -18,7 +18,7 @@
   },{
     "id": 4,
     "name": "charcoal",
-    "value": 14
+    "value": 15
   },{
     "id": 5,
     "name": "sawdust",
@@ -46,10 +46,10 @@
   },{
     "id": 11,
     "name": "koks",
-    "value": 14
+    "value": 20
   },{
     "id": 12,
     "name": "briquettes",
-    "value": 14
+    "value": 16
   }]
 }
