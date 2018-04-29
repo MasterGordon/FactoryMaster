@@ -148,34 +148,35 @@ class FactoryInventory {
   }
 
   countOf(id) {
-    var n = 0
-    for (var i = 0; i < this.items.length; i++) {
-      if (this.items[i].id == id)
-        n++
-    }
-    return n
+    if (this.items.indexOf(id) != -1)
+      return this.itemcount[this.items.indexOf(id)]
+    else
+      return 0
   }
 
   addItem(item) {
+    var id = item
     if (item instanceof Item)
-      this.items.push(item)
+      id = item.id
+    if (this.items.indexOf(id) == -1) {
+      this.items.push(id)
+      this.itemcount.push(1)
+    } else {
+      this.itemcount[this.items.indexOf(id)]++
+    }
   }
 
-  take(id, count, factory) {
-    if (this.countOf(id) >= count) {
-      for (var j = 0; j < count; j++) {
-        for (var i = 0; i < this.items.length; i++) {
-          if (this.items[i].id == id) {
-            if (factory != null)
-              factory.deleteItem(this.items[i])
-            this.items.splice(i, 1)
-            break;
-          }
-        }
-      }
-      return true
+  take(id, count) {
+    if (this.countOf(id) > count) {
+      this.itemcount[this.items.indexOf(id)] = this.itemcount[this.items.indexOf(id)] - count
+      return true;
+    } else if (this.countOf(id) == count) {
+      this.itemcount.splice(this.items.indexOf(id), 1)
+      this.items.splice(this.items.indexOf(id), 1)
+      return true;
+    } else {
+      return false;
     }
-    return false
   }
 }
 

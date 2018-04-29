@@ -46,6 +46,12 @@ function infoDrawRotatedImage(image, x, y, angle) {
   infoCtx.restore();
 }
 
+function formatItemCount(c) {
+  if (c > 1000000)
+    return 1000000
+  return c;
+}
+
 function formatCount(c) {
   if (c == 0)
     return 0

@@ -373,6 +373,8 @@ function buildEvents() {
         if (selectedTile.options != undefined) {
           //Has Options
           options()
+        } else {
+          $('#options').hide()
         }
       } else if (mode != "selectItem") {
         selectedTile = 0
@@ -416,35 +418,36 @@ function buildEvents() {
   })
 
   $('body').mouseup(function(e) {
-    if (mode == "delete") {
-      var minX = 0
-      var maxX = 0
-      var minY = 0
-      var maxY = 0
-      if (deleteFromX <= cursorScreenX) {
-        minX = deleteFromX
-        maxX = cursorScreenX
-      } else {
-        maxX = deleteFromX
-        minX = cursorScreenX
-      }
-      if (deleteFromY <= cursorScreenY) {
-        minY = deleteFromY
-        maxY = cursorScreenY
-      } else {
-        maxY = deleteFromY
-        minY = cursorScreenY
-      }
-      for (var x = minX; x <= maxX; x++) {
-        for (var y = minY; y <= maxY; y++) {
-          if (factorys[currentFactory].tiles[x][y] != 0) {
-            factorys[currentFactory].tiles[x][y] = 0
+    if (isCursorInScreen)
+      if (mode == "delete") {
+        var minX = 0
+        var maxX = 0
+        var minY = 0
+        var maxY = 0
+        if (deleteFromX <= cursorScreenX) {
+          minX = deleteFromX
+          maxX = cursorScreenX
+        } else {
+          maxX = deleteFromX
+          minX = cursorScreenX
+        }
+        if (deleteFromY <= cursorScreenY) {
+          minY = deleteFromY
+          maxY = cursorScreenY
+        } else {
+          maxY = deleteFromY
+          minY = cursorScreenY
+        }
+        for (var x = minX; x <= maxX; x++) {
+          for (var y = minY; y <= maxY; y++) {
+            if (factorys[currentFactory].tiles[x][y] != 0) {
+              factorys[currentFactory].tiles[x][y] = 0
+            }
           }
         }
+        deleteFromX = -1
+        deleteFromY = -1
       }
-      deleteFromX = -1
-      deleteFromY = -1
-    }
     if (e.which == 1)
       mousedown = false
     if (mode == "move") {
@@ -534,20 +537,23 @@ function sort() {
 }
 
 function drawInventory(inventory, title) {
-  if (!(inventory instanceof Inventory))
-    return false;
   itemId = []
   itemCount = []
 
-  for (let item of inventory.items) {
-    var id = item.id
-    var index = itemId.indexOf(item.id)
-    if (index == -1) {
-      itemId.push(id)
-      itemCount.push(1)
-    } else {
-      itemCount[index]++
+  if ((inventory instanceof Inventory))
+    for (let item of inventory.items) {
+      var id = item.id
+      var index = itemId.indexOf(item.id)
+      if (index == -1) {
+        itemId.push(id)
+        itemCount.push(1)
+      } else {
+        itemCount[index]++
+      }
     }
+  if ((inventory instanceof FactoryInventory)) {
+    itemId = inventory.items
+    itemCount = inventory.itemcount
   }
   sort()
 
@@ -571,7 +577,7 @@ function drawInventory(inventory, title) {
       img.src = "images/items/" + items[itemId[currentIndex]].name + ".png"
       inventoryCtx.drawImage(img, 12 + x * 72, 36 + y * 72, 48, 48)
 
-      var formattedCount = formatCount(itemCount[currentIndex])
+      var formattedCount = formatItemCount(itemCount[currentIndex])
       inventoryCtx.strokeStyle = "black"
       inventoryCtx.lineWidth = 2
       inventoryCtx.strokeText("x" + formattedCount, 4 + x * 72, 91 + y * 72)
@@ -589,20 +595,14 @@ var itembg = new Image
 itembg.src = "images/inventorybg.png"
 
 function drawBigInventory(inventory) {
-  if (!(inventory instanceof Inventory))
+  if (!(inventory instanceof FactoryInventory))
     return false;
   itemId = []
   itemCount = []
 
-  for (let item of inventory.items) {
-    var id = item.id
-    var index = itemId.indexOf(item.id)
-    if (index == -1) {
-      itemId.push(id)
-      itemCount.push(1)
-    } else {
-      itemCount[index]++
-    }
+  if ((inventory instanceof FactoryInventory)) {
+    itemId = inventory.items
+    itemCount = inventory.itemcount
   }
   sort()
   for (var i = 0; i < items.length; i++) {
@@ -618,7 +618,7 @@ function drawBigInventory(inventory) {
     itemCtx.drawImage(itembg, 0, 0, 72, 72)
     itemCtx.drawImage(img, 12, 12, 48, 48)
 
-    var formattedCount = formatCount(itemCount[currentIndex])
+    var formattedCount = formatItemCount(itemCount[currentIndex])
     itemCtx.strokeStyle = "black"
     itemCtx.lineWidth = 2
     itemCtx.strokeText("x" + formattedCount, 4, 67)

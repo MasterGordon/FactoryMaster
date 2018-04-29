@@ -65,10 +65,9 @@ function save() {
   game.factorysToBuy = factorysToBuy
   game.factoryRerollPrice = factoryRerollPrice
   game.factoryPrice = factoryPrice
-  game.inventory = []
-  for (var i = 0; i < inventory.items.length; i++) {
-    game.inventory.push(inventory.items[i].id)
-  }
+  game.inventory = {}
+  game.inventory.itemcount = inventory.itemcount
+  game.inventory.items = inventory.items
   game.factorys = []
   for (var i = 0; i < factorys.length; i++) {
     game.factorys.push({})
@@ -119,7 +118,7 @@ function loadGameData() {
   lastsave = new Date().getTime()
   //Keine Save Vorhanden
   factorys.push(new Factory())
-  inventory = new Inventory()
+  inventory = new FactoryInventory()
   //game = Cookies.get("game")
   $.get("php/playerdata.php", function(data) {
     if (JSON.parse(data).money != undefined) {
@@ -135,11 +134,10 @@ function loadGameData() {
       factorysToBuy = game.factorysToBuy
       factoryRerollPrice = game.factoryRerollPrice
       factoryPrice = game.factoryPrice
-      inventory = new Inventory()
+      inventory = new FactoryInventory()
       factorys = []
-      for (var i = 0; i < game.inventory.length; i++) {
-        inventory.addItem(new Item(game.inventory[i]))
-      }
+      inventory.itemcount = game.inventory.itemcount
+      inventory.items = game.inventory.items
       for (var i = 0; i < game.factorys.length; i++) {
         factorys.push(new Factory(game.factorys[i].tier))
         for (var x = 0; x < 25; x++) {
@@ -329,6 +327,8 @@ function render() {
     }
   }
   //DRAW INFO BAR
+  if (selectedTile == undefined)
+    selectedTile = 0
   drawInfoBar()
   if (selectedTile != 0 && mode != "selectbuilding" && mode != "build") {
     if (selectedTile.hasNoInventory === undefined)
