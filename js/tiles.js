@@ -435,6 +435,126 @@ class Cokery extends Tile {
   }
 }
 
+class BlastfurnaceLower extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96 * 10
+    this.currentwork = 0
+    this.name = "blastfurnacelower"
+    this.i = 16
+    this.dust = 0
+    this.cost = [{
+        "id": 0,
+        "count": 60000
+      },
+      {
+        "id": 3,
+        "count": 1400
+      },
+      {
+        "id": 6,
+        "count": 20
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["blastfurnacelower10"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  isUpperPartAttached() {
+    switch (this.direction) {
+      case "up":
+        if (this.factory.tiles[this.x - 1][this.y] != undefined && this.factory.tiles[this.x - 1][this.y] != 0)
+          if (this.factory.tiles[this.x - 1][this.y].i == 17)
+            return true;
+        break;
+      case "right":
+        if (this.factory.tiles[this.x][this.y - 1] != undefined && this.factory.tiles[this.x][this.y - 1] != 0)
+          if (this.factory.tiles[this.x][this.y - 1].i == 17)
+            return true;
+        break;
+      case "down":
+        if (this.factory.tiles[this.x + 1][this.y] != undefined && this.factory.tiles[this.x + 1][this.y] != 0)
+          if (this.factory.tiles[this.x + 1][this.y].i = 17)
+            return true;
+        break;
+      case "left":
+        if (this.factory.tiles[this.x][this.y + 1] != undefined && this.factory.tiles[this.x][this.y + 1] != 0)
+          if (this.factory.tiles[this.x][this.y + 1].i == 17)
+            return true;
+        break;
+      default:
+
+    }
+  }
+
+  work() {
+
+    if (this.isUpperPartAttached()) {
+      if (this.input.countOf(16) >= 40 && this.input.countOf(11) >= 10) {
+        if (this.currentwork == this.maxwork) {
+          this.currentwork = 0
+          this.input.take(16, 40, this.factory)
+          this.input.take(11, 10, this.factory)
+          for (var i = 0; i < 15; i++) {
+            var item = new Item(11, this.x * 48, this.y * 48)
+            this.factory.items.push(item)
+            item.setDFromDirection(this.direction)
+          }
+        } else
+          this.currentwork++
+      }
+    }
+  }
+}
+
+class BlastfurnaceUpper extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96 * 10
+    this.currentwork = 0
+    this.name = "blastfurnaceupper"
+    this.i = 17
+    this.dust = 0
+    this.cost = [{
+        "id": 0,
+        "count": 60000
+      },
+      {
+        "id": 3,
+        "count": 1400
+      },
+      {
+        "id": 6,
+        "count": 20
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["blastfurnaceupper10", "blastfurnaceupper11", "blastfurnaceupper12", "blastfurnaceupper13", "blastfurnaceupper14", "blastfurnaceupper15", "blastfurnaceupper16"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  work() {}
+}
+
 class Quarry extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
@@ -464,6 +584,57 @@ class Quarry extends Tile {
       this.factory.items.push(item)
       item.setDFromDirection(this.direction)
     }
+  }
+}
+
+class MineralWasher extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 48 * 45
+    this.i = 15
+    this.currentwork = 0
+    this.name = "mineralwasher"
+    this.hasNoInventory = true
+    this.lastore = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50000
+    }, {
+      "id": 9,
+      "count": 500
+    }]
+    this.texture = {
+      "0": [],
+      "1": ["mineralwasher10", "mineralwasher11", "mineralwasher12", "mineralwasher11"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    this.currentwork = ((this.currentwork + 1) % this.maxwork)
+    if (this.currentwork == 0) {
+      var goodores = [];
+      for (var i = 0; i < 4; i++) {
+        if (minerals[minerals.nameFromId[this.factory.ores[i]]].depth <= 1) {
+          if (minerals[minerals.nameFromId[this.factory.ores[i]]].oreid != undefined) {
+            goodores.push(minerals[minerals.nameFromId[this.factory.ores[i]]].oreid)
+          }
+        }
+      }
+      if (goodores.length >= 1) {
+        this.lastore = ((this.lastore + 1) % goodores.length)
+        var item = new Item(goodores[this.lastore], this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+      }
+    }
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
   }
 }
 
@@ -699,18 +870,21 @@ class Warehouse extends Tile {
     }
   }
 }
-tileClasses.push(Conveyorbelt)
-tileClasses.push(Treefarm)
-tileClasses.push(Saw)
-tileClasses.push(Charcoalmeiler)
-tileClasses.push(Quarry)
-tileClasses.push(Collector)
-tileClasses.push(Spliter)
-tileClasses.push(Warehouse)
-tileClasses.push(FilterLeft)
-tileClasses.push(FilterRight)
-tileClasses.push(Weaver)
-tileClasses.push(Papermanufactory)
-tileClasses.push(AdvancedCharcoalmeiler)
-tileClasses.push(Briquettepress)
-tileClasses.push(Cokery)
+tileClasses.push(Conveyorbelt) //0
+tileClasses.push(Treefarm) //1
+tileClasses.push(Saw) //2
+tileClasses.push(Charcoalmeiler) //3
+tileClasses.push(Quarry) //4
+tileClasses.push(Collector) //5
+tileClasses.push(Spliter) //6
+tileClasses.push(Warehouse) //7
+tileClasses.push(FilterLeft) //8
+tileClasses.push(FilterRight) //9
+tileClasses.push(Weaver) //10
+tileClasses.push(Papermanufactory) //11
+tileClasses.push(AdvancedCharcoalmeiler) //12
+tileClasses.push(Briquettepress) //13
+tileClasses.push(Cokery) //14
+tileClasses.push(MineralWasher) //15
+tileClasses.push(BlastfurnaceLower) //16
+tileClasses.push(BlastfurnaceUpper) //17

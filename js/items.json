@@ -3,53 +3,293 @@
     "id": 0,
     "name": "none",
     "value": 0
-  },{
+  }, {
     "id": 1,
     "name": "log",
     "value": 4
-  },{
+  }, {
     "id": 2,
     "name": "planks",
     "value": 6
-  },{
+  }, {
     "id": 3,
     "name": "stone",
     "value": 2
-  },{
+  }, {
     "id": 4,
     "name": "charcoal",
     "value": 15
-  },{
+  }, {
     "id": 5,
     "name": "sawdust",
     "value": 1
-  },{
+  }, {
     "id": 6,
     "name": "charcoaldust",
     "value": 3
-  },{
+  }, {
     "id": 7,
     "name": "rawpaper",
     "value": 100
-  },{
+  }, {
     "id": 8,
     "name": "paper",
     "value": 200
-  },{
+  }, {
     "id": 9,
     "name": "siev",
     "value": 33
-  },{
+  }, {
     "id": 10,
     "name": "paperfilter",
     "value": 100
-  },{
+  }, {
     "id": 11,
     "name": "koks",
     "value": 20
-  },{
+  }, {
     "id": 12,
     "name": "briquettes",
     "value": 16
-  }]
+  }, {
+    "id": 13,
+    "name": "bauxite",
+    "value": 10
+  }, {
+    "id": 14,
+    "name": "leadore",
+    "value": 10
+  }, {
+    "id": 15,
+    "name": "chromeore",
+    "value": 10
+  }, {
+    "id": 16,
+    "name": "ironore",
+    "value": 10
+  }, {
+    "id": 17,
+    "name": "cobaltore",
+    "value": 10
+  }, {
+    "id": 18,
+    "name": "copperore",
+    "value": 10
+  }, {
+    "id": 19,
+    "name": "lithiumore",
+    "value": 10
+  }, {
+    "id": 20,
+    "name": "magnesiumore",
+    "value": 10
+  }, {
+    "id": 21,
+    "name": "manganeseore",
+    "value": 10
+  }, {
+    "id": 22,
+    "name": "molybdenumore",
+    "value": 10
+  }, {
+    "id": 23,
+    "name": "nickelore",
+    "value": 10
+  }, {
+    "id": 24,
+    "name": "silverore",
+    "value": 10
+  }, {
+    "id": 25,
+    "name": "tantalumore",
+    "value": 10
+  }, {
+    "id": 26,
+    "name": "titaniumore",
+    "value": 10
+  }, {
+    "id": 27,
+    "name": "uraniumore",
+    "value": 10
+  }, {
+    "id": 28,
+    "name": "vanadiumore",
+    "value": 10
+  }, {
+    "id": 29,
+    "name": "tungstenore",
+    "value": 10
+  }, {
+    "id": 30,
+    "name": "zincore",
+    "value": 10
+  }, {
+    "id": 31,
+    "name": "tinore",
+    "value": 10
+  }, {
+    "id": 32,
+    "name": "steel",
+    "value": 300
+  }, {
+    "id": 33,
+    "name": "rawiron",
+    "value": 30
+  }, {
+    "id": 34,
+    "name": "slag",
+    "value": 5
+  }],
+  "minerals": {
+    "nameFromId": ["bauxite",
+    "beryllium",
+    "lead",
+    "chrome",
+    "diamonds",
+    "iron",
+    "naturalgas",
+    "oil",
+    "gold",
+    "kaolin",
+    "cobalt",
+    "coal",
+    "copper",
+    "lithium",
+    "magnesium",
+    "manganese",
+    "molybdenum",
+    "nickel",
+    "phosphate",
+    "platinum",
+    "potash",
+    "rubies",
+    "silver",
+    "soda",
+    "tantalum",
+    "titanium",
+    "uranium",
+    "vanadium",
+    "tungsten",
+    "zinc",
+    "tin",
+    "salt"],
+    "bauxite": {
+      "depth": 1,
+      "oreid": 13
+    },
+    "beryllium": {
+      "depth": 3
+    },
+    "lead": {
+      "depth": 4,
+      "oreid": 14
+    },
+    "chrome": {
+      "depth": 2,
+      "oreid": 15
+    },
+    "diamonds": {
+      "depth": 8
+    },
+    "iron": {
+      "depth": 1,
+      "oreid": 16
+    },
+    "naturalgas": {
+      "depth": 6,
+      "liquid": true
+    },
+    "oil": {
+      "depth": 6,
+      "liquid": true
+    },
+    "gold": {
+      "depth": 3
+    },
+    "kaolin": {
+      "depth": 1
+    },
+    "cobalt": {
+      "depth": 4,
+      "oreid": 17
+    },
+    "coal": {
+      "depth": 2
+    },
+    "copper": {
+      "depth": 2,
+      "oreid": 18
+    },
+    "lithium": {
+      "depth": 1,
+      "oreid": 19
+    },
+    "magnesium": {
+      "depth": 3,
+      "oreid": 20
+    },
+    "manganese": {
+      "depth": 2,
+      "oreid": 21
+    },
+    "molybdenum": {
+      "depth": 2,
+      "oreid": 22
+    },
+    "nickel": {
+      "depth": 1,
+      "oreid": 23
+    },
+    "phosphate": {
+      "depth": 1,
+      "oreid": 13
+    },
+    "platinum": {
+      "depth": 6
+    },
+    "potash": {
+      "depth": 1
+    },
+    "rubies": {
+      "depth": 9
+    },
+    "silver": {
+      "depth": 4,
+      "oreid": 24
+    },
+    "soda": {
+      "depth": 1
+    },
+    "tantalum": {
+      "depth": 4,
+      "oreid": 25
+    },
+    "titanium": {
+      "depth": 7,
+      "oreid": 26
+    },
+    "uranium": {
+      "depth": 4,
+      "oreid": 27
+    },
+    "vanadium": {
+      "depth": 3,
+      "oreid": 28
+    },
+    "tungsten": {
+      "depth": 3,
+      "oreid": 29
+    },
+    "zinc": {
+      "depth": 1,
+      "oreid": 30
+    },
+    "tin": {
+      "depth": 1,
+      "oreid": 30
+    },
+    "salt": {
+      "depth": 1
+    }
+  }
 }

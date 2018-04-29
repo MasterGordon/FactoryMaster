@@ -60,6 +60,18 @@
       "name": "Weaver",
       "description": "Makes a Siev out of 5 Planks. Puts together Sievs and Paper/Rawpaper to make filter"
     },
+    "mineralwasher": {
+      "name": "Mineral Washer",
+      "description": "Gets some Minerals"
+    },
+    "blastfurnacelower": {
+      "name": "Mineral Washer",
+      "description": "Gets some Minerals"
+    },
+    "blastfurnaceupper": {
+      "name": "Mineral Washer",
+      "description": "Gets some Minerals"
+    },
     "filterleft": {
       "name": "Item Filter (left)",
       "description": "Puts a selected Item to the left and all other straight.",
@@ -108,7 +120,7 @@
     "tin",
     "salt"
   ],
-  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Coke", "Briquettes"],
+  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Coke", "Briquettes","Bauxite","Lead Ore","Chrome Ore","Iron Ore","Cobalt Ore","Copper Ore","Lithium Ore","Magnesium Ore","Manganese Ore","Molybdenum Ore","Nickel Ore","Silver Ore","Tantalum Ore","Titanium Ore","Uranium Ore","Vanadium Ore","Tungesten Ore","Zinc Ore","Tin Ore","Steel","Raw Iron","Slag"],
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
   "player": "Player",

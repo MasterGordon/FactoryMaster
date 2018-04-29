@@ -141,7 +141,7 @@ function loadGameData() {
         inventory.addItem(new Item(game.inventory[i]))
       }
       for (var i = 0; i < game.factorys.length; i++) {
-        factorys.push(new Factory)
+        factorys.push(new Factory(game.factorys[i].tier))
         for (var x = 0; x < 25; x++) {
           for (var y = 0; y < 12; y++) {
             if (game.factorys[i].tiles[x][y] != 0) {
@@ -168,6 +168,7 @@ function loadItems() {
   itemRequest.send(null)
   var json = JSON.parse(itemRequest.responseText)
   items = json.items
+  minerals = json.minerals
   for (var i = 0; i < items.length; i++) {
     var image = new Image
     image.src = "images/items/" + items[i].name + ".png"
@@ -240,6 +241,9 @@ function gametick(timestep) {
   }
 }
 
+var rotationOverlay = new Image
+rotationOverlay.src = "images/ui/rotationOverlay.png"
+
 function render() {
   fulltime++
   ctx.clearRect(0, 0, innerWidth, innerHeight)
@@ -269,10 +273,8 @@ function render() {
       drawRotatedImage(img, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
     }
     if (mode == "rotate") {
-      var img2 = new Image
-      img2.src = "images/ui/rotationOverlay.png"
       ctx.globalAlpha = 0.4
-      drawRotatedImage(img2, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
+      drawRotatedImage(rotationOverlay, tile.x * 48 + 24, tile.y * 48 + 24, directions[tile.direction].degree)
       ctx.globalAlpha = 1
     }
   }
@@ -290,10 +292,8 @@ function render() {
       if (img != "0") {
         drawRotatedImage(img, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, directions[tile.direction].degree)
       }
-      var img2 = new Image
-      img2.src = "images/ui/rotationOverlay.png"
       ctx.globalAlpha = 0.2
-      drawRotatedImage(img2, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, directions[tile.direction].degree)
+      drawRotatedImage(rotationOverlay, cursorScreenX * 48 + 24, cursorScreenY * 48 + 24, directions[tile.direction].degree)
       ctx.globalAlpha = 1
     } else {
       ctx.globalAlpha = 0.4
@@ -444,9 +444,19 @@ function prepairRender() {
     })
   //End Sell/Select Items Menu
   $('#clickToSell').text(lang.clickToSell)
+  for (var i = 0; i < infoBarIcons.length; i++) {
+    if (infoBarIcons[i] != null) {
+      var img = new Image
+      img.src = "images/ui/" + infoBarIcons[i]
+      infoBarIconsImg.push(img)
+    } else {
+      infoBarIconsImg.push(null)
+    }
+  }
 }
 
 var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "factorys.png"]
+var infoBarIconsImg = []
 
 var infoGlowOpacity = 0
 var infoGlowOpacityD = 0.03
@@ -482,11 +492,9 @@ function drawInfoBar() {
     infoGlowOpacity += infoGlowOpacityD
     infoCtx.globalAlpha = 1
   }
-  for (var i = 0; i < infoBarIcons.length; i++) {
-    if (infoBarIcons[i] != null) {
-      var img = new Image;
-      img.src = "images/ui/" + infoBarIcons[i];
-      infoCtx.drawImage(img, i * 48, 0, 48, 48);
+  for (var i = 0; i < infoBarIconsImg.length; i++) {
+    if (infoBarIconsImg[i] != null) {
+      infoCtx.drawImage(infoBarIconsImg[i], i * 48, 0, 48, 48);
     }
   }
   if (toBuild != 0) {

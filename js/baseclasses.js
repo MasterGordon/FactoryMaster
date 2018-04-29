@@ -141,6 +141,44 @@ class Inventory {
   }
 }
 
+class FactoryInventory {
+  constructor() {
+    this.itemcount = []
+    this.items = []
+  }
+
+  countOf(id) {
+    var n = 0
+    for (var i = 0; i < this.items.length; i++) {
+      if (this.items[i].id == id)
+        n++
+    }
+    return n
+  }
+
+  addItem(item) {
+    if (item instanceof Item)
+      this.items.push(item)
+  }
+
+  take(id, count, factory) {
+    if (this.countOf(id) >= count) {
+      for (var j = 0; j < count; j++) {
+        for (var i = 0; i < this.items.length; i++) {
+          if (this.items[i].id == id) {
+            if (factory != null)
+              factory.deleteItem(this.items[i])
+            this.items.splice(i, 1)
+            break;
+          }
+        }
+      }
+      return true
+    }
+    return false
+  }
+}
+
 class Item {
   constructor(id, x, y) {
     this.id = id
