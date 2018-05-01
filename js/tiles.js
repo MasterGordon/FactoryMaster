@@ -257,6 +257,105 @@ class Charcoalmeiler extends Tile {
   }
 }
 
+class Smith extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96 * 10
+    this.currentwork = 0
+    this.name = "smith"
+    this.i = 19
+    this.cost = [{
+        "id": 0,
+        "count": 1000
+      },
+      {
+        "id": 3,
+        "count": 30
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["smith10", "smith11", "smith12", "smith11"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 7)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  work() {
+    if (this.input.countOf(2) >= 1 && this.input.countOf(33) >= 1) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(2, 1, this.factory)
+        this.input.take(33, 1, this.factory)
+        var item = new Item(35, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
+class CrucibleFurnace extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 96 * 10
+    this.currentwork = 0
+    this.name = "cruciblefurnace"
+    this.i = 18
+    this.cost = [{
+        "id": 0,
+        "count": 1000
+      },
+      {
+        "id": 3,
+        "count": 30
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["cruciblefurnace10", "cruciblefurnace11", "cruciblefurnace12", "cruciblefurnace11"]
+    }
+    this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 4)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+
+  work() {
+    //Items für ein Pank
+    var requieredCount = 10
+    if (this.input.countOf(33) >= 35 && this.input.countOf(16) >= 5) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(2, requieredCount, this.factory)
+        for (var i = 0; i < 40; i++) {
+          var item = new Item(32, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+        }
+        this.currentwork = 0
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
 class AdvancedCharcoalmeiler extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
@@ -505,8 +604,8 @@ class BlastfurnaceLower extends Tile {
           this.currentwork = 0
           this.input.take(16, 40, this.factory)
           this.input.take(11, 10, this.factory)
-          for (var i = 0; i < 15; i++) {
-            var item = new Item(11, this.x * 48, this.y * 48)
+          for (var i = 0; i < 35; i++) {
+            var item = new Item(33, this.x * 48, this.y * 48)
             this.factory.items.push(item)
             item.setDFromDirection(this.direction)
           }
@@ -525,6 +624,7 @@ class BlastfurnaceUpper extends Tile {
     this.name = "blastfurnaceupper"
     this.i = 17
     this.dust = 0
+    this.hasNoInventory = true
     this.cost = [{
         "id": 0,
         "count": 60000
@@ -870,6 +970,94 @@ class Warehouse extends Tile {
     }
   }
 }
+
+class TeleporterInput extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.name = "teleporterinput"
+    this.hasNoInventory = true
+    this.i = 20
+    this.frequency = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50
+    }]
+    this.texture = {
+      "0": [],
+      "1": ["collector13"]
+    }
+    this.options = [{
+      "type": "amount",
+      "var": "frequency"
+    }]
+    this.loadImages()
+  }
+
+  work() {
+    if (teleporter[this.frequency] == undefined) {
+      teleporter[this.frequency] = new FactoryInventory
+    }
+    while (this.input.items.length > 0) {
+      var item = this.input.items.pop()
+      teleporter[this.frequency].addItem(item)
+      this.factory.deleteItem(item)
+    }
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+}
+
+class TeleporterOutput extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.name = "teleporteroutput"
+    this.hasNoInventory = true
+    this.i = 21
+    this.frequency = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50
+    }]
+    this.texture = {
+      "0": [],
+      "1": ["collector13"]
+    }
+    this.options = [{
+      "type": "amount",
+      "var": "frequency"
+    }]
+    this.loadImages()
+  }
+
+  work() {
+    if (teleporter[this.frequency] == undefined) {
+      teleporter[this.frequency] = new FactoryInventory
+    }
+    while (teleporter[this.frequency].items.length > 0) {
+      var c = teleporter[this.frequency].itemcount[0]
+      var id = teleporter[this.frequency].items[0]
+      teleporter[this.frequency].take(id, c)
+      for (var i = 0; i < c; i++) {
+        var item = new Item(id, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+      }
+    }
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+}
+
 tileClasses.push(Conveyorbelt) //0
 tileClasses.push(Treefarm) //1
 tileClasses.push(Saw) //2
@@ -888,3 +1076,7 @@ tileClasses.push(Cokery) //14
 tileClasses.push(MineralWasher) //15
 tileClasses.push(BlastfurnaceLower) //16
 tileClasses.push(BlastfurnaceUpper) //17
+tileClasses.push(CrucibleFurnace) //18
+tileClasses.push(Smith) //19
+tileClasses.push(TeleporterInput) //20
+tileClasses.push(TeleporterOutput) //21

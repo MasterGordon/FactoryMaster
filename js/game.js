@@ -6,6 +6,7 @@ var factoryRerollPrice = 2
 
 var factorys = []
 var inventory = {}
+var teleporter = {}
 var money = 100
 
 var items = []
@@ -261,7 +262,11 @@ function render() {
       var item = factorys[currentFactory].items[i]
       //  var img = new Image
       //  img.src = "images/items/" + getItemFormId(item.id).name + ".png"
-      ctx.drawImage(items[item.id].img, item.x, item.y, 48, 48)
+      if (item.dx != 0 || item.dy != 0)
+        ctx.drawImage(items[item.id].img, item.x, item.y, 48, 48)
+      else if (factorys[currentFactory].tiles[item.x / 48][item.y / 48] == 0)
+        ctx.drawImage(items[item.id].img, item.x, item.y, 48, 48)
+
     }
   //RENDER TILE-LAYER1
   for (var i = 0; i < tilesToRender.length; i++) {

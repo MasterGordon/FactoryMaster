@@ -65,18 +65,40 @@
       "description": "Gets some Minerals"
     },
     "blastfurnacelower": {
-      "name": "Mineral Washer",
-      "description": "Gets some Minerals"
+      "name": "Blast Furnace (Lower Part)",
+      "description": "Melts 40 Iron Ore with 10 Coke to create 35 Raw Iron. Requieres a upper part to work."
+    },
+    "smith": {
+      "name": "Smith",
+      "description": "Build a Pickaxe out of 1 Steel and 1 Plank"
     },
     "blastfurnaceupper": {
-      "name": "Mineral Washer",
-      "description": "Gets some Minerals"
+      "name": "Blast Furnace (Upper Part)",
+      "description": "Is requiered to put on the lower Blast Furnace Part"
+    },
+    "cruciblefurnace": {
+      "name": "Crucible Furnace",
+      "description": "Enriches 35 Rawiron with 5 Iron Ore into 40 Steel"
     },
     "filterleft": {
       "name": "Item Filter (left)",
       "description": "Puts a selected Item to the left and all other straight.",
       "options": {
         "filter": "Filtered Item"
+      }
+    },
+    "teleporterinput": {
+      "name": "teleporterinput",
+      "description": "Puts a selected Item to the left and all other straight.",
+      "options": {
+        "frequency": "Frequency"
+      }
+    },
+    "teleporteroutput": {
+      "name": "teleporteroutput",
+      "description": "Puts a selected Item to the left and all other straight.",
+      "options": {
+        "frequency": "Frequency"
       }
     },
     "filterright": {
@@ -120,7 +142,7 @@
     "tin",
     "salt"
   ],
-  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Coke", "Briquettes","Bauxite","Lead Ore","Chrome Ore","Iron Ore","Cobalt Ore","Copper Ore","Lithium Ore","Magnesium Ore","Manganese Ore","Molybdenum Ore","Nickel Ore","Silver Ore","Tantalum Ore","Titanium Ore","Uranium Ore","Vanadium Ore","Tungesten Ore","Zinc Ore","Tin Ore","Steel","Raw Iron","Slag"],
+  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Coke", "Briquettes","Bauxite","Lead Ore","Chrome Ore","Iron Ore","Cobalt Ore","Copper Ore","Lithium Ore","Magnesium Ore","Manganese Ore","Molybdenum Ore","Nickel Ore","Silver Ore","Tantalum Ore","Titanium Ore","Uranium Ore","Vanadium Ore","Tungesten Ore","Zinc Ore","Tin Ore","Steel","Raw Iron","Slag","Pickaxe"],
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
   "player": "Player",

@@ -573,9 +573,7 @@ function drawInventory(inventory, title) {
     return true
   for (var y = 0; y < 3; y++) {
     for (var x = 0; x < 10; x++) {
-      var img = new Image
-      img.src = "images/items/" + items[itemId[currentIndex]].name + ".png"
-      inventoryCtx.drawImage(img, 12 + x * 72, 36 + y * 72, 48, 48)
+      inventoryCtx.drawImage(items[itemId[currentIndex]].img, 12 + x * 72, 36 + y * 72, 48, 48)
 
       var formattedCount = formatItemCount(itemCount[currentIndex])
       inventoryCtx.strokeStyle = "black"
@@ -611,12 +609,10 @@ function drawBigInventory(inventory) {
   var currentIndex = 0
   while (currentIndex != itemId.length) {
     var itemCtx = $('#itemBig_' + currentIndex)[0].getContext("2d")
-    var img = new Image
-    img.src = "images/items/" + items[itemId[currentIndex]].name + ".png"
     itemCtx.clearRect(0, 0, innerWidth, innerHeight)
     itemCtx.font = "16px Electrolize"
     itemCtx.drawImage(itembg, 0, 0, 72, 72)
-    itemCtx.drawImage(img, 12, 12, 48, 48)
+    itemCtx.drawImage(items[itemId[currentIndex]].img, 12, 12, 48, 48)
 
     var formattedCount = formatItemCount(itemCount[currentIndex])
     itemCtx.strokeStyle = "black"
