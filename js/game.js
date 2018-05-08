@@ -51,6 +51,10 @@ $(document).ready(function() {
   loadLang()
   prepairRender()
   requestAnimationFrame(loop)
+  if (window.location.hostname == "localhost")
+    noPay = true
+  $('#loading').hide()
+  $('#all').show()
 })
 
 var game = 0

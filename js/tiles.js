@@ -690,7 +690,7 @@ class Quarry extends Tile {
 class MineralWasher extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
-    this.maxwork = 48 * 45
+    this.maxwork = 48 * 60
     this.i = 15
     this.currentwork = 0
     this.name = "mineralwasher"
@@ -983,14 +983,21 @@ class TeleporterInput extends Tile {
       "count": 50
     }]
     this.texture = {
-      "0": [],
-      "1": ["collector13"]
+      "0": ["teleporter00", "teleporter01", "teleporter02", "teleporter03", "teleporter04", "teleporter06", "teleporter07", "teleporter08", "teleporter09"],
+      "1": []
     }
     this.options = [{
       "type": "amount",
       "var": "frequency"
     }]
     this.loadImages()
+  }
+
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
   }
 
   work() {
@@ -1058,6 +1065,86 @@ class TeleporterOutput extends Tile {
   }
 }
 
+class SimpleMiner extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 24 * 30
+    this.i = 22
+    this.currentwork = 0
+    this.name = "simpleminer"
+    this.hasNoInventory = true
+    this.lastore = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50000
+    }, {
+      "id": 9,
+      "count": 500
+    }]
+    this.texture = {
+      "0": [],
+      "1": ["simpleminer10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    this.currentwork = ((this.currentwork + 1) % this.maxwork)
+    if (this.currentwork == 0) {
+      var goodores = [];
+      for (var i = 0; i < 4; i++) {
+        if (minerals[minerals.nameFromId[this.factory.ores[i]]].depth <= 1) {
+          if (minerals[minerals.nameFromId[this.factory.ores[i]]].oreid != undefined) {
+            goodores.push(minerals[minerals.nameFromId[this.factory.ores[i]]].oreid)
+          }
+
+          if (minerals[minerals.nameFromId[this.factory.ores[i]]].itemid != undefined) {
+            goodores.push(minerals[minerals.nameFromId[this.factory.ores[i]]].itemid)
+          }
+        }
+      }
+      if (goodores.length >= 1) {
+        this.lastore = ((this.lastore + 1) % goodores.length)
+        var item = new Item(goodores[this.lastore], this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+      }
+    }
+  }
+}
+
+class SoilMiner extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 24 * 30
+    this.i = 22
+    this.currentwork = 0
+    this.name = "soilminer"
+    this.hasNoInventory = true
+    this.cost = [{
+      "id": 0,
+      "count": 50000
+    }, {
+      "id": 9,
+      "count": 500
+    }]
+    this.texture = {
+      "0": [],
+      "1": ["soilminer10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    this.currentwork = ((this.currentwork + 1) % this.maxwork)
+    if (this.currentwork == 0) {
+        var item = new Item(38, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+    }
+  }
+}
+
 tileClasses.push(Conveyorbelt) //0
 tileClasses.push(Treefarm) //1
 tileClasses.push(Saw) //2
@@ -1080,3 +1167,5 @@ tileClasses.push(CrucibleFurnace) //18
 tileClasses.push(Smith) //19
 tileClasses.push(TeleporterInput) //20
 tileClasses.push(TeleporterOutput) //21
+tileClasses.push(SimpleMiner) //22
+tileClasses.push(SoilMiner) //23

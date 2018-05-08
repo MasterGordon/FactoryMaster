@@ -22,45 +22,53 @@
   <script src="js/hotkeys.js"></script>
 </head>
 
+
 <body>
-  <canvas id="screen">
+
+  <div id="all" hidden>
+    <canvas id="screen">
   </canvas>
-  <canvas id="itemcount">
+    <canvas id="itemcount">
   </canvas>
-  <canvas id="info">
+    <canvas id="info">
   </canvas>
-  <div id="infoDesc">
-    <h1></h1>
-    <p></p>
-  </div>
-  <div id="buildselect">
-  </div>
-  <div id="inventoryBig">
-    <span id="clickToSell"></span>
-    <div id="itemsScroll">
+    <div id="infoDesc">
+      <h1></h1>
+      <p></p>
     </div>
-  </div>
-  <div id="selectItem">
-  </div>
-  <div id="options">
-  </div>
-  <div id="tooltip">
-    <span>
+    <div id="buildselect">
+    </div>
+    <div id="inventoryBig">
+      <span id="clickToSell"></span>
+      <div id="itemsScroll">
+      </div>
+    </div>
+    <div id="selectItem">
+    </div>
+    <div id="options">
+    </div>
+    <div id="tooltip">
+      <span>
     </span>
-  </div>
-  <div id="showmore">
-  </div>
-  <span id="money">
+    </div>
+    <div id="showmore">
+    </div>
+    <span id="money">
     ??? Dollar
   </span>
-  <div id="selectFactory">
-    <div id="factoryScroll">
-      <div class="factory"><h1>Factory 0</h1><div class="minerals"><br><h2>Minerals:</h2><br> - iron<br> - coal<br> - copper<br> - soda</div></div>
+    <div id="selectFactory">
+      <div id="factoryScroll">
+        <div class="factory">
+          <h1>Factory 0</h1>
+          <div class="minerals"><br>
+            <h2>Minerals:</h2><br> - iron<br> - coal<br> - copper<br> - soda</div>
+        </div>
+      </div>
+      <div id="buyfactory"></div>
     </div>
-    <div id="buyfactory"></div>
+    <span style="position: fixed;color: white" id="speed"></span>
+    <div id="playerinfo"><span id="lastsave">Last Save 10Min ago</span><br><button id="forcesave">Force Save</button><button id="logout">Logout</button></div>
   </div>
-  <span style="position: fixed;color: white" id="speed"></span>
-  <div id="playerinfo"><span id="lastsave">Last Save 10Min ago</span><br><button id="forcesave">Force Save</button><button id="logout">Logout</button></div>
 </body>
 
 </html>

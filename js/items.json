@@ -142,7 +142,31 @@
   }, {
     "id": 35,
     "name": "pickaxe",
+    "value": 310
+  }, {
+    "id": 36,
+    "name": "archimedesscrew",
     "value": 5
+  }, {
+    "id": 37,
+    "name": "cement",
+    "value": 100
+  }, {
+    "id": 38,
+    "name": "soil",
+    "value": 100
+  }, {
+    "id": 39,
+    "name": "quartzsand",
+    "value": 100
+  }, {
+    "id": 40,
+    "name": "concret",
+    "value": 100
+  }, {
+    "id": 41,
+    "name": "dirt",
+    "value": 100
   }],
   "minerals": {
     "nameFromId": ["bauxite",

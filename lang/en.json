@@ -58,7 +58,7 @@
     },
     "weaver": {
       "name": "Weaver",
-      "description": "Makes a Siev out of 5 Planks. Puts together Sievs and Paper/Rawpaper to make filter"
+      "description": "Makes a Siev out of 5 Planks. Puts together Sievs and Paper/Rawpaper to make filter."
     },
     "mineralwasher": {
       "name": "Mineral Washer",
@@ -70,15 +70,23 @@
     },
     "smith": {
       "name": "Smith",
-      "description": "Build a Pickaxe out of 1 Steel and 1 Plank"
+      "description": "Build a Pickaxe out of 1 Steel and 1 Plank."
     },
     "blastfurnaceupper": {
       "name": "Blast Furnace (Upper Part)",
-      "description": "Is requiered to put on the lower Blast Furnace Part"
+      "description": "Is requiered to put on the lower Blast Furnace Part."
     },
     "cruciblefurnace": {
       "name": "Crucible Furnace",
-      "description": "Enriches 35 Rawiron with 5 Iron Ore into 40 Steel"
+      "description": "Enriches 35 Rawiron with 5 Iron Ore into 40 Steel."
+    },
+    "simpleminer": {
+      "name": "Simple Miner",
+      "description": "Mines ores and minerals on depth 1."
+    },
+    "soilminer": {
+      "name": "Soil Miner",
+      "description": "Mines Soil."
     },
     "filterleft": {
       "name": "Item Filter (left)",
@@ -142,7 +150,49 @@
     "tin",
     "salt"
   ],
-  "items": ["None", "Log", "Planks", "Stone", "Charcoal", "Sawdust", "Charcoal Dust", "Raw Paper", "Paper", "Siev", "Filter", "Coke", "Briquettes","Bauxite","Lead Ore","Chrome Ore","Iron Ore","Cobalt Ore","Copper Ore","Lithium Ore","Magnesium Ore","Manganese Ore","Molybdenum Ore","Nickel Ore","Silver Ore","Tantalum Ore","Titanium Ore","Uranium Ore","Vanadium Ore","Tungesten Ore","Zinc Ore","Tin Ore","Steel","Raw Iron","Slag","Pickaxe"],
+  "items": ["None",
+    "Log",
+    "Planks",
+    "Stone",
+    "Charcoal",
+    "Sawdust",
+    "Charcoal Dust",
+    "Raw Paper",
+    "Paper",
+    "Siev",
+    "Filter",
+    "Coke",
+    "Briquettes",
+    "Bauxite",
+    "Lead Ore",
+    "Chrome Ore",
+    "Iron Ore",
+    "Cobalt Ore",
+    "Copper Ore",
+    "Lithium Ore",
+    "Magnesium Ore",
+    "Manganese Ore",
+    "Molybdenum Ore",
+    "Nickel Ore",
+    "Silver Ore",
+    "Tantalum Ore",
+    "Titanium Ore",
+    "Uranium Ore",
+    "Vanadium Ore",
+    "Tungesten Ore",
+    "Zinc Ore",
+    "Tin Ore",
+    "Steel",
+    "Raw Iron",
+    "Slag",
+    "Pickaxe",
+    "Archimedes Screw",
+    "Cement",
+    "Soil",
+    "Quartz Sand",
+    "Concret",
+    "Dirt"
+  ],
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
   "player": "Player",
