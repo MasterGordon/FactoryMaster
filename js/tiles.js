@@ -1031,8 +1031,8 @@ class TeleporterOutput extends Tile {
       "count": 50
     }]
     this.texture = {
-      "0": [],
-      "1": ["collector13"]
+      "0": ["teleporterout01","teleporterout02","teleporterout03","teleporterout04","teleporterout05","teleporterout06","teleporterout07","teleporterout08","teleporterout09"],
+      "1": []
     }
     this.options = [{
       "type": "amount",
@@ -1117,7 +1117,7 @@ class SoilMiner extends Tile {
   constructor(x, y, factory) {
     super(x, y, factory)
     this.maxwork = 24 * 30
-    this.i = 22
+    this.i = 23
     this.currentwork = 0
     this.name = "soilminer"
     this.hasNoInventory = true
@@ -1138,12 +1138,260 @@ class SoilMiner extends Tile {
   work() {
     this.currentwork = ((this.currentwork + 1) % this.maxwork)
     if (this.currentwork == 0) {
-        var item = new Item(38, this.x * 48, this.y * 48)
-        this.factory.items.push(item)
-        item.setDFromDirection(this.direction)
+      var item = new Item(38, this.x * 48, this.y * 48)
+      this.factory.items.push(item)
+      item.setDFromDirection(this.direction)
     }
   }
 }
+
+class Siev extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 48
+    this.currentwork = 0
+    this.name = "siev"
+    this.i = 24
+    this.cost = [{
+        "id": 0,
+        "count": 750
+      },
+      {
+        "id": 1,
+        "count": 50
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["siev10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    //Items für ein Pank
+    if (this.input.countOf(38) >= 9) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(38, 9, this.factory)
+        for (var i = 0; i < 3; i++) {
+          var item = new Item(39, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+          item = new Item(40, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+          item = new Item(41, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+          this.currentwork = 0
+        }
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+}
+
+class GlasMelt extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 48 * 30
+    this.currentwork = 0
+    this.name = "glasmelt"
+    this.i = 25
+    this.cost = [{
+        "id": 0,
+        "count": 750
+      },
+      {
+        "id": 1,
+        "count": 50
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["glassmelt10", "glassmelt11", "glassmelt12", "glassmelt13", "glassmelt14", "glassmelt15", "glassmelt16", "glassmelt17", "glassmelt18", "glassmelt19", "glassmelt110"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    //Items für ein Pank
+    if (this.input.countOf(39) >= 30) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(39, 30, this.factory)
+        for (var i = 0; i < 10; i++) {
+          var item = new Item(42, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+          this.currentwork = 0
+        }
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+}
+
+class FertilizerMixer extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 48 * 30
+    this.currentwork = 0
+    this.name = "fertilizermixer"
+    this.i = 28
+    this.cost = [{
+        "id": 0,
+        "count": 750
+      },
+      {
+        "id": 1,
+        "count": 50
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["fertilizermixer10", "fertilizermixer11", "fertilizermixer12", "fertilizermixer13", "fertilizermixer14", "fertilizermixer15", "fertilizermixer16", "fertilizermixer17"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    //Items für ein Pank
+    if (this.input.countOf(39) >= 30) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(39, 30, this.factory)
+        for (var i = 0; i < 10; i++) {
+          var item = new Item(42, this.x * 48, this.y * 48)
+          this.factory.items.push(item)
+          item.setDFromDirection(this.direction)
+          this.currentwork = 0
+        }
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+}
+
+class PrecisionSpliterLeft extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.name = "precisionspliterleft"
+    this.hasNoInventory = true
+    this.i = 26
+    this.n = 0
+    this.nn = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50
+    }]
+    this.texture = {
+      "0": ["conveyorbelt00", "conveyorbelt01", "conveyorbelt02", "conveyorbelt03", "conveyorbelt04", "conveyorbelt05", "conveyorbelt06"],
+      "1": ["precisionspliterleft10"]
+    }
+    this.options = [{
+      "type": "amount",
+      "var": "n"
+    }]
+    this.loadImages()
+  }
+
+  work() {
+    while (this.input.items.length > 0) {
+      var item = this.input.items.pop()
+      this.nn++;
+      var d = this.direction
+      if (this.n == this.nn) {
+        switch (this.direction) {
+          case "right":
+            d = "up"
+            break;
+          case "down":
+            d = "right"
+            break;
+          case "left":
+            d = "down"
+            break;
+          case "up":
+            d = "left"
+            break;
+        }
+        this.nn = 0
+      }
+      item.setDFromDirection(d)
+    }
+  }
+}
+
+class PrecisionSpliterRight extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.name = "precisionspliterright"
+    this.hasNoInventory = true
+    this.i = 27
+    this.n = 0
+    this.nn = 0
+    this.cost = [{
+      "id": 0,
+      "count": 50
+    }]
+    this.texture = {
+      "0": ["conveyorbelt00", "conveyorbelt01", "conveyorbelt02", "conveyorbelt03", "conveyorbelt04", "conveyorbelt05", "conveyorbelt06"],
+      "1": ["precisionspliterright10"]
+    }
+    this.options = [{
+      "type": "amount",
+      "var": "n"
+    }]
+    this.loadImages()
+  }
+
+  work() {
+    while (this.input.items.length > 0) {
+      var item = this.input.items.pop()
+      this.nn++;
+      var d = this.direction
+      if (this.n == this.nn) {
+        switch (this.direction) {
+          case "right":
+            d = "down"
+            break;
+          case "down":
+            d = "left"
+            break;
+          case "left":
+            d = "up"
+            break;
+          case "up":
+            d = "right"
+            break;
+        }
+        this.nn = 0
+      }
+      item.setDFromDirection(d)
+    }
+  }
+}
+
 
 tileClasses.push(Conveyorbelt) //0
 tileClasses.push(Treefarm) //1
@@ -1169,3 +1417,8 @@ tileClasses.push(TeleporterInput) //20
 tileClasses.push(TeleporterOutput) //21
 tileClasses.push(SimpleMiner) //22
 tileClasses.push(SoilMiner) //23
+tileClasses.push(Siev) //24
+tileClasses.push(GlasMelt) //25
+tileClasses.push(PrecisionSpliterLeft) //26
+tileClasses.push(PrecisionSpliterRight) //27
+tileClasses.push(FertilizerMixer) //28

@@ -32,9 +32,13 @@
       "name": "Quarry",
       "description": "Mines stone slowly but safely."
     },
-    "quarry": {
-      "name": "Quarry",
-      "description": "Mines stone slowly but safely."
+    "glasmelt": {
+      "name": "Glas Melt",
+      "description": "Melts 30 Quartz Sand into 10 Glass."
+    },
+    "siev": {
+      "name": "Siev",
+      "description": "Sieves 9 Soil into 3 Quartz Sand, 3 Concret and 3 Dirt."
     },
     "charcoalmeiler": {
       "name": "Charcoal Meiler",
@@ -88,6 +92,10 @@
       "name": "Soil Miner",
       "description": "Mines Soil."
     },
+    "fertilizermixer": {
+      "name": "Fertilizer Mixer",
+      "description": "Mines Soil."
+    },
     "filterleft": {
       "name": "Item Filter (left)",
       "description": "Puts a selected Item to the left and all other straight.",
@@ -114,6 +122,20 @@
       "description": "Puts a selected Item to the right and all other straight.",
       "options": {
         "filter": "Filtered Item"
+      }
+    },
+    "precisionspliterleft": {
+      "name": "Precision Spliter (Left)",
+      "description": "Pushes every N'th Item to the left.",
+      "options": {
+        "n": "N"
+      }
+    },
+    "precisionspliterright": {
+      "name": "Precision Spliter (Right)",
+      "description": "Pushes every N'th Item to the right.",
+      "options": {
+        "n": "N"
       }
     }
   },
@@ -191,7 +213,8 @@
     "Soil",
     "Quartz Sand",
     "Concret",
-    "Dirt"
+    "Dirt",
+    "Glass"
   ],
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
