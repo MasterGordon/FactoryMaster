@@ -170,7 +170,7 @@
   }, {
     "id": 42,
     "name": "glass",
-    "value": 100
+    "value": 120
   }],
   "minerals": {
     "nameFromId": ["bauxite",
