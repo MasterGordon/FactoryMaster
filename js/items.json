@@ -170,7 +170,6 @@
   }, {
     "id": 42,
     "name": "glass",
-<<<<<<< HEAD
     "value": 100
   }, {
     "id": 43,
@@ -196,9 +195,6 @@
     "id": 48,
     "name": "bottleapplevenegar",
     "value": 100
-=======
-    "value": 120
->>>>>>> bd0f8129c4cb654727664b0b7078fc2ee1ec72d8
   }],
   "minerals": {
     "nameFromId": ["bauxite",
