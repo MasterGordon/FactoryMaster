@@ -171,6 +171,30 @@
     "id": 42,
     "name": "glass",
     "value": 100
+  }, {
+    "id": 43,
+    "name": "fertilizer",
+    "value": 100
+  }, {
+    "id": 44,
+    "name": "apple",
+    "value": 100
+  }, {
+    "id": 45,
+    "name": "bottleempty",
+    "value": 100
+  }, {
+    "id": 46,
+    "name": "bottleapplejuce",
+    "value": 100
+  }, {
+    "id": 47,
+    "name": "bottleapplewine",
+    "value": 100
+  }, {
+    "id": 48,
+    "name": "bottleapplevenegar",
+    "value": 100
   }],
   "minerals": {
     "nameFromId": ["bauxite",

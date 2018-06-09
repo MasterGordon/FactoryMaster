@@ -1031,7 +1031,7 @@ class TeleporterOutput extends Tile {
       "count": 50
     }]
     this.texture = {
-      "0": ["teleporterout01","teleporterout02","teleporterout03","teleporterout04","teleporterout05","teleporterout06","teleporterout07","teleporterout08","teleporterout09"],
+      "0": ["teleporterout01", "teleporterout02", "teleporterout03", "teleporterout04", "teleporterout05", "teleporterout06", "teleporterout07", "teleporterout08", "teleporterout09"],
       "1": []
     }
     this.options = [{
@@ -1228,6 +1228,53 @@ class GlasMelt extends Tile {
           item.setDFromDirection(this.direction)
           this.currentwork = 0
         }
+      } else {
+        this.currentwork++
+      }
+    } else {
+      this.currentwork = 0
+    }
+  }
+  getImage(fulltime, layer) {
+    fulltime = Math.round(fulltime / 6)
+    if (this.images[layer].length == 0)
+      return "0"
+    return this.images[layer][(fulltime % this.images[layer].length)]
+  }
+}
+
+class Glassblower extends Tile {
+  constructor(x, y, factory) {
+    super(x, y, factory)
+    this.maxwork = 48 * 30
+    this.currentwork = 0
+    this.name = "glassblower"
+    this.i = 25
+    this.cost = [{
+        "id": 0,
+        "count": 750
+      },
+      {
+        "id": 1,
+        "count": 50
+      }
+    ]
+    this.texture = {
+      "0": [],
+      "1": ["glassblower10"]
+    }
+    this.loadImages()
+  }
+
+  work() {
+    //Items für ein Pank
+    if (this.input.countOf(42) >= 2) {
+      if (this.currentwork == this.maxwork) {
+        this.input.take(42, 2, this.factory)
+        var item = new Item(45, this.x * 48, this.y * 48)
+        this.factory.items.push(item)
+        item.setDFromDirection(this.direction)
+        this.currentwork = 0
       } else {
         this.currentwork++
       }
