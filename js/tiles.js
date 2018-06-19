@@ -1315,11 +1315,11 @@ class FertilizerMixer extends Tile {
 
   work() {
     //Items für ein Pank
-    if (this.input.countOf(39) >= 30) {
+    if (this.input.countOf(34) >= 20) {
       if (this.currentwork == this.maxwork) {
-        this.input.take(39, 30, this.factory)
+        this.input.take(34, 20, this.factory)
         for (var i = 0; i < 10; i++) {
-          var item = new Item(42, this.x * 48, this.y * 48)
+          var item = new Item(43, this.x * 48, this.y * 48)
           this.factory.items.push(item)
           item.setDFromDirection(this.direction)
           this.currentwork = 0

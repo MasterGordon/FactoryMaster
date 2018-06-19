@@ -25,6 +25,10 @@ function style() {
   $('#screen').css('margin-left', screenMarginLeft)
   $('#buildselect').css('margin-top', screenMarginTop)
   $('#buildselect').css('margin-left', screenMarginLeft)
+  $('#help').css('margin-top', screenMarginTop)
+  $('#help').css('margin-left', screenMarginLeft)
+  $('#oretiers').css('margin-top', screenMarginTop)
+  $('#oretiers').css('margin-left', screenMarginLeft)
   $('#selectFactory').css('margin-top', screenMarginTop)
   $('#selectFactory').css('margin-left', screenMarginLeft)
   $('#selectItem').css('margin-top', screenMarginTop)
@@ -195,6 +199,24 @@ function clickEvents() {
           //ROTATE BUTTON
           if (mode == "none") {
             mode = "delete"
+          } else {
+            closeUi()
+          }
+          break
+        case 5:
+          //selectFactory BUTTON
+          if (mode == "none") {
+            mode = "help"
+            $('#help').fadeIn(200)
+          } else {
+            closeUi()
+          }
+          break
+        case 6:
+          //selectFactory BUTTON
+          if (mode == "none") {
+            mode = "oretiers"
+            $('#oretiers').fadeIn(200)
           } else {
             closeUi()
           }
@@ -512,6 +534,16 @@ function closeUi() {
   if (mode == "selectFactory") {
     mode = "none"
     $('#selectFactory').fadeOut(200)
+    return false
+  }
+  if (mode == "oretiers") {
+    mode = "none"
+    $('#oretiers').fadeOut(200)
+    return false
+  }
+  if (mode == "help") {
+    mode = "none"
+    $('#help').fadeOut(200)
     return false
   }
 }

@@ -7,7 +7,7 @@
 }
 
 body {
-  background-image: url("../images/wool.jpg");
+  background: #310609;
 }
 
 #itemcount {
@@ -25,6 +25,43 @@ body {
   border: solid;
   border-color: white;
   background-image: url(../images/infobg.png);
+}
+
+#oretiers {
+  position: fixed;
+  border: 1px, solid, black;
+  border: solid;
+  border-color: yellow;
+  background-image: url(../images/infobg.png);
+  width: 1192;
+  height: 568;
+  overflow-y: scroll;
+  padding: 4;
+}
+
+#oretiers h1 {
+  font-size: 40px;
+  display: inline;
+  font-family: 'Electrolize', sans-serif;
+}
+
+#help {
+  width: 1200;
+  height: 864;
+  position: fixed;
+  z-index: 100;
+  background-image: url(../images/helpoverlay.png);
+}
+
+#oretiers h2 {
+  font-size: 31px;
+  display: inline;
+  font-family: 'Electrolize', sans-serif;
+  padding-left: 6px;
+  padding-top: 4.5px;
+  padding-right: 6px;
+  display: inline;
+  height: 40px;
 }
 
 #buildselect {
@@ -224,8 +261,8 @@ width: 100%
   height: 42px;
   line-height: 42px;
   text-align: center;
-  background-image: url(../images/moneybg.png);
   z-index: -1;
+  color: floralwhite;
 }
 
 .itemBig {

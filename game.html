@@ -13,7 +13,9 @@
   <script src="js/libs/js.cookie.js"></script>
   <script src="jquery-ui/jquery-ui.min.js"></script>
   <script src="js/libs/seedrandom.min.js"></script>
+  <script src="js/libs/particles.min.js"></script>
   <!-- Own scripts-->
+  <script src="js/background.js"></script>
   <script src="js/userinterface.js"></script>
   <script src="js/util.js"></script>
   <script src="js/baseclasses.js"></script>
@@ -23,7 +25,7 @@
 </head>
 
 
-<body>
+<body id="body">
 
   <div id="all" hidden>
     <canvas id="screen">
@@ -38,11 +40,14 @@
     </div>
     <div id="buildselect">
     </div>
+    <div id="oretiers">
+    </div>
     <div id="inventoryBig">
       <span id="clickToSell"></span>
       <div id="itemsScroll">
       </div>
     </div>
+    <div id="help"></div>
     <div id="selectItem">
     </div>
     <div id="options">

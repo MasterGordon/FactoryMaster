@@ -32,6 +32,7 @@ var renderItems = true
 
 var playername = "Player"
 var lastsave = 0
+var saving = false
 
 $(document).ready(function() {
   $("#forcesave").click(function() {
@@ -64,6 +65,7 @@ $(window).on("beforeunload", function() {
 })
 
 function save() {
+  console.log("saving...")
   game = {}
   game.money = money
   game.gametime = gametime
@@ -114,6 +116,7 @@ function save() {
       console.log(result)
       if (JSON.parse(result).status == "succes") {
         lastsave = new Date().getTime()
+        saving = false
       }
     }
   });
@@ -239,7 +242,8 @@ function gametick(timestep) {
     tick = tick.splice(1)
     $("#speed").html("Game Speed: " + ((tick[47] - tick[0] + 30) / 10) + "%<br>" + version)
   }
-  if (Math.round((new Date().getTime() - lastsave) / 60000) > 5 && lastsave != 0) {
+  if (!saving && Math.round((new Date().getTime() - lastsave) / 60000) > 5 && lastsave != 0) {
+    saving = true
     save()
   }
 }
@@ -393,7 +397,20 @@ function prepairRender() {
     tilesLoaded++
   }
   console.log(tilesLoaded + "/" + tileClasses.length + " Tiles Loaded!")
+  console.log("Loading Oretiers")
+  for(var i = 1;i<9;i++){
+    $('#oretiers').append("<h1>"+lang.depth+" "+i+":</h1>");
+    for(var j=0;j<minerals.nameFromId.length;j++){
+      if(minerals[minerals.nameFromId[j]].depth==i){
+        $('#oretiers').append("<h2>"+lang.minerals[j]+"</h2>");
+      }
+    }
+
+    $('#oretiers').append("<br>");
+  }
   $('#buildselect').hide()
+  $('#oretiers').hide()
+  $('#help').hide()
   $('#inventoryBig').hide()
   $('#selectItem').hide()
   $('#options').hide()
@@ -422,17 +439,18 @@ function prepairRender() {
     function() {
       //ENTER
       var id = $(this).attr("id");
-      if (id.startsWith("itemBig_") || id.startsWith("itemSel_")) {
-        id = parseInt(id.substr(8))
-        if ($(this).attr("id").startsWith("itemBig_"))
-          if (id < itemId.length) {
-            id = itemId[id]
-          } else return
-        hoverTooltip = true
-        $('#tooltip').text(lang.items[id] + " (" + formatCount(items[id].value) + " " + lang.money + ")")
-        $('#tooltip').show()
-        tooltip = true
-      }
+      if (id != undefined)
+        if (id.startsWith("itemBig_") || id.startsWith("itemSel_")) {
+          id = parseInt(id.substr(8))
+          if ($(this).attr("id").startsWith("itemBig_"))
+            if (id < itemId.length) {
+              id = itemId[id]
+            } else return
+          hoverTooltip = true
+          $('#tooltip').text(lang.items[id] + " (" + formatCount(items[id].value) + " " + lang.money + ")")
+          $('#tooltip').show()
+          tooltip = true
+        }
     },
     function() {
       //LEAVE
@@ -442,14 +460,16 @@ function prepairRender() {
   $('canvas').click(
     function() {
       var id = $(this).attr("id");
-      if (id.startsWith("itemBig_")) {
-        id = parseInt(id.substr(8))
-        if (id < itemId.length) {
-          if (inventory.take(itemId[id], 1)) {
-            money += items[itemId[id]].value
+      if (id != undefined)
+        if (id.startsWith("itemBig_")) {
+          id = parseInt(id.substr(8))
+          if (id < itemId.length) {
+            var idd = itemId[id]
+            if (inventory.take(itemId[id], 1)) {
+              money += items[idd].value
+            }
           }
         }
-      }
     })
   //End Sell/Select Items Menu
   $('#clickToSell').text(lang.clickToSell)
@@ -464,7 +484,7 @@ function prepairRender() {
   }
 }
 
-var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "upgrade.png", "info.png", null, "factorys.png"]
+var infoBarIcons = ["build.png", "move.png", "rotate.png", "delete.png", null, "help.png", "info.png", null, "factorys.png"]
 var infoBarIconsImg = []
 
 var infoGlowOpacity = 0

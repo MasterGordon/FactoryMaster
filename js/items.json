@@ -245,14 +245,14 @@
       "oreid": 15
     },
     "diamonds": {
-      "depth": 8
+      "depth": 7
     },
     "iron": {
       "depth": 1,
       "oreid": 16
     },
     "naturalgas": {
-      "depth": 6,
+      "depth": 5,
       "liquid": true
     },
     "oil": {
@@ -307,7 +307,7 @@
       "depth": 1
     },
     "rubies": {
-      "depth": 9
+      "depth": 8
     },
     "silver": {
       "depth": 4,

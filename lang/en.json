@@ -18,7 +18,7 @@
     },
     "spliter": {
       "name": "Spliter",
-      "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+      "description": "Splits Items 50/50 to the left/right."
     },
     "warehouse": {
       "name": "Warehouse",
@@ -219,12 +219,13 @@
   "more": "Show Inventory / Sell Items",
   "inventory": "Inventory",
   "player": "Player",
-  "infotooltips": ["Build", "Move", "Rotate", "Delete!", "", "Upgrade", "Information", "", "My Factorys"],
+  "infotooltips": ["Build", "Move", "Rotate", "Delete!", "", "Help!?", "Information", "", "My Factorys"],
   "cost": "Cost",
   "clickToSell": "Click on items to sell them.",
   "reroll": "Reroll Offers",
   "clickToBuyFactory": "Click on a Factory to Buy.",
   "money": "Dollars",
   "mineralslable": "Minerals:",
+  "depth": "Depth",
   "numbers": ["", " Thousand", " Million", " Billion", " Trillion", " Quadrillion", " Quintillion", " Sextillion", " Septillion", " Octillion", " Nonillion", " Decillion", " Undecillion", " Duodecillion", " Tredecillion", " Quattuordecillion", " Quindecillion", " Sexdecillion", " Septendecillion", " Octodecillion", " Novemdecillion", " Vigintillion"]
 }
