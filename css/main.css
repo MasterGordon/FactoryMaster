@@ -303,7 +303,22 @@ width: 100%
   width: 1192;
   height: 530;
 }
-
+#forcesave{
+  background-color: gray;
+  color:lightgray;
+  border:1px solid #ccc;
+}
+#logout{
+  background-color: gray;
+  color:lightgray;
+  border:1px solid #ccc;
+}
+#forcesave:hover{
+    background-color: darkgrey;
+}
+#logout:hover{
+  background-color: darkgrey;
+}
 body {
   -webkit-touch-callout: none;
   /* iOS Safari */
@@ -318,6 +333,7 @@ body {
   user-select: none;
   /* Non-prefixed version, currently supported by Chrome and Opera */
 }
+
 
 .buildtile {
   width: 48;
