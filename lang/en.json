@@ -104,15 +104,15 @@
       }
     },
     "teleporterinput": {
-      "name": "teleporterinput",
-      "description": "Puts a selected Item to the left and all other straight.",
+      "name": "Teleporter (input)",
+      "description": "Teleports items to a Teleporter (output) with the same frequency.",
       "options": {
         "frequency": "Frequency"
       }
     },
     "teleporteroutput": {
-      "name": "teleporteroutput",
-      "description": "Puts a selected Item to the left and all other straight.",
+      "name": "Teleporter (output)",
+      "description": "Recieves items from a Teleporter (input) with the same frequency.",
       "options": {
         "frequency": "Frequency"
       }

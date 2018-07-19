@@ -980,7 +980,7 @@ class TeleporterInput extends Tile {
     this.frequency = 0
     this.cost = [{
       "id": 0,
-      "count": 50
+      "count": 50000
     }]
     this.texture = {
       "0": ["teleporter00", "teleporter01", "teleporter02", "teleporter03", "teleporter04", "teleporter06", "teleporter07", "teleporter08", "teleporter09"],
@@ -1028,10 +1028,10 @@ class TeleporterOutput extends Tile {
     this.frequency = 0
     this.cost = [{
       "id": 0,
-      "count": 50
+      "count": 100000
     }]
     this.texture = {
-      "0": ["teleporterout01", "teleporterout02", "teleporterout03", "teleporterout04", "teleporterout05", "teleporterout06", "teleporterout07", "teleporterout08", "teleporterout09"],
+      "0": ["teleporterout09", "teleporterout01", "teleporterout02", "teleporterout03", "teleporterout04", "teleporterout05", "teleporterout06", "teleporterout07", "teleporterout08"],
       "1": []
     }
     this.options = [{
