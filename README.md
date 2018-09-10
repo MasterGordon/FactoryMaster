@@ -21,10 +21,13 @@ Hotkey  |  Action
 4  |  Delete
 i  |  Toggle Item Render (to Prevent Lags)
 
+## Cheats
+In der Console "nopay = true"
+
 ##
 [Link zur Aktuellen live Version][f6f130bf]
 
-[f6f130bf]: https://polemoz.net/FactoryMaster/ "Link zur Aktuellen live Version"
+[f6f130bf]: http://factorymaster.tk "Link zur Aktuellen live Version"
 
 ## Programme zu Entwicklung
 
