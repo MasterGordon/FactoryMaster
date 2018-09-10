@@ -22,7 +22,7 @@ Hotkey  |  Action
 i  |  Toggle Item Render (to Prevent Lags)
 
 ## Cheats
-In der Console "nopay = true"
+In der Console "noPay = true"
 
 ##
 [Link zur Aktuellen live Version][f6f130bf]
