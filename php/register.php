@@ -3,7 +3,7 @@ session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include "mysqldata.php";
 
-$pdo = new PDO('mysql:host=' . $GLOBALS["sqlservername"] . ';dbname=' . $GLOBALS["sqldatabase"], $GLOBALS["sqlusername"], $GLOBALS["sqlpassword"]);
+$pdo = new PDO('mysql:host=' . $GLOBALS["servername"] . ';dbname=' . $GLOBALS["database"], $GLOBALS["username"], $GLOBALS["password"]);
 $error = false;
 $username = $_GET['username'];
 $passwort = $_GET['password1'];
